@@ -1,0 +1,9 @@
+.logo{
+    height: 100%;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    height: 100px;
+}

@@ -1,0 +1,12 @@
+.form{
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    padding: 5px 0;
+}
+
+.button{
+    height: 100%;
+}
