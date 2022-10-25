@@ -1,6 +1,8 @@
+@import url("/src/vars.css");
+
 .slider {
     width: 100vw;
-    height: 100%;
+    height: calc(100vh - var(--navbar-height));
     align-content: center;
 }
 
