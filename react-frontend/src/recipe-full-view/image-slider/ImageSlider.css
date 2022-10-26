@@ -12,3 +12,18 @@
     background-position: center;
     background-size: cover;
 }
+
+.sliderButtons {
+    position:absolute;
+    width:100%;
+    bottom:0;
+    text-align:center;
+
+    display: flex;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 42pt;
+    color: white;
+}
