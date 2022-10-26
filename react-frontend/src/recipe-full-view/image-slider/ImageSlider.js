@@ -2,31 +2,36 @@ import './ImageSlider.css';
 import {useEffect, useState} from "react";
 
 
-export default function ImageSlider(props) {
+export default function ImageSlider({slides}) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const slideImage = {
-        backgroundImage: `url(${props.slides[currentIndex].url})`,
-    }
-
-    const switchToOne = () => {
-        setCurrentIndex((currentIndex + 1) % props.slides.length);
-    }
-
     useEffect(() => {
-        setTimeout(switchToOne, 5000)
+        const timer = setTimeout(switchToNextIndex, 5000);
+        return () => clearTimeout(timer);
     })
+
+    const switchToNextIndex = () => {
+        setCurrentIndex((currentIndex + 1) % slides.length);
+    }
+
+    const slideImage = {
+        backgroundImage: `url(${slides[currentIndex].url})`,
+    }
+
+    const setSliderButtons = slides.map(
+        (slide, slideIndex) => (
+            <div key={slideIndex}
+                 onClick={() => setCurrentIndex(slideIndex)}
+                 style={slideIndex === currentIndex ? {color: 'grey'} : {color: 'white'}}
+            >•</div>
+        )
+    )
 
     return (
         <div className='slider'>
             <div className='slide' style={slideImage}>
-            </div>
-            <div>
-                <button onClick={switchToOne}></button>
-                <div/>
+                <div className='sliderButtons'>{setSliderButtons}</div>
             </div>
         </div>
     )
 }
-
-
