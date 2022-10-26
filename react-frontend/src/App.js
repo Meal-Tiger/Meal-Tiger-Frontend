@@ -3,7 +3,7 @@ import './App.css';
 import {
   Route,
   NavLink,
-  HashRouter
+  BrowserRouter
 } from "react-router-dom";
 
 import Navbar from './navbar/Navbar';
@@ -12,9 +12,8 @@ function App() {
   return (
     <div>
       <Navbar/>
-      <HashRouter>
-
-      </HashRouter>
+      <BrowserRouter>
+      </BrowserRouter>
     </div>
   );
 }
