@@ -12,6 +12,17 @@
     background-position: center;
     background-size: cover;
 }
+.title{
+    font-size: 70pt;
+}
+
+.titleContainer{
+    justify-content: right;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-right: 135px;
+}
 
 .sliderButtons {
     position:absolute;
@@ -26,4 +37,5 @@
 
     font-size: 42pt;
     color: white;
+    text-shadow: 0 0 8px black;
 }
