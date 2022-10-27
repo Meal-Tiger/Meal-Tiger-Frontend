@@ -1,6 +1,5 @@
-import './ImageSlider.css';
+import styles  from './ImageSlider.module.css';
 import {useEffect, useState} from "react";
-
 
 export default function ImageSlider({slides}) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,12 +27,12 @@ export default function ImageSlider({slides}) {
     )
 
     return (
-        <div className='slider'>
-            <div className='slide' style={slideImage}>
-                <div className='titleContainer'>
-                    <h1 className='title'>Zufallsgericht</h1>
+        <div className={styles.slider}>
+            <div className={styles.slide} style={slideImage}>
+                <div className={styles.titleContainer}>
+                    <h1 className={styles.title}>Zufallsgericht</h1>
                 </div>
-                <div className='sliderButtons'>{setSliderButtons}</div>
+                <div className={styles.sliderButtons}>{setSliderButtons}</div>
             </div>
         </div>
     )

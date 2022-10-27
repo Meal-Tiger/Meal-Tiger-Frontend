@@ -2,6 +2,7 @@
 
 .slider {
     width: 100vw;
+    max-width: 100%;
     height: calc(100vh - var(--navbar-height));
     align-content: center;
 }
