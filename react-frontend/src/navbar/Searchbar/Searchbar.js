@@ -1,12 +1,12 @@
 import 'material-symbols';
-import './Searchbar.css';
+import styles from './Searchbar.module.css';
 
 function Searchbar(){
     return (
-        <div class='formcontainer'>
-            <form class='form'>
-                <input class='input' type="text" placeholder="Search.."></input>
-                <button class='button' type="submit"><span class="material-symbols-outlined">search</span></button>
+        <div>
+            <form className={styles.form}>
+                <input className={styles.input} type="text" placeholder="Search.."></input>
+                <button className={styles.button} type="submit"><span className="material-symbols-outlined">search</span></button>
             </form>
         </div>
         

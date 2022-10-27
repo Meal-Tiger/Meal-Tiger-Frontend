@@ -1,9 +1,9 @@
-import './Usermenu.css'
+import styles from'./Usermenu.module.css'
 import User from'./user.png'
 
 function Usermenu(){
     return (
-        <img class='user' src={User}></img>
+        <img className={styles.user} src={User}></img>
     );
 }
 

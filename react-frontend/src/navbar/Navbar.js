@@ -1,4 +1,4 @@
-import './Navbar.css';
+import styles from'./Navbar.module.css';
 import logo from'./logo.png';
 
 import Searchbar from './Searchbar/Searchbar';
@@ -6,8 +6,8 @@ import Usermenu from './Usermenu/Usermenu';
 
 function Navbar(){
     return (
-        <div class="navbar">
-            <img class='logo' src={logo}></img>
+        <div className={styles.navbar}>
+            <img className={styles.logo} src={logo}></img>
             <Searchbar/>
             <Usermenu/>
         </div>
