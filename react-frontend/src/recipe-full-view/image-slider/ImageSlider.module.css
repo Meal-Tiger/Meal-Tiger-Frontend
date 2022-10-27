@@ -1,0 +1,42 @@
+@import url("/src/vars.css");
+
+.slider {
+    width: 100vw;
+    max-width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    align-content: center;
+}
+
+.slide{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+.title{
+    font-size: 4rem;
+}
+
+.titleContainer{
+    justify-content: right;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-right: 135px;
+}
+
+.sliderButtons {
+    position:absolute;
+    width:100%;
+    bottom:0;
+    text-align:center;
+
+    display: flex;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 42pt;
+    color: white;
+    text-shadow: 0 0 8px black;
+}
