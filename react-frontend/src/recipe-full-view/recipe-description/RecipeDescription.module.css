@@ -1,0 +1,40 @@
+.descriptionGrid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    padding: 10px;
+}
+
+.iconContainer{
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+.informationContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ingredientColumnLeft{
+    text-align: right;
+}
+
+.ingredientColumnRight{
+    padding-left: 8%;
+    width: 100%;
+    text-align: left;
+}
+
+.ingredientTable{
+    height: min-content;
+    grid-column: 1;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 960px) {
+    .descriptionGrid{
+        grid-template-columns: 1fr;
+    }
+}
