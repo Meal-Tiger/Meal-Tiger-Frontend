@@ -7,5 +7,6 @@
 .navbar{
     display: flex;
     align-items: center;
-    height: var(--navbar-height);;
+    justify-content: space-between;
+    height: var(--navbar-height);
 }
