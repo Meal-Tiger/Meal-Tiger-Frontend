@@ -7,14 +7,14 @@ import {
 } from "react-router-dom";
 
 import Navbar from './navbar/Navbar';
-import RecipeCard from './RecipeOverview/RecipeCard/RecipeCard';
+import RecipeOverview from './RecipeOverview/RecipeOverview';
 
 function App() {
   return (
     <div>
       <Navbar/>
       <BrowserRouter>
-        <RecipeCard/>
+        <RecipeOverview/>
       </BrowserRouter>
     </div>
   );
