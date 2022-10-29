@@ -40,5 +40,18 @@
 }
 
 .informationContainer{
-
+    display: flex;
+}
+.informationContainerChild{
+    display: flex;
+    align-items: center;
+}
+.informationContainerChild:first-child{
+    margin-right: 1rem;
+}
+.scheduleInput{
+    width: 4rem;
+}
+.scheduleInputText{
+    margin-right:  1rem;
 }
