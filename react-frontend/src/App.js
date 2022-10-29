@@ -13,6 +13,7 @@ function App() {
   return (
     <div>
       <Navbar/>
+       <RecipeEditor/>
       <BrowserRouter>
         <RecipeOverview/>
       </BrowserRouter>
