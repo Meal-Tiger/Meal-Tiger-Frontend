@@ -5,6 +5,7 @@ import image_02 from "../recipe-full-view/image-slider/image-02.jpg";
 import image_03 from "../recipe-full-view/image-slider/image-03.jpg";
 import UploadedImages from "./uploadedImages";
 import {useState} from "react";
+import IngredientsContainerEditable from "./IngredientsContainerEditable";
 
 export default function RecipeEditor() {
 
@@ -29,7 +30,7 @@ export default function RecipeEditor() {
         {url: image_03},
     ]
 
-    const [difficulty, setDifficulty] = useState(0);
+    const [difficulty, setDifficulty] = useState(1);
 
     const switchDifficulty = (difficulty) =>{
         setDifficulty(difficulty);
@@ -49,18 +50,20 @@ export default function RecipeEditor() {
                     <UploadedImages images={slides}/>
                 </div>
                 <div className={styles.informationContainer}>
-                    <div className={styles.informationContainer}>
-                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty + (difficulty >= 1 ? styles.active : styles.inactive) } onClick={() => switchDifficulty(1)}>lunch_dining</span>
-                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty + (difficulty >= 2 ? styles.active : styles.inactive) } onClick={() => switchDifficulty(2)}>lunch_dining</span>
-                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty} style={difficulty >= 3 ? {color: 'black'} : {color: 'lightgray'}} onClick={() => switchDifficulty(3)}>lunch_dining</span>
-                        Schwierigkeit
+                    <div className={styles.informationContainerChild}>
+                        <span className={`material-symbols-outlined ${styles.symbolsDifficulty}  ${styles.active}`} onClick={() => switchDifficulty(1)}>lunch_dining</span>
+                        <span className={`material-symbols-outlined ${styles.symbolsDifficulty}  ${(difficulty >= 2 ? styles.active : styles.inactive)}`} onClick={() => switchDifficulty(2)}>lunch_dining</span>
+                        <span className={`material-symbols-outlined ${styles.symbolsDifficulty}  ${(difficulty >= 3 ? styles.active : styles.inactive)}`} onClick={() => switchDifficulty(3)}>lunch_dining</span>
+                        <span>Schwierigkeit</span>
                     </div>
-                    <div className={styles.informationContainer}>
+                    <div className={styles.informationContainerChild}>
                         <span className="material-symbols-outlined">schedule</span>
-                        15 - 30 min
+                        <input className={styles.scheduleInput} type={"number"}/> <span className={styles.scheduleInputText}>Std. </span> <input className={styles.scheduleInput} type={"number"}/> <span className={styles.scheduleInputText}>min.</span>
                     </div>
                 </div>
-
+                <div>
+                    <IngredientsContainerEditable ingredientArray={{demoIngredient}}/>
+                </div>
             </div>
 
             <div></div>
