@@ -9,18 +9,18 @@ import {useState} from "react";
 export default function RecipeEditor() {
 
 
-    // const demoIngredient = [
-    //     {
-    //         amount: 250,
-    //         unit: 'gr',
-    //         ingredient: 'Murloc',
-    //     },
-    //     {
-    //         amount: 250000,
-    //         unit: 'Hundepfoten',
-    //         ingredient: 'Murloc',
-    //     }
-    // ]
+    const demoIngredient = [
+        {
+            amount: 250,
+            unit: 'gr',
+            ingredient: 'Murloc',
+        },
+        {
+            amount: 250000,
+            unit: 'Hundepfoten',
+            ingredient: 'Murloc',
+        }
+    ]
 
 
     const slides = [
@@ -50,8 +50,8 @@ export default function RecipeEditor() {
                 </div>
                 <div className={styles.informationContainer}>
                     <div className={styles.informationContainer}>
-                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty} style={difficulty >= 1 ? {color: 'black'} : {color: 'lightgray'}} onClick={() => switchDifficulty(1)}>lunch_dining</span>
-                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty} style={difficulty >= 2 ? {color: 'black'} : {color: 'lightgray'}} onClick={() => switchDifficulty(2)}>lunch_dining</span>
+                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty + (difficulty >= 1 ? styles.active : styles.inactive) } onClick={() => switchDifficulty(1)}>lunch_dining</span>
+                        <span className={`material-symbols-outlined ` + styles.symbolsDifficulty + (difficulty >= 2 ? styles.active : styles.inactive) } onClick={() => switchDifficulty(2)}>lunch_dining</span>
                         <span className={`material-symbols-outlined ` + styles.symbolsDifficulty} style={difficulty >= 3 ? {color: 'black'} : {color: 'lightgray'}} onClick={() => switchDifficulty(3)}>lunch_dining</span>
                         Schwierigkeit
                     </div>
