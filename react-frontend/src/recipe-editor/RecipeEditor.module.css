@@ -32,6 +32,12 @@
 .symbolsDifficulty{
     cursor: pointer;
 }
+.symbolsDifficulty.inactive{
+    color: lightgray;
+}
+.symbolsDifficulty.active{
+    color: black;
+}
 
 .informationContainer{
 
