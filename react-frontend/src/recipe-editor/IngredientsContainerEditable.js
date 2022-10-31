@@ -8,6 +8,7 @@ export default function IngredientsContainerEditable({ingredientArray}) {
         amountUnit: "",
         name: ""
     })
+
     function handleChange(evt) {
         const value = evt.target.value;
         setIngredient({
@@ -16,11 +17,14 @@ export default function IngredientsContainerEditable({ingredientArray}) {
         });
     }
 
-
-    const addIngredientItem = () =>{
-        ingredients.push({
+    const addIngredientItem = () => {
+        setIngredients([...ingredients, {
             amountUnit: ingredient.amountUnit,
             name: ingredient.name
+        }]);
+        setIngredient({
+            amountUnit: "",
+            name: ""
         });
         console.log(ingredients);
     }
@@ -28,34 +32,30 @@ export default function IngredientsContainerEditable({ingredientArray}) {
     return (
         <table className={style.ingredientTable}>
             <thead>
-            <h2>Zutaten</h2>
-            </thead>
-            <tbody>
-            {ingredients.map((item)=> {
-                    <tr>
-                        <td>
-                            {item.amountUnit}
-                        </td>
-                        <td>
-                            {item.name}
-                        </td>
-                    </tr>
-            })}
             <tr>
                 <td>
-                    <input
-                        type="text"
-                        name="amountUnit"
-                        value={ingredient.amountUnit}
-                        onChange={handleChange}
-                    />
+                    <h2>Zutaten</h2>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            {ingredients.map((item) =>
+                <tr>
+                    <td>
+                        {item.amountUnit}
+                    </td>
+                    <td>
+                        {item.name}
+                    </td>
+                </tr>
+            )}
+            <tr>
+                <td>
+                    <input placeholder={"Anzahl und Einheit"} type="text" name="amountUnit"
+                           value={ingredient.amountUnit} onChange={handleChange}/>
                 </td>
                 <td>
-                    <input
-                        type="text"
-                        name="name"
-                        value={ingredient.name}
-                        onChange={handleChange}
+                    <input placeholder={"Zutat"} type="text" name="name" value={ingredient.name} onChange={handleChange}
                     />
                 </td>
                 <td>
