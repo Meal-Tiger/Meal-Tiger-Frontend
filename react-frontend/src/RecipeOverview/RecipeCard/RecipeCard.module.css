@@ -1,0 +1,23 @@
+.card{
+    display: inline-flex;
+    flex-direction: row;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.user{
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.image{
+    width: 175px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px 0 0 15px;
+}
+
+.infobox{
+    padding: 0 35px;
+}
