@@ -1,0 +1,156 @@
+.container {
+    display: flex;
+    padding: 15px;
+}
+
+.leftColumn {
+    width: 65%;
+    margin-right: 1rem;
+}
+.rightColum{
+    width: 35%;
+}
+
+.imageContainer {
+    min-height: 10vw;
+    margin-bottom: 2rem;
+}
+
+.mainImage {
+    flex: 70%;
+}
+
+.rightImages {
+    flex: 30%;
+}
+
+.mainImage, .rightImages div {
+    border-radius: 15px;
+    background-color: gray;
+    padding: 1rem;
+    background-size: cover;
+}
+
+.rightImages div {
+    margin: 1rem;
+    height: 33%;
+}
+
+.rightImages {
+    display: flex;
+    flex-direction: column;
+}
+
+.symbolsDifficulty {
+    cursor: pointer;
+}
+
+.symbolsDifficulty.inactive {
+    color: lightgray;
+}
+
+.symbolsDifficulty.active {
+    color: black;
+}
+
+.informationContainer {
+    display: flex;
+}
+
+.informationContainerChild {
+    display: flex;
+    align-items: center;
+}
+
+.informationContainerChild:first-child {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.scheduleInput {
+    width: 4rem;
+}
+
+.scheduleInputText {
+    margin-right: 1rem;
+}
+
+.recipeInput {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.recipeInput label {
+    margin-bottom: 5px;
+}
+
+.uploadImageLabel {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    margin: 0.5rem 1rem;
+}
+
+#uploadImage {
+    display: none;
+}
+
+.previewImagesRight {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+}
+
+.firstPreviewImage {
+    width: 70%;
+    padding-right: 2rem;
+}
+
+.firstPreviewImage img {
+    width: 100%;
+    height: auto;
+}
+
+.previewImage {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
+}
+
+.previewImageContainer {
+    display: flex;
+}
+
+.ingredientTableWrapper {
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 960px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .leftColumn {
+        width: 100%;
+        margin-right: 0rem;
+    }
+    .rightColum{width: 100%}
+
+    .previewImageContainer {
+        max-width: 100%;
+    }
+
+    .informationContainer {
+        flex-direction: column;
+    }
+
+    .ingredientTableWrapper {
+        overflow-x: scroll;
+    }
+}
