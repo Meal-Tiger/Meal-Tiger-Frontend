@@ -13,25 +13,55 @@ export function getFormatedTime(recipe){
 }
 
 export function createRecipe(title = undefined, ingredients = undefined, description = undefined, difficulty = undefined, time = undefined){
-	return recipe;
+	return {
+		"title": title,
+  		"ingredients": ingredients,
+		"description": description,
+		"difficulty": difficulty,
+		"rating": 3.5,
+		"time": time,
+		"id": Date.now()
+	};
 }
 
-export function getRecipe(id){
-	return recipe;
+export async function getRecipe(id){
+	response = await fetch(`${api_url}/recipes/${id}`)
+
+	if(response.ok) return response.json();
+	else return null;
 }
 
-export function postRecipe(recipe){
-	return sucess;
+export async function postRecipe(recipe){
+	response = await fetch(`${api_url}/recipes`, {
+		method: "POST",
+		body: JSON.stringify(recipe)
+	})
+	return response.status;
 }
 
-export function putRecipe(id, recipe){
-	return sucess;
+export async function putRecipe(id, recipe){
+	response = await fetch(`${api_url}/recipes/${id}`, {
+		method: "PUT",
+		body: JSON.stringify(recipe)
+	})
+	return response.status;
 }
 
-export function deleteRecipe(id){
-	return sucess;
+export async function deleteRecipe(id){
+	response = await fetch(`${api_url}/recipes/${id}`, {
+		method: "DELETE"
+	})
+	return response.status;
 }
 
-export function getRecipes(q = undefined, sort = date, max = 20, page = 1){
-	return recipes;
+export async function getRecipePage(q = undefined, sort = title, max = 10, page = 1){
+	uri = new URL(`${api_url}/recipes`);
+	if(q) uri.searchParams.append("q", q);
+	if(sort) uri.searchParams.append("title", title);
+	if(max) uri.searchParams.append("max", max);
+	if(page) uri.searchParams.append("page", page);
+	response = await fetch(uri);
+
+	if(response.ok) return response.json();
+	else return null;
 }
