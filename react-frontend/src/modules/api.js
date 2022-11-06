@@ -54,10 +54,10 @@ export async function deleteRecipe(id){
 	return response.status;
 }
 
-export async function getRecipePage(q = undefined, sort = title, max = 10, page = 1){
+export async function getRecipePage(q = undefined, sort = "title", max = 10, page = 1){
 	uri = new URL(`${api_url}/recipes`);
 	if(q) uri.searchParams.append("q", q);
-	if(sort) uri.searchParams.append("title", title);
+	if(sort) uri.searchParams.append("sort", sort);
 	if(max) uri.searchParams.append("max", max);
 	if(page) uri.searchParams.append("page", page);
 	response = await fetch(uri);
