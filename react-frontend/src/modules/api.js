@@ -26,7 +26,7 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 }
 
 export function useGetRecipe(id){
-	const [data, setData] = useState();
+	const [data, setData] = useState(null);
 
 	useEffect(() => {
 		fetch(`${api_url}/recipes/${id}`)

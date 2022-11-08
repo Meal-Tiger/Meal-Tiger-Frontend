@@ -10,6 +10,14 @@
     flex-direction: column;
 }
 
+.iconDifficulty.inactive {
+    color: lightgray;
+}
+
+.iconDifficulty.active {
+    color: black;
+}
+
 .informationContainer{
     display: flex;
     flex-direction: row;
@@ -25,6 +33,16 @@
     padding-left: 8%;
     width: 100%;
     text-align: left;
+}
+
+.ingredientThead{
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 }
 
 .ingredientTable{
