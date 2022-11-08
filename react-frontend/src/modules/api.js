@@ -1,8 +1,10 @@
-api_url = process.env.API_URL;
+import { useState, useEffect } from "react";
+
+let api_url = process.env.REACT_APP_API_URL;
 
 export function getFormatedTime(recipe){
-	hours = Math.floor(this.time / 60);
-	minutes = this.time % 60;
+	let hours = Math.floor(this.time / 60);
+	let minutes = this.time % 60;
 
 	if(!hours && minutes == 1) return `1 Minute`;
 	if(!hours && minutes > 1) return `${minutes} Minuten`;
@@ -12,56 +14,94 @@ export function getFormatedTime(recipe){
 	if(hours > 1 && minutes >= 5)  return `${hours}:${minutes} Stunden`;
 }
 
-export function createRecipe(title = undefined, ingredients = undefined, description = undefined, difficulty = undefined, time = undefined){
+export function createRecipe({title = undefined, ingredients = undefined, description = undefined, difficulty = undefined, time = undefined}){
 	return {
 		"title": title,
   		"ingredients": ingredients,
 		"description": description,
 		"difficulty": difficulty,
-		"rating": 3.5,
+		"rating": 3,
 		"time": time,
 		"id": Date.now()
 	};
 }
 
-export async function getRecipe(id){
-	response = await fetch(`${api_url}/recipes/${id}`)
+export function useGetRecipe(id){
+	const [data, setData] = useState(null);
 
-	if(response.ok) return response.json();
-	else return null;
+	useEffect(() => {
+		fetch(`${api_url}/recipes/${id}`)
+		  .then((res) => res.json())
+		  .then((data) => setData(data));
+	}, [id]);
+
+	return data;
 }
 
-export async function postRecipe(recipe){
-	response = await fetch(`${api_url}/recipes`, {
-		method: "POST",
-		body: JSON.stringify(recipe)
-	})
-	return response.status;
+export function usePostRecipe(recipe){
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		fetch(`${api_url}/recipes`, {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(recipe)
+		})
+		  .then((res) => res.status)
+		  .then((data) => setData(data));
+	}, [recipe]);
+
+	return data;
 }
 
-export async function putRecipe(id, recipe){
-	response = await fetch(`${api_url}/recipes/${id}`, {
-		method: "PUT",
-		body: JSON.stringify(recipe)
-	})
-	return response.status;
+export function usePutRecipe(id, recipe){
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		fetch(`${api_url}/recipes/${id}`, {
+			method: "PUT",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(recipe)
+		})
+		  .then((res) => res.status)
+		  .then((data) => setData(data));
+	}, [id, recipe]);
+
+	return data;
 }
 
-export async function deleteRecipe(id){
-	response = await fetch(`${api_url}/recipes/${id}`, {
-		method: "DELETE"
-	})
-	return response.status;
+export function useDeleteRecipe(id){
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		fetch(`${api_url}/recipes/${id}`, {
+			method: "DELETE"
+		})
+		  .then((res) => res.status)
+		  .then((data) => setData(data));
+	}, [id]);
+
+	return data;
 }
 
-export async function getRecipePage(q = undefined, sort = "title", max = 10, page = 1){
-	uri = new URL(`${api_url}/recipes`);
+export function useGetRecipePage(q = undefined, sort = "title", max = 10, page = 1){
+	const [data, setData] = useState(null);
+
+	let uri = new URL(`${api_url}/recipes`);
 	if(q) uri.searchParams.append("q", q);
 	if(sort) uri.searchParams.append("sort", sort);
 	if(max) uri.searchParams.append("max", max);
 	if(page) uri.searchParams.append("page", page);
-	response = await fetch(uri);
 
-	if(response.ok) return response.json();
-	else return null;
+	useEffect(() => {
+		fetch(`${api_url}/recipes`)
+		  .then((res) => res.json())
+		  .then((data) => setData(data));
+	}, [uri]);
+
+	return data;
 }
