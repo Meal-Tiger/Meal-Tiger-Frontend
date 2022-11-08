@@ -21,8 +21,7 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 		"description": description,
 		"difficulty": difficulty,
 		"rating": 3,
-		"time": time,
-		"id": Date.now()
+		"time": time
 	};
 }
 
