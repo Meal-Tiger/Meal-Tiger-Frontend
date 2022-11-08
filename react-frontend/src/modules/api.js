@@ -26,13 +26,13 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 }
 
 export function useGetRecipe(id){
-	const [data, setData] = useState(null);
+	const [data, setData] = useState();
 
 	useEffect(() => {
 		fetch(`${api_url}/recipes/${id}`)
 		  .then((res) => res.json())
 		  .then((data) => setData(data));
-	}, [id]);
+	}, []);
 
 	return data;
 }
@@ -50,7 +50,7 @@ export function usePostRecipe(recipe){
 		})
 		  .then((res) => res.status)
 		  .then((data) => setData(data));
-	}, [recipe]);
+	}, []);
 
 	return data;
 }
@@ -68,7 +68,7 @@ export function usePutRecipe(id, recipe){
 		})
 		  .then((res) => res.status)
 		  .then((data) => setData(data));
-	}, [id, recipe]);
+	}, []);
 
 	return data;
 }
@@ -82,7 +82,7 @@ export function useDeleteRecipe(id){
 		})
 		  .then((res) => res.status)
 		  .then((data) => setData(data));
-	}, [id]);
+	}, []);
 
 	return data;
 }
@@ -100,7 +100,7 @@ export function useGetRecipePage(q = undefined, sort = "title", max = 10, page =
 		fetch(`${api_url}/recipes`)
 		  .then((res) => res.json())
 		  .then((data) => setData(data));
-	}, [uri]);
+	}, []);
 
 	return data;
 }
