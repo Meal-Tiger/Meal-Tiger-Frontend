@@ -3,12 +3,12 @@ import IngredientItem from "./IngredientItem";
 
 export default function IngredientsContainer({ingredientArray}) {
     const ingredientItems = ingredientArray.map(element => {
-        return <IngredientItem amount={element.amount} unit={element.unit} ingredient={element.ingredient}/>;
+        return <IngredientItem amount={element.amount} unit={element.unit} name={element.name}/>;
     });
     return (
         <table className={style.ingredientTable}>
-            <thead>
-            <h2>Zutaten</h2>
+            <thead className={style.ingredientThead}>
+            Zutaten
             </thead>
             <tbody>
                 {ingredientItems}
