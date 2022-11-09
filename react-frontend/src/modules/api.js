@@ -1,3 +1,5 @@
+/* eslint react-hooks/exhaustive-deps: 0 */
+
 import { useState, useEffect } from "react";
 
 let api_url = process.env.REACT_APP_API_URL;
