@@ -18,7 +18,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build & test:
+  build_and_test:
 
     runs-on: ubuntu-latest
     
