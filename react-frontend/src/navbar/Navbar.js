@@ -7,7 +7,7 @@ import Usermenu from './Usermenu/Usermenu';
 function Navbar(){
     return (
         <div className={styles.navbar}>
-            <img className={styles.logo} src={logo}></img>
+            <img className={styles.logo} src={logo} alt="Meal-Tiger Logo"></img>
             <Searchbar/>
             <Usermenu/>
         </div>

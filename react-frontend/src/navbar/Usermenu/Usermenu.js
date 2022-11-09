@@ -3,7 +3,7 @@ import User from'./user.png'
 
 function Usermenu(){
     return (
-        <img className={styles.user} src={User}></img>
+        <img className={styles.user} src={User} alt="User menu"></img>
     );
 }
 
