@@ -10,6 +10,7 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path="/" element={<RecipeOverview />}>
+				<Route path="recipe/:recipeid" />
 			</Route>
 		)
 	);
@@ -18,7 +19,7 @@ function App() {
 		<div>
 			<Navbar/>
 			<RouterProvider router={router} />
-			</div>
+		</div>
 	);
 }
 
