@@ -4,40 +4,44 @@ import {useState} from "react";
 export default function UploadedImages({images}) {
 
     const [files, setFiles] = useState([]);
-    const [firstPreview, setFirstPreview] = useState();
 
-    function handleChange(e) {
-        setFiles(files => []);
-        if (e.target.files.length === 0) {
+    const handleChange = (event) => {
+        if (event.target.files.length === 0) {
             return;
         }
-        setFirstPreview(firstPreview => [
-                firstPreview = URL.createObjectURL(e.target.files[0])
-            ]
-        )
-        for (let i = 1; i < e.target.files.length; i++) {
+        for (let i = 0; i < event.target.files.length; i++) {
             setFiles(files => [
                 ...files,
-                URL.createObjectURL(e.target.files[i])
+                URL.createObjectURL(event.target.files[i])
             ]);
         }
     }
 
+    const removeFile = (event) => {
+        let removeId = event.target.getAttribute("data-index");
+        files.splice(removeId, 1);
+        setFiles([
+            ...files
+        ]);
+    }
+
     return (
-        <div className={styles.imageContainer}>
+        <div className={`${styles.imageContainer} ${(files.length >= 1 ? styles.hasPicture : styles.noPicture)}`}>
             <div className={styles.previewImageContainer}>
                 <div className={styles.firstPreviewImage}>
-                    <img src={firstPreview}/>
+                    {files.filter((file, index) => index === 0).map((file, index) =>
+                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile}/>
+                    )}
                 </div>
                 <div className={styles.previewImagesRight}>
-                    {files.map((file) =>
-                        <img className={styles.previewImage} src={file}/>
+                    {files.filter((file, index) => index >= 1).map((file, index) =>
+                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile}/>
                     )}
                 </div>
             </div>
-            <div>
+            <div className={styles.addNewImage}>
                 <label htmlFor={styles.uploadImage} className={styles.uploadImageLabel}>+</label>
-                <input id={styles.uploadImage} multiple={true} type='file' onChange={handleChange}/>
+                <input id={styles.uploadImage} multiple={true} type='file' accept="image/*" onChange={handleChange}/>
             </div>
         </div>
     )
