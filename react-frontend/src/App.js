@@ -1,8 +1,6 @@
 import './App.css';
 
 import {
-  Route,
-  NavLink,
   BrowserRouter
 } from "react-router-dom";
 
