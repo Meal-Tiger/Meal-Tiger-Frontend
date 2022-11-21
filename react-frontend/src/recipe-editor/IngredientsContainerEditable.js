@@ -4,29 +4,51 @@ import {useState} from "react";
 export default function IngredientsContainerEditable({ingredientArray}) {
 
     const [ingredients, setIngredients] = useState([]);
-    const [ingredient, setIngredient] = useState({
+    const [newIngredient, setNewIngredient] = useState({
         amountUnit: "",
         name: ""
     })
 
-    function handleChange(evt) {
-        const value = evt.target.value;
-        setIngredient({
-            ...ingredient,
-            [evt.target.name]: value
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setNewIngredient({
+            ...newIngredient,
+            [event.target.name]: value
         });
     }
 
+    const handleExistingChange = (event) => {
+        let index = event.target.getAttribute("data-index");
+        let value = event.target.value;
+        if (event.target.name === "name") {
+            ingredients[index].name = value;
+        } else {
+            ingredients[index].amountUnit = value;
+        }
+        setIngredients([
+            ...ingredients
+        ]);
+    }
+
     const addIngredientItem = () => {
-        setIngredients([...ingredients, {
-            amountUnit: ingredient.amountUnit,
-            name: ingredient.name
-        }]);
-        setIngredient({
+        if (newIngredient.amountUnit === "" || newIngredient.name === "") return;
+        setIngredients([
+            ...ingredients, {
+                amountUnit: newIngredient.amountUnit,
+                name: newIngredient.name
+            }]);
+        setNewIngredient({
             amountUnit: "",
             name: ""
         });
-        console.log(ingredients);
+    }
+
+    const removeIngredientItem = (event) => {
+        let removeId = event.target.getAttribute("data-index");
+        ingredients.splice(removeId, 1);
+        setIngredients([
+            ...ingredients
+        ]);
     }
 
     return (
@@ -39,27 +61,35 @@ export default function IngredientsContainerEditable({ingredientArray}) {
             </tr>
             </thead>
             <tbody>
-            {ingredients.map((item) =>
-                <tr>
+            {ingredients.map((item, index) =>
+                <tr key={index}>
                     <td>
-                        {item.amountUnit}
+                        <input data-index={index} type="text" name="amountUnit" value={item.amountUnit}
+                               onChange={handleExistingChange}/>
                     </td>
                     <td>
-                        {item.name}
+                        <input data-index={index} type="text" name="name" value={item.name}
+                               onChange={handleExistingChange}/>
+                    </td>
+                    <td>
+                        <button className={style.btn} data-index={index} type={"button"}
+                                onClick={removeIngredientItem}>Remove
+                        </button>
                     </td>
                 </tr>
             )}
             <tr>
                 <td>
                     <input placeholder={"Anzahl und Einheit"} type="text" name="amountUnit"
-                           value={ingredient.amountUnit} onChange={handleChange}/>
+                           value={newIngredient.amountUnit} onChange={handleChange}/>
                 </td>
                 <td>
-                    <input placeholder={"Zutat"} type="text" name="name" value={ingredient.name} onChange={handleChange}
+                    <input placeholder={"Zutat"} type="text" name="name" value={newIngredient.name}
+                           onChange={handleChange}
                     />
                 </td>
                 <td>
-                    <button type={"button"} onClick={addIngredientItem}>Add</button>
+                    <button className={style.btn} type={"button"} onClick={addIngredientItem}>Add</button>
                 </td>
             </tr>
             </tbody>

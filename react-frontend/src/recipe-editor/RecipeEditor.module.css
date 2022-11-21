@@ -7,13 +7,32 @@
     width: 65%;
     margin-right: 1rem;
 }
-.rightColum{
+
+.rightColumn {
     width: 35%;
 }
 
 .imageContainer {
-    min-height: 10vw;
+    position: relative;
+    height: 10vw;
     margin-bottom: 2rem;
+}
+
+.hasPicture {
+    padding-bottom: 50%;
+}
+
+.addNewImage {
+    bottom: 0;
+    position: absolute;
+    left: 0;
+}
+
+.previewImageContainer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
 }
 
 .mainImage {
@@ -94,7 +113,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    margin: 0.5rem 1rem;
 }
 
 #uploadImage {
@@ -105,16 +123,22 @@
     display: flex;
     width: 30%;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .firstPreviewImage {
     width: 70%;
-    padding-right: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .firstPreviewImage img {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     height: auto;
+    max-height: 100%;
+    padding: 0 0 3.5rem 0;
 }
 
 .previewImage {
@@ -123,8 +147,10 @@
     margin: 0.5rem 0;
 }
 
-.previewImageContainer {
-    display: flex;
+.previewImage:hover {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
 }
 
 .ingredientTableWrapper {
@@ -140,10 +166,17 @@
         width: 100%;
         margin-right: 0rem;
     }
-    .rightColum{width: 100%}
+
+    .rightColumn {
+        width: 100%
+    }
 
     .previewImageContainer {
         max-width: 100%;
+    }
+
+    .hasPicture {
+        padding-bottom: 100%;
     }
 
     .informationContainer {
@@ -153,4 +186,15 @@
     .ingredientTableWrapper {
         overflow-x: scroll;
     }
+}
+
+.btn {
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btnSubmit {
+    background-color: green;
+    padding: 0.5rem 0.8rem;
 }
