@@ -6,10 +6,8 @@ import { useParams } from "react-router-dom";
 
 export default function RecipeDescription() {
 
-//    let { id } = useParams();
-// TODO useParams wieder entkommentieren, wenn der Router fertig ist.
-    let id = `636a6564c17f8404cf00ee47`;
-    let recipe = useGetRecipe(id);
+    let { recipeid } = useParams();
+    let recipe = useGetRecipe(recipeid);
     if(recipe)
     {
         return (

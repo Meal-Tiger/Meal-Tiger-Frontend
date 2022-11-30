@@ -4,13 +4,15 @@ import {createBrowserRouter, createRoutesFromElements,RouterProvider, Route} fro
 
 import Navbar from './navbar/Navbar';
 import RecipeOverview from './RecipeOverview/RecipeOverview';
+import RecipeFullView from './recipe-full-view/RecipeFullView';
 
 function App() {
 
 	const router = createBrowserRouter(
 		createRoutesFromElements(
-			<Route path="/" element={<RecipeOverview />}>
-				<Route path="recipe/:recipeid" />
+			<Route>
+				<Route path="/" element={<RecipeOverview />}/>
+				<Route path="/recipe/:recipeid" element={<RecipeFullView />}/>
 			</Route>
 		)
 	);
