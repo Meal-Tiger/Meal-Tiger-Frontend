@@ -27,68 +27,6 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 	};
 }
 
-export function useGetRecipe(id){
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		fetch(`${api_url}/recipes/${id}`)
-		  .then((res) => res.json())
-		  .then((data) => setData(data));
-	}, []);
-
-	return data;
-}
-
-export function usePostRecipe(recipe){
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		fetch(`${api_url}/recipes`, {
-			method: "POST",
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(recipe)
-		})
-		  .then((res) => res.status)
-		  .then((data) => setData(data));
-	}, []);
-
-	return data;
-}
-
-export function usePutRecipe(id, recipe){
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		fetch(`${api_url}/recipes/${id}`, {
-			method: "PUT",
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(recipe)
-		})
-		  .then((res) => res.status)
-		  .then((data) => setData(data));
-	}, []);
-
-	return data;
-}
-
-export function useDeleteRecipe(id){
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		fetch(`${api_url}/recipes/${id}`, {
-			method: "DELETE"
-		})
-		  .then((res) => res.status)
-		  .then((data) => setData(data));
-	}, []);
-
-	return data;
-}
-
 export function useGetRecipePage(q = undefined, sort = "title", max = 10, page = 1){
 	const [data, setData] = useState(null);
 
@@ -105,4 +43,51 @@ export function useGetRecipePage(q = undefined, sort = "title", max = 10, page =
 	}, []);
 
 	return data;
+}
+
+export function useGetRecipe(id){
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		fetch(`${api_url}/recipes/${id}`)
+		  .then((res) => res.json())
+		  .then((data) => setData(data));
+	}, []);
+
+	return data;
+}
+
+export function postRecipe(recipe){
+
+	return fetch(`${api_url}/recipes`, {
+		method: "POST",
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(recipe)
+	})
+	.then((res) => res.status);
+
+}
+
+export function putRecipe(id, recipe){
+
+	return fetch(`${api_url}/recipes/${id}`, {
+		method: "PUT",
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(recipe)
+	})
+	.then((res) => res.status);
+
+}
+
+export function useDeleteRecipe(id){
+
+	return fetch(`${api_url}/recipes/${id}`, {
+		method: "DELETE"
+	})
+	.then((res) => res.status);
+
 }
