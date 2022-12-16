@@ -1,3 +1,5 @@
+import { login_event } from "./events"
+
 const authorization_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/auth"
 const token_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token"
 const revocation_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/revoke"
@@ -72,7 +74,7 @@ export async function login(){
             localStorage.setItem("access_token_ttl",body.expires_in === 0 ? -1 : Date.now() + body.expires_in * 1000 - refresh_error)
             localStorage.setItem("refresh_token", body.refresh_token)
             localStorage.setItem("refresh_token_ttl", body.refresh_expires_in === 0 ? -1 : Date.now() + body.refresh_expires_in * 1000 - refresh_error)
-
+            document.dispatchEvent(login_event);
         }
         else return;
     }, 1000)

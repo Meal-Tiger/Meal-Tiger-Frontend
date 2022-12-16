@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { useEvent } from 'modules/events';
 
 import styles from './Usermenu.module.css';
 import User from './user.png';
@@ -8,6 +9,9 @@ import LoginWithKeycloak from './LoginWithKeycloak/LoginWithKeycloak';
 
 export default function Usermenu() {
 	const [show, setShow] = useState(false);
+
+	useEvent("login", () => setShow(false));
+
 
 	return (
 		<div className={styles.usermenu} onClick={() => setShow(true)}>
