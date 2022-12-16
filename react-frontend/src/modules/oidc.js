@@ -1,26 +1,13 @@
 const authorization_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/auth"
 const token_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token"
-const introspection_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token/introspect"
-const userinfo_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/userinfo"
-const end_session_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/logout"
+const revocation_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/revoke"
+//const introspection_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token/introspect"
+//const userinfo_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/userinfo"
+//const end_session_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/logout"
 const client_id = "mealtiger"
+const scope = "openid email offline_access"
 
 const refresh_error = 2000;
-
-export async function getAccessToken(){
-
-}
-
-export async function logout(){
-
-}
-
-function base64URLEncode(str) {
-    return str.toString('base64')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=/g, '');
-}
 
 /**
  * creates login-popup, PKCE-challenge
@@ -47,7 +34,7 @@ export async function login(){
 
     //create popup
     const auth_url = new URL(authorization_endpoint);
-    auth_url.searchParams.append("scope", "openid email offline_access");
+    auth_url.searchParams.append("scope", scope);
 	auth_url.searchParams.append("response_type", "code");
     auth_url.searchParams.append("client_id", client_id);
     auth_url.searchParams.append("redirect_uri", redirect_url.toString());
@@ -62,6 +49,7 @@ export async function login(){
 
             const auth_code = new URL(popup.location.href).searchParams.get("code");
             popup.close()
+            clearInterval(checkPopup);
 
             //retrieve first token-set
             const response = await fetch(token_endpoint, {
@@ -88,4 +76,63 @@ export async function login(){
         }
         else return;
     }, 1000)
+}
+
+export async function getAccessToken(){
+    if(localStorage.getItem('refresh_token_ttl') > Date.now) return localStorage.getItem('refresh_token_ttl');
+    else return await refreshToken();
+}
+
+export async function logout(){
+    await fetch(revocation_endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            'client_id': client_id,
+            'code_verifier': localStorage.getItem('code_verifier'),
+            'token_type_hint': 'refresh_token',
+            'token': localStorage.getItem('refresh_token')
+        })
+    });
+
+    localStorage.setItem("access_token", null)
+    localStorage.setItem("access_token_ttl", null)
+    localStorage.setItem("refresh_token", null)
+    localStorage.setItem("refresh_token_ttl", null)
+    localStorage.setItem("code_verifier", null)
+
+}
+
+function base64URLEncode(str) {
+    return str.toString('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=/g, '');
+}
+
+async function refreshToken(){
+    const response = await fetch(token_endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            'client_id': client_id,
+            'grant_type': 'refresh_token',
+            'code_verifier': localStorage.getItem('code_verifier'),
+            'refresh_token': localStorage.getItem('refresh_token'),
+            'scope': scope
+        })
+    });
+
+    const body = await response.json();
+
+    localStorage.setItem("access_token", body.access_token)
+    localStorage.setItem("access_token_ttl",body.expires_in === 0 ? -1 : Date.now() + body.expires_in * 1000 - refresh_error)
+    localStorage.setItem("refresh_token", body.refresh_token)
+    localStorage.setItem("refresh_token_ttl", body.refresh_expires_in === 0 ? -1 : Date.now() + body.refresh_expires_in * 1000 - refresh_error)
+
+    return body.access_token;
 }
