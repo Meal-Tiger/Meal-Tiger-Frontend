@@ -4,8 +4,9 @@ import essen from './essen.jpg';
 import user from './user.png';
 
 export default function RecipeCard(props) {
+
 	return (
-		<div className={styles.card}>
+		<div onClick={props.onClick} className={styles.card}>
 			<img className={styles.image} src={essen} alt=""></img>
 			<div className={styles.infobox}>
 				<h1 className="titel">{props.title}</h1>
