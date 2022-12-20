@@ -1,27 +1,23 @@
 import './App.css';
 
-import {createBrowserRouter, createRoutesFromElements,RouterProvider, Route} from 'react-router-dom';
+import {createBrowserRouter, createRoutesFromElements,RouterProvider, Route, BrowserRouter, Routes} from 'react-router-dom';
 
 import Navbar from './navbar/Navbar';
 import RecipeOverview from './RecipeOverview/RecipeOverview';
 import RecipeFullView from './recipe-full-view/RecipeFullView';
+import RecipeEditor from 'recipe-editor/RecipeEditor';
 
 function App() {
 
-	const router = createBrowserRouter(
-		createRoutesFromElements(
-			<Route>
-				<Route path="/" element={<RecipeOverview />}/>
-				<Route path="/recipe/:recipeid" element={<RecipeFullView />}/>
-			</Route>
-		)
-	);
-
 	return (
-		<div>
-			<Navbar/>
-			<RouterProvider router={router} />
-		</div>
+			<BrowserRouter>
+				<Navbar/>
+				<Routes>
+					<Route path="/" element={<RecipeOverview />}/>
+					<Route path="/recipe/:recipeid" element={<RecipeFullView />}/>
+					<Route path="/add-recipe" element={<RecipeEditor/>}/>
+				</Routes>
+			</BrowserRouter>
 	);
 }
 

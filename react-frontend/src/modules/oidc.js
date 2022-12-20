@@ -1,4 +1,4 @@
-import { login_event } from "./events"
+import { login_event, logout_event } from "./events"
 
 const authorization_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/auth"
 const token_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token"
@@ -99,11 +99,13 @@ export async function logout(){
         })
     });
 
-    localStorage.setItem("access_token", null)
-    localStorage.setItem("access_token_ttl", null)
-    localStorage.setItem("refresh_token", null)
-    localStorage.setItem("refresh_token_ttl", null)
-    localStorage.setItem("code_verifier", null)
+    localStorage.removeItem("access_token")
+    localStorage.removeItem("access_token_ttl")
+    localStorage.removeItem("refresh_token")
+    localStorage.removeItem("refresh_token_ttl")
+    localStorage.removeItem("code_verifier")
+
+    document.dispatchEvent(logout_event)
 
 }
 
