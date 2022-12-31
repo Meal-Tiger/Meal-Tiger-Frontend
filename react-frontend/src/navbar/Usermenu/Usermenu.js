@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { closeDropdown_event, useEvent } from 'modules/events';
+import { useEvent } from 'modules/events';
 import { Link } from 'react-router-dom';
 
 import styles from './Usermenu.module.css';

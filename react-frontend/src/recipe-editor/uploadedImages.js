@@ -30,12 +30,12 @@ export default function UploadedImages({images}) {
             <div className={styles.previewImageContainer}>
                 <div className={styles.firstPreviewImage}>
                     {files.filter((file, index) => index === 0).map((file, index) =>
-                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile}/>
+                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile} alt=""/>
                     )}
                 </div>
                 <div className={styles.previewImagesRight}>
                     {files.filter((file, index) => index >= 1).map((file, index) =>
-                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile}/>
+                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile} alt=""/>
                     )}
                 </div>
             </div>

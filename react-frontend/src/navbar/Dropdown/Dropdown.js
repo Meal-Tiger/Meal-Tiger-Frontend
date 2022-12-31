@@ -1,4 +1,3 @@
-import { closeDropdown_event } from 'modules/events';
 import styles from './Dropdown.module.css'
 
 export default function Dropdown(props){
