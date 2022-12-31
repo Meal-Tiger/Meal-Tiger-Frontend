@@ -1,6 +1,7 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
 
 import { useState, useEffect } from "react";
+import { getAccessToken } from "./oidc";
 
 let api_url = process.env.REACT_APP_API_URL;
 
@@ -57,12 +58,13 @@ export function useGetRecipe(id){
 	return data;
 }
 
-export function postRecipe(recipe){
+export async function postRecipe(recipe){
 
 	return fetch(`${api_url}/recipes`, {
 		method: "POST",
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify(recipe)
 	})
