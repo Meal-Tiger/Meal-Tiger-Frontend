@@ -64,15 +64,15 @@ export default function IngredientsContainerEditable({ingredientArray}) {
             {ingredients.map((item, index) =>
                 <tr key={index}>
                     <td>
-                        <input className="ingredientItem" data-index={index} type="text" name="amountUnit" value={item.amountUnit}
+                        <input data-index={index} type="text" name="amountUnit" value={item.amountUnit}
                                onChange={handleExistingChange}/>
                     </td>
                     <td>
-                        <input className="ingredientItem" data-index={index} type="text" name="name" value={item.name}
+                        <input data-index={index} type="text" name="name" value={item.name}
                                onChange={handleExistingChange}/>
                     </td>
                     <td>
-                        <button className={style.btn} data-index={index} type={"button"}
+                        <button className={"btn btn-secondary"} data-index={index} type={"button"}
                                 onClick={removeIngredientItem}>Remove
                         </button>
                     </td>
@@ -89,7 +89,7 @@ export default function IngredientsContainerEditable({ingredientArray}) {
                     />
                 </td>
                 <td>
-                    <button className={style.btn} type={"button"} onClick={addIngredientItem}>Add</button>
+                    <button className={"btn btn-primary"} type={"button"} onClick={addIngredientItem}>Add</button>
                 </td>
             </tr>
             </tbody>

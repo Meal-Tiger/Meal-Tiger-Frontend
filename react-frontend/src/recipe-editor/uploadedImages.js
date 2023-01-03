@@ -26,22 +26,22 @@ export default function UploadedImages({images}) {
     }
 
     return (
-        <div className={`${styles.imageContainer} ${(files.length >= 1 ? styles.hasPicture : styles.noPicture)}`}>
-            <div className={styles.previewImageContainer}>
-                <div className={styles.firstPreviewImage}>
+        <div className={`${styles["image-container"]} ${(files.length >= 1 ? styles["has-picture"] : styles["no-picture"])}`}>
+            <div className={styles["preview-image-container"]}>
+                <div className={styles["first-preview-image"]}>
                     {files.filter((file, index) => index === 0).map((file, index) =>
-                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile} alt=""/>
+                        <img data-index={index} className={styles["preview-image"]} src={file} onClick={removeFile} alt=""/>
                     )}
                 </div>
                 <div className={styles.previewImagesRight}>
                     {files.filter((file, index) => index >= 1).map((file, index) =>
-                        <img data-index={index} className={styles.previewImage} src={file} onClick={removeFile} alt=""/>
+                        <img data-index={index} className={styles["preview-image"]} src={file} onClick={removeFile} alt=""/>
                     )}
                 </div>
             </div>
-            <div className={styles.addNewImage}>
-                <label htmlFor={styles.uploadImage} className={styles.uploadImageLabel}>+</label>
-                <input id={styles.uploadImage} multiple={true} type='file' accept="image/*" onChange={handleChange}/>
+            <div className={styles["add-new-image"]}>
+                <label htmlFor={"uploadImage"} className={"btn btn-icon"}>+</label>
+                <input id={"uploadImage"} multiple={true} type='file' accept="image/*" onChange={handleChange}/>
             </div>
         </div>
     )

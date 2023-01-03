@@ -68,44 +68,44 @@ export default function RecipeEditor() {
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className={styles.container}>
-				<div className={styles.leftColumn}>
+				<div className={styles["left-column"]}>
 					<UploadedImages images={slides} />
-					<div className={styles.informationContainer}>
-						<div className={styles.informationContainerChild}>
-							<span className={`material-symbols-outlined ${styles.symbolsDifficulty}  ${styles.active}`} onClick={() => switchDifficulty(1)}>
+					<div className={styles["information-container"]}>
+						<div className={styles["information-container-child"]}>
+							<span className={`material-symbols-outlined ${styles["symbols-difficulty"]}  ${styles.active}`} onClick={() => switchDifficulty(1)}>
 								lunch_dining
 							</span>
-							<span className={`material-symbols-outlined ${styles.symbolsDifficulty}  ${difficulty >= 2 ? styles.active : styles.inactive}`} onClick={() => switchDifficulty(2)}>
+							<span className={`material-symbols-outlined ${styles["symbols-difficulty"]}  ${difficulty >= 2 ? styles.active : styles.inactive}`} onClick={() => switchDifficulty(2)}>
 								lunch_dining
 							</span>
-							<span className={`material-symbols-outlined ${styles.symbolsDifficulty}  ${difficulty >= 3 ? styles.active : styles.inactive}`} onClick={() => switchDifficulty(3)}>
+							<span className={`material-symbols-outlined ${styles["symbols-difficulty"]}  ${difficulty >= 3 ? styles.active : styles.inactive}`} onClick={() => switchDifficulty(3)}>
 								lunch_dining
 							</span>
 							<span>Schwierigkeit</span>
 						</div>
-						<div className={styles.informationContainerChild}>
+						<div className={styles["information-container-child"]}>
 							<span className="material-symbols-outlined">schedule</span>
-							<input name={'recipeTimeH'} className={styles.scheduleInput} type={'number'} />
-							<span className={styles.scheduleInputText}>Std. </span>
-							<input name={'recipeTimeM'} className={styles.scheduleInput} type={'number'} />
-							<span className={styles.scheduleInputText}>min.</span>
+							<input name={'recipeTimeH'} className={styles["schedule-input"]} type={'number'} />
+							<span className={styles["schedule-input-text"]}>Std. </span>
+							<input name={'recipeTimeM'} className={styles["schedule-input"]} type={'number'} />
+							<span className={styles["schedule-input-text"]}>min.</span>
 						</div>
 					</div>
-					<div className={styles.ingredientTableWrapper}>
+					<div className={styles["ingredient-table-wrapper"]}>
 						<IngredientsContainerEditable ingredientArray={{demoIngredient}} />
 					</div>
 				</div>
 
-				<div className={styles.rightColumn}>
-					<div className={styles.recipeInput}>
+				<div className={styles["right-column"]}>
+					<div className={styles["recipe-input"]}>
 						<label htmlFor={'recipeName'}>Rezeptname</label>
 						<input name={'recipeName'} type={'text'} />
 					</div>
-					<div className={styles.recipeInput}>
+					<div className={styles["recipe-input"]}>
 						<label htmlFor={'recipeDescription'}>Rezeptbeschreibung</label>
-						<textarea name={'recipeDescription'}></textarea>
+						<textarea name={'recipeDescription'} rows={4}></textarea>
 					</div>
-					<button className={`${styles.btn} ${styles.btnSubmit}`} type="submit">
+					<button className={"btn btn-primary"} type="submit">
 						Rezept speichern
 					</button>
 				</div>
