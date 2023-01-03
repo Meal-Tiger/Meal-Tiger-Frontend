@@ -39,7 +39,6 @@ h5, h6, label, .highlighted {
 }
 
 p {
-    font-size: var(--font-size-body);
     margin-bottom: var(--space-2);
 }
 
