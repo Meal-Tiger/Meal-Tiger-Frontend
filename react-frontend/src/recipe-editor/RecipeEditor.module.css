@@ -1,110 +1,110 @@
 .container {
     display: flex;
-    padding: 15px;
 }
 
-.leftColumn {
+.left-column {
     width: 65%;
-    margin-right: 1rem;
+    margin-right: var(--space-2);
 }
 
-.rightColumn {
+.right-column {
     width: 35%;
 }
 
-.imageContainer {
+.image-container {
     position: relative;
     height: 10vw;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-3);
 }
 
-.hasPicture {
+.has-picture {
     padding-bottom: 50%;
 }
 
-.addNewImage {
+.add-new-image {
     bottom: 0;
     position: absolute;
     left: 0;
 }
 
-.previewImageContainer {
+.preview-image-container {
     height: 100%;
     width: 100%;
     position: absolute;
     display: flex;
 }
 
-.mainImage {
+.main-image {
     flex: 70%;
 }
 
-.rightImages {
+.right-images {
     flex: 30%;
 }
 
-.mainImage, .rightImages div {
-    border-radius: 15px;
+.main-image, .right-images div {
+    border-radius:  0.6rem;
     background-color: gray;
-    padding: 1rem;
+    padding: var(--space-2);
     background-size: cover;
 }
 
-.rightImages div {
-    margin: 1rem;
+.right-images div {
+    margin: var(--space-2);
     height: 33%;
 }
 
-.rightImages {
+.right-images {
     display: flex;
     flex-direction: column;
 }
 
-.symbolsDifficulty {
+.symbols-difficulty {
     cursor: pointer;
 }
 
-.symbolsDifficulty.inactive {
+.symbols-difficulty.inactive {
     color: lightgray;
 }
 
-.symbolsDifficulty.active {
+.symbols-difficulty.active {
     color: black;
 }
 
-.informationContainer {
+.information-container {
     display: flex;
 }
 
-.informationContainerChild {
+.information-container-child {
     display: flex;
     align-items: center;
 }
 
-.informationContainerChild:first-child {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+.information-container-child:first-child {
+    margin-right: var(--space-2);
+    margin-bottom: var(--space-2);
 }
 
-.scheduleInput {
-    width: 4rem;
+.schedule-input {
+    width: 7rem;
+    margin-right: var(--space-1);
 }
 
-.scheduleInputText {
-    margin-right: 1rem;
+.schedule-input-text {
+    margin-right: var(--space-2);
 }
 
-.recipeInput {
+.recipe-input {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-3);
 }
 
-.recipeInput label {
-    margin-bottom: 5px;
+.recipe-input label {
+    margin-bottom: var(--space-1);
 }
 
-.uploadImageLabel {
+.upload-image-label {
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -112,89 +112,78 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
+    border-radius: 0.6rem;
 }
 
 #uploadImage {
     display: none;
 }
 
-.previewImagesRight {
+.preview-images-right {
     display: flex;
     width: 30%;
     flex-direction: column;
     overflow-y: auto;
 }
 
-.firstPreviewImage {
+.first-preview-image {
     width: 70%;
-    margin-right: 2rem;
+    margin-right: var(--space-2);
     display: flex;
     justify-content: center;
 }
 
-.firstPreviewImage img {
+.first-preview-image img {
     width: auto;
     max-width: 100%;
     height: auto;
     max-height: 100%;
-    padding: 0 0 3.5rem 0;
+    padding: 0 0 var(--space-5) 0;
 }
 
-.previewImage {
+.preview-image {
     width: 100%;
     height: auto;
-    margin: 0.5rem 0;
+    margin: var(--space-1) 0;
 }
 
-.previewImage:hover {
+.preview-image:hover {
     opacity: 0.5;
     filter: grayscale(100%);
     cursor: not-allowed;
 }
 
-.ingredientTableWrapper {
-    margin-bottom: 1rem;
+.ingredient-table-wrapper {
+    margin-bottom: var(--space-2);
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1024px) {
     .container {
         flex-direction: column;
     }
 
-    .leftColumn {
+    .left-column {
         width: 100%;
-        margin-right: 0rem;
+        margin-right: 0;
     }
 
-    .rightColumn {
+    .right-column {
         width: 100%
     }
 
-    .previewImageContainer {
+    .preview-image-container {
         max-width: 100%;
     }
 
-    .hasPicture {
+    .has-picture {
         padding-bottom: 100%;
     }
 
-    .informationContainer {
+    .information-container {
         flex-direction: column;
     }
 
-    .ingredientTableWrapper {
+    .ingredient-table-wrapper {
         overflow-x: scroll;
     }
-}
-
-.btn {
-    border: 1px solid black;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.btnSubmit {
-    background-color: green;
-    padding: 0.5rem 0.8rem;
 }
