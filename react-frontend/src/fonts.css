@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "Raleway";
+    src: url("./fonts/Raleway-SemiBold.woff2");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PT Sans";
+    src: url("./fonts/PTSans-Regular.woff2");
+    font-weight: 400;
+    font-style: normal;
+}
