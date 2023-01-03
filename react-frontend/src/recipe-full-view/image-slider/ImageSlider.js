@@ -38,12 +38,14 @@ export default function ImageSlider() {
     )
 
     return (
-        <div className={styles.slider}>
-            <div className={styles.slide} style={slideImage}>
-                <div className={styles.titleContainer}>
-                    <h1 className={styles.title}>Zufallsgericht</h1>
+        <div className={styles["slider-container"]}>
+            <div className={styles.slider}>
+                <div className={styles.slide} style={slideImage}>
+                    <div className={styles["title-container"]}>
+                        <h1 className={styles.title}>Zufallsgericht</h1>
+                    </div>
+                    <div className={styles["slider-buttons"]}>{setSliderButtons}</div>
                 </div>
-                <div className={styles.sliderButtons}>{setSliderButtons}</div>
             </div>
         </div>
     )

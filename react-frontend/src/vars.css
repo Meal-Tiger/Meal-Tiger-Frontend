@@ -1,3 +1,26 @@
 :root {
-    --navbar-height: 100px;
+    --navbar-height: 10rem;
+    --font-size-heading: 3.2rem;
+    --font-size-sub-heading: 2.6rem;
+    --font-size-highlighted: 1.8rem;
+    --font-size-body: 1.6rem;
+
+    --color-primary: #ffffff;
+    --background-primary: #396A05;
+    --color-secondary: #ffffff;
+    --background-secondary: #57624A;
+    --border-color: #626060;
+
+    --border-color-error: #BA1A1A;
+    --background-error: #c16e6e;
+
+    --space-1: .4rem;
+    --space-2: .8rem;
+    --space-3: 1.6rem;
+    --space-4: 2.4rem;
+    --space-5: 3.2rem;
+    --space-6: 4rem;
+    --space-7: 4.8rem;
+    --space-8: 5.6rem;
+    --space-9: 6.4rem;
 }
