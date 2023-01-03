@@ -72,7 +72,7 @@ export default function IngredientsContainerEditable({ingredientArray}) {
                                onChange={handleExistingChange}/>
                     </td>
                     <td>
-                        <button className={style.btn} data-index={index} type={"button"}
+                        <button className={"btn btn-secondary"} data-index={index} type={"button"}
                                 onClick={removeIngredientItem}>Remove
                         </button>
                     </td>
@@ -89,7 +89,7 @@ export default function IngredientsContainerEditable({ingredientArray}) {
                     />
                 </td>
                 <td>
-                    <button className={style.btn} type={"button"} onClick={addIngredientItem}>Add</button>
+                    <button className={"btn btn-primary"} type={"button"} onClick={addIngredientItem}>Add</button>
                 </td>
             </tr>
             </tbody>
