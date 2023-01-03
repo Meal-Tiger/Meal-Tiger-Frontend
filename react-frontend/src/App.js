@@ -12,11 +12,13 @@ function App() {
 	return (
 			<BrowserRouter>
 				<Navbar/>
-				<Routes>
-					<Route path="/" element={<RecipeOverview />}/>
-					<Route path="/recipe/:recipeid" element={<RecipeFullView />}/>
-					<Route path="/add-recipe" element={<RecipeEditor/>}/>
-				</Routes>
+				<div className='main-content'>
+					<Routes>
+						<Route path="/" element={<RecipeOverview />}/>
+						<Route path="/recipe/:recipeid" element={<RecipeFullView />}/>
+						<Route path="/add-recipe" element={<RecipeEditor/>}/>
+					</Routes>
+				</div>
 			</BrowserRouter>
 	);
 }

@@ -13,7 +13,7 @@ export default function RecipeOverview(){
 
     if (recipes) {
         return (
-            <div className={styles.container}>
+            <div className={styles["recipe-overview-container"]}>
                 {recipes.recipes.map( (recipe) => <RecipeCard onClick={() => navigate(`/recipe/${recipe.id}`)} {...recipe}/>)}
             </div>
         );
