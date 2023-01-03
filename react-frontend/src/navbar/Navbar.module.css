@@ -1,7 +1,7 @@
-@import url("/src/vars.css");
-
 .logo{
     height: 100%;
+    border-radius: 0.6rem;
+    border: 0.2rem solid var(--border-color);
 }
 
 .navbar{
@@ -9,4 +9,9 @@
     align-items: center;
     justify-content: space-between;
     height: var(--navbar-height);
+}
+@media only screen and (max-width: 768px) {
+    .navbar{
+        height: var(--navbar-height-mobile);
+    }
 }

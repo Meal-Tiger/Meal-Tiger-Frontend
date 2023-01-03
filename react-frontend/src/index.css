@@ -87,12 +87,14 @@ p {
 .btn.btn-icon{
     background-color:  #E0E4D6;
     border: 0.2rem solid var(--border-color);
+    display: flex;
+    align-items: center;
 }
 
 input, textarea{
     border: 0.2rem solid var(--border-color);
     border-radius: 0.6rem;
-    padding: 1.0rem 1.5rem;
+    padding: var(--space-1) var(--space-2);
 }
 input[type="file"]{
     border: none;
