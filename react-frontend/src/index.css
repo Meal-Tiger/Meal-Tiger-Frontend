@@ -98,7 +98,7 @@ input[type="file"]{
     border: none;
 }
 
-input .error, textarea.error {
+input.error, textarea.error {
     border-color: var(--border-color-error);
     background-color: var(--background-error);
 }
