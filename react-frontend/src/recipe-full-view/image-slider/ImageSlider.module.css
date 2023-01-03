@@ -1,10 +1,16 @@
-@import url("/src/vars.css");
+@import url('../../vars.css');
+
+.slider-container {
+    padding-bottom: calc(100vh - var(--navbar-height));
+}
 
 .slider {
     width: 100vw;
     max-width: 100%;
     height: calc(100vh - var(--navbar-height));
     align-content: center;
+    position: absolute;
+    left: 0;
 }
 
 .slide{
@@ -17,7 +23,7 @@
     font-size: 4rem;
 }
 
-.titleContainer{
+.title-container{
     justify-content: right;
     display: flex;
     align-items: center;
@@ -25,7 +31,7 @@
     padding-right: 135px;
 }
 
-.sliderButtons {
+.slider-buttons {
     position:absolute;
     width:100%;
     bottom:0;
