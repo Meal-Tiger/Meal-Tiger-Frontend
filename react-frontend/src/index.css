@@ -1,4 +1,5 @@
 @import url("./vars.css");
+@import url("./fonts.css");
 
 * {
     box-sizing: border-box;
@@ -6,11 +7,8 @@
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: "PT Sans", sans-serif;
+    font-size: var(--font-size-body);
 }
 
 code {
@@ -23,16 +21,19 @@ html {
 }
 
 h1 {
+    font-family: "Raleway", sans-serif;
     font-size: var(--font-size-heading);
     margin-bottom: var(--space-3);
 }
 
 h2, h3, h4 {
+    font-family: "Raleway", sans-serif;
     font-size: var(--font-size-sub-heading);
     margin-bottom: var(--space-2);
 }
 
 h5, h6, label, .highlighted {
+    font-family: "Raleway", sans-serif;
     font-size: var(--font-size-highlighted);
     margin-bottom: var(--space-2);
 }
