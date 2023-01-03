@@ -23,13 +23,13 @@ code {
     --font-size-body: 1.6rem;
 
     --color-primary: #ffffff;
-    --primary-background: #396A05;
-    --secondary-color: #ffffff;
-    --secondary-background: #57624A;
+    --background-primary: #396A05;
+    --color-secondary: #ffffff;
+    --background-secondary: #57624A;
     --border-color: #626060;
 
-    --error-border-color: #BA1A1A;
-    --error-background: #c16e6e;
+    --border-color-error: #BA1A1A;
+    --background-error: #c16e6e;
 
     --space-1: .4rem;
     --space-2: .8rem;
@@ -69,4 +69,50 @@ p {
 .main-content {
     max-width: 1140px;
     margin: auto;
+}
+
+.btn{
+    cursor: pointer;
+    border-radius: 0.6rem;
+    transition: background-color 0.5s;
+}
+
+
+.btn:active{
+    transform: scale(0.9);
+}
+
+.btn .btn-primary{
+    color: var(--color-primary);
+    background-color: var(--background-primary);
+    border: 0.2rem solid var(--border-color);
+}
+.btn .btn-primary:hover{
+    color: var(--color-secondary);
+    background-color: var(--background-secondary);
+}
+
+.btn .btn-secondary{
+    color: var(--color-secondary);
+    background-color: var(--background-secondary);
+    border: 0.2rem solid var(--border-color);
+}
+.btn .btn-secondary:hover{
+    color: var(--color-primary);
+    background-color: var(--background-primary);
+}
+
+.btn .btn-icon{
+    background-color:  #E0E4D6;
+}
+
+input{
+    border: 0.2rem solid var(--border-color);
+    border-radius: 0.6rem;
+    padding: 1.0rem 1.5rem;
+}
+
+input .error {
+    border-color: var(--border-color-error);
+    background-color: var(--background-error);
 }
