@@ -64,11 +64,11 @@ export default function IngredientsContainerEditable({ingredientArray}) {
             {ingredients.map((item, index) =>
                 <tr key={index}>
                     <td>
-                        <input className="ingredientItem" data-index={index} type="text" name="amountUnit" value={item.amountUnit}
+                        <input data-index={index} type="text" name="amountUnit" value={item.amountUnit}
                                onChange={handleExistingChange}/>
                     </td>
                     <td>
-                        <input className="ingredientItem" data-index={index} type="text" name="name" value={item.name}
+                        <input data-index={index} type="text" name="name" value={item.name}
                                onChange={handleExistingChange}/>
                     </td>
                     <td>
