@@ -1,12 +1,13 @@
 import style from './RecipeEditor.module.css';
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {RecipeContext} from "./RecipeEditor";
 
-export default function IngredientsContainerEditable({ingredientArray}) {
+export default function IngredientsContainerEditable() {
 
-    const [ingredients, setIngredients] = useState([]);
+    const { recipe, setRecipe } = useContext(RecipeContext);
     const [newIngredient, setNewIngredient] = useState({
         amountUnit: "",
-        name: ""
+        name: "",
     })
 
     const handleChange = (event) => {
@@ -21,22 +22,20 @@ export default function IngredientsContainerEditable({ingredientArray}) {
         let index = event.target.getAttribute("data-index");
         let value = event.target.value;
         if (event.target.name === "name") {
-            ingredients[index].name = value;
+            recipe.ingredients[index].name = value;
         } else {
-            ingredients[index].amountUnit = value;
+            recipe.ingredients[index].amountUnit = value;
         }
-        setIngredients([
-            ...ingredients
-        ]);
+        setRecipe({...recipe});
     }
 
     const addIngredientItem = () => {
         if (newIngredient.amountUnit === "" || newIngredient.name === "") return;
-        setIngredients([
-            ...ingredients, {
-                amountUnit: newIngredient.amountUnit,
-                name: newIngredient.name
-            }]);
+        recipe.ingredients.push({
+            amountUnit:newIngredient.amountUnit,
+            name: newIngredient.name
+        })
+        setRecipe({...recipe});
         setNewIngredient({
             amountUnit: "",
             name: ""
@@ -45,10 +44,8 @@ export default function IngredientsContainerEditable({ingredientArray}) {
 
     const removeIngredientItem = (event) => {
         let removeId = event.target.getAttribute("data-index");
-        ingredients.splice(removeId, 1);
-        setIngredients([
-            ...ingredients
-        ]);
+        recipe.ingredients.splice(removeId, 1);
+        setRecipe({...recipe});
     }
 
     return (
@@ -61,7 +58,7 @@ export default function IngredientsContainerEditable({ingredientArray}) {
             </tr>
             </thead>
             <tbody>
-            {ingredients.map((item, index) =>
+            {recipe.ingredients.map((item, index) =>
                 <tr key={index}>
                     <td>
                         <input data-index={index} type="text" name="amountUnit" value={item.amountUnit}
