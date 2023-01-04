@@ -1,6 +1,4 @@
 export  const options = [
-        "- bitte wählen -",
-        "(keine Einheit)",
         "Becher",
         "Beet/e",
         "Beutel",
