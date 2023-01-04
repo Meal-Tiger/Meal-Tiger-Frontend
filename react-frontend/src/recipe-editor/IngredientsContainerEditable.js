@@ -1,12 +1,16 @@
 import style from './RecipeEditor.module.css';
 import {useContext, useState} from "react";
 import {RecipeContext} from "./RecipeEditor";
+import {options} from "./options";
 
 export default function IngredientsContainerEditable() {
 
+    const selectOptions = options.map( (item) => {return{label:item, value:item,}});
+    console.log(selectOptions);
     const { recipe, setRecipe } = useContext(RecipeContext);
     const [newIngredient, setNewIngredient] = useState({
-        amountUnit: "",
+        amount: "",
+        unit: "",
         name: "",
     })
 
@@ -24,20 +28,23 @@ export default function IngredientsContainerEditable() {
         if (event.target.name === "name") {
             recipe.ingredients[index].name = value;
         } else {
-            recipe.ingredients[index].amountUnit = value;
+            recipe.ingredients[index].amount = value;
+            recipe.ingredients[index].unit = value
         }
         setRecipe({...recipe});
     }
 
     const addIngredientItem = () => {
-        if (newIngredient.amountUnit === "" || newIngredient.name === "") return;
+        if (newIngredient.amount === "" ||newIngredient.unit === "" || newIngredient.name === "") return;
         recipe.ingredients.push({
-            amountUnit:newIngredient.amountUnit,
+            amount: newIngredient.amount,
+            unit:newIngredient.unit,
             name: newIngredient.name
         })
         setRecipe({...recipe});
         setNewIngredient({
-            amountUnit: "",
+            amount: "",
+            unit: "",
             name: ""
         });
     }
@@ -61,8 +68,11 @@ export default function IngredientsContainerEditable() {
             {recipe.ingredients.map((item, index) =>
                 <tr key={index}>
                     <td>
-                        <input data-index={index} type="text" name="amountUnit" value={item.amountUnit}
+                        <input data-index={index} type="text" name="amount" value={item.amount}
                                onChange={handleExistingChange}/>
+                    </td>
+                    <td>
+                        <select name="unit">selectOptions</select>
                     </td>
                     <td>
                         <input data-index={index} type="text" name="name" value={item.name}
@@ -77,8 +87,15 @@ export default function IngredientsContainerEditable() {
             )}
             <tr>
                 <td>
-                    <input placeholder={"Anzahl und Einheit"} type="text" name="amountUnit"
-                           value={newIngredient.amountUnit} onChange={handleChange}/>
+                    <input placeholder={"Anzahl"} type="text" name="amount"
+                           value={newIngredient.amount} onChange={handleChange}/>
+                </td>
+                <td>
+                    <select name="unit">{
+                        options.map( (item) => {
+                            <option value={item}>{item}</option>
+                        })
+                    }</select>
                 </td>
                 <td>
                     <input placeholder={"Zutat"} type="text" name="name" value={newIngredient.name}
@@ -86,7 +103,7 @@ export default function IngredientsContainerEditable() {
                     />
                 </td>
                 <td>
-                    <button className={"btn btn-primary"} type={"button"} onClick={addIngredientItem}>Add</button>
+                    <button className={"btn btn-primary"} type={"button"} onClick={addIngredientItem}>Hinzufügen</button>
                 </td>
             </tr>
             </tbody>
