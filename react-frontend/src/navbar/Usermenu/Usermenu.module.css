@@ -4,6 +4,6 @@
 
 .user{
     height: 100%;
-    border-radius: 50%;
-    border: 5px solid black;
+    border-radius: 0.6rem;
+    border: 0.2rem solid var(--border-color);
 }
