@@ -12,28 +12,41 @@ import Dropdown from 'navbar/Dropdown/Dropdown';
 import { logout } from 'modules/oidc';
 
 export default function Usermenu() {
+	const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
 	const [showModal, setShowModal] = useState(false);
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	function setMenu(bool){
-		if(localStorage.getItem('access_token')) setShowDropdown(bool)
-		else setShowModal(bool);
+		setShowDropdown(bool)
 	}
 
-	useEvent("login", () => setShowModal(false));
+	useEvent("login", () =>
+		{
+			setShowModal(false);
+			setUserIsLoggedIn(true);
+		}
+	);
 
 	return (
-		<div className={styles.usermenu} onClick={() => setMenu(true)}>
-			<img className={styles.user} src={User} alt="User menu"></img>
-
+		<div className={styles["usermenu-container"]}>
+			<div className={styles.usermenu} onClick={() => setMenu(true)}>
+				<img className={styles.user} src={User} alt="User menu"></img>
+			</div>
 			<Dropdown show={showDropdown} setShow={setShowDropdown}>
-				<Link to="/add-recipe"><button>Rezept erstellen</button></Link>
-				<button onClick={logout}>Logout</button>
+				<Link to={userIsLoggedIn ? "/add-recipe" : "" } className={styles["drop-link"]} onClick={() => userIsLoggedIn ? "" : setShowModal(true)}>
+					Rezept erstellen
+				</Link>
+				<Link to={"/"} className={` ${userIsLoggedIn ? "" : styles.hide } ${styles["drop-link"]}`} onClick={logout}>
+					Logout
+				</Link>
+				<Link to={""} className={` ${userIsLoggedIn ? styles.hide : ""} ${styles["drop-link"]}`} onClick={() => setShowModal(true)}>
+					Login
+				</Link>
 			</Dropdown>
 
 			<Modal show={showModal} setShow={setShowModal}>
 				<h1>Login</h1>
-                <LoginWithKeycloak/>
+				<LoginWithKeycloak/>
 			</Modal>
 		</div>
 	);

@@ -45,6 +45,7 @@ p {
 .main-content {
     max-width: 1140px;
     margin: auto;
+    padding: var(--space-4) 0;
 }
 @media screen and (max-width: 1140px) {
     .main-content{
@@ -87,7 +88,6 @@ p {
 .btn.btn-icon{
     background-color:  #E0E4D6;
     border: 0.2rem solid var(--border-color);
-    display: flex;
     align-items: center;
 }
 

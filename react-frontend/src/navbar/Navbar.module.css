@@ -1,7 +1,5 @@
 .logo{
     height: 100%;
-    border-radius: 0.6rem;
-    border: 0.2rem solid var(--border-color);
 }
 
 .navbar{
@@ -9,6 +7,18 @@
     align-items: center;
     justify-content: space-between;
     height: var(--navbar-height);
+    background-color: var(--color-logo);
+    box-shadow: 0 0 16px 0 #0003;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
 }
 @media only screen and (max-width: 768px) {
     .navbar{

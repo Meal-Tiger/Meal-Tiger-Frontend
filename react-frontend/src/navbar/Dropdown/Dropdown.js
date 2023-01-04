@@ -12,8 +12,11 @@ export default function Dropdown(props){
     }
 
     return (
-        <div className={styles.dropdown} onClick={closeDropdown}>
-            {props.children}
+        <div className={styles["overlay-container"]}>
+            <div className={`${styles.overlay} ${props.show ? styles.show : ''}`} onClick={closeDropdown}/>
+            <div className={styles.dropdown} onClick={closeDropdown}>
+                {props.children}
+            </div>
         </div>
     );
 }
