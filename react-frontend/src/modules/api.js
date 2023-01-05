@@ -28,21 +28,21 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 	};
 }
 
-export function useGetRecipePage({q = undefined, sort = "title", max = 10, page = 0}){
+export function useGetRecipePage({q = undefined, sort = "title", size = 10, page = 0}){
 	
 	const [data, setData] = useState(null);
 
 	let uri = new URL(`${api_url}/recipes`);
 	if(q) uri.searchParams.append("q", q);
 	if(sort) uri.searchParams.append("sort", sort);
-	if(max) uri.searchParams.append("max", max);
+	if(size) uri.searchParams.append("size", size);
 	if(page) uri.searchParams.append("page", page);
 
 	useEffect(() => {
 		fetch(uri)
 		  .then((res) => res.json())
 		  .then((data) => setData(data));
-	}, [q, sort, max, page]);
+	}, [q, sort, size, page]);
 
 	return data;
 }
