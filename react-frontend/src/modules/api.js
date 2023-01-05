@@ -5,9 +5,9 @@ import { getAccessToken } from "./oidc";
 
 let api_url = process.env.REACT_APP_API_URL;
 
-export function getFormatedTime(minutes){
-	let hours = Math.floor(minutes / 60);
-	let minutes = minutes % 60;
+export function getFormatedTime(time){
+	let hours = Math.floor(time / 60);
+	let minutes = time % 60;
 
 	if(!hours && minutes === 1) return `1 Minute`;
 	if(!hours && minutes > 1) return `${minutes} Minuten`;
