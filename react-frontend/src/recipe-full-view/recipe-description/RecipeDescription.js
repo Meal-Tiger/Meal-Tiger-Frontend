@@ -1,7 +1,7 @@
 import styles from './RecipeDescription.module.css';
 
 import IngredientsContainer from "./IngredientsContainer";
-import { useGetRecipe } from '../../modules/api';
+import { useGetRecipe, getFormatedTime } from '../../modules/api';
 import { useParams } from "react-router-dom";
 
 export default function RecipeDescription() {
@@ -32,7 +32,7 @@ export default function RecipeDescription() {
                         </div>
                         <div className={styles.informationContainer}>
                             <span className="material-symbols-outlined">schedule</span>
-                            {recipe.time} min.
+                            {getFormatedTime(recipe.time)}
                         </div>
                     </div>
                 </div>

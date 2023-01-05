@@ -1,3 +1,5 @@
+import {getFormatedTime} from 'modules/api.js'
+
 import styles from './RecipeCard.module.css';
 
 import essen from './essen.jpg';
@@ -17,7 +19,7 @@ export default function RecipeCard(props) {
 				<h1 className="titel">{props.title}</h1>
 				<div className={styles["recipe-card-info"]}>
 					<span className="material-symbols-outlined">schedule</span>
-					{props.time} min.
+					{getFormatedTime(props.time)}
 				</div>
 				<div className={`${styles["recipe-card-info"]} ${"difficulty"}`}>
 					<span className="material-symbols-outlined">lunch_dining</span>

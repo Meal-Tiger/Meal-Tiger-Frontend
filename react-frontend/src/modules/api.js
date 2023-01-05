@@ -52,7 +52,7 @@ export function useGetRecipe(id){
 	useEffect(() => {
 		fetch(`${api_url}/recipes/${id}`)
 		  .then((res) => res.json())
-		  .then((data) => setData({...data, time: getFormatedTime(parseInt(data.time))}));
+		  .then((data) => setData(data));
 	}, []);
 
 	return data;
