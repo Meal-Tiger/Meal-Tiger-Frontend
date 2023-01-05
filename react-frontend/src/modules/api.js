@@ -29,6 +29,7 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 }
 
 export function useGetRecipePage({q = undefined, sort = "title", max = 10, page = 1}){
+	
 	const [data, setData] = useState(null);
 
 	let uri = new URL(`${api_url}/recipes`);
@@ -38,7 +39,7 @@ export function useGetRecipePage({q = undefined, sort = "title", max = 10, page 
 	if(page) uri.searchParams.append("page", page);
 
 	useEffect(() => {
-		fetch(`${api_url}/recipes`)
+		fetch(uri)
 		  .then((res) => res.json())
 		  .then((data) => setData(data));
 	}, []);
