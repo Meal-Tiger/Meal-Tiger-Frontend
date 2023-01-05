@@ -14,9 +14,10 @@ function App() {
 				<Navbar/>
 				<div className='main-content'>
 					<Routes>
-						<Route path="/" element={<RecipeOverview />}/>
+						<Route path="/" element={<RecipeOverview/>}/>
 						<Route path="/recipe/:recipeid" element={<RecipeFullView />}/>
 						<Route path="/add-recipe" element={<RecipeEditor/>}/>
+						<Route path="/search/:query" element={<RecipeOverview />}/>
 					</Routes>
 				</div>
 			</BrowserRouter>
