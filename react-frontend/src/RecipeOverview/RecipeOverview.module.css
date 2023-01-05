@@ -1,0 +1,7 @@
+.recipe-overview-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    padding: var(--space-5) 0;
+}
