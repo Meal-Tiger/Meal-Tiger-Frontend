@@ -33,7 +33,7 @@ export async function login(){
     const code_challenge = base64URLEncode(window.btoa(String.fromCharCode(...hash)));
 
     //create popup
-    const auth_url = new URL(await configuration.authorization_endpoint);
+    const auth_url = new URL((await configuration).authorization_endpoint);
     auth_url.searchParams.append("scope", scope);
 	auth_url.searchParams.append("response_type", "code");
     auth_url.searchParams.append("client_id", client_id);
