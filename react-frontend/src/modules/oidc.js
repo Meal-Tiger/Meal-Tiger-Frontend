@@ -52,7 +52,7 @@ export async function login(){
             clearInterval(checkPopup);
 
             //retrieve first token-set
-            const response = await fetch(await configuration.token_endpoint, {
+            const response = await fetch((await configuration).token_endpoint, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -84,7 +84,7 @@ export async function getAccessToken(){
 }
 
 export async function logout(){
-    await fetch(await configuration.revocation_endpoint, {
+    await fetch((await configuration).revocation_endpoint, {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -115,7 +115,7 @@ function base64URLEncode(str) {
 }
 
 async function refreshToken(){
-    const response = await fetch(await configuration.token_endpoint, {
+    const response = await fetch((await configuration).token_endpoint, {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
