@@ -12,12 +12,12 @@ export default function RecipeOverview(){
 
     let navigate = useNavigate();
     let {query} = useParams();
-    let recipes = useGetRecipePage({q: query});
+    let recipes = useGetRecipePage({q: query});    
 
     if (recipes) {
         return (
             <div className={styles["recipe-overview-container"]}>
-                {recipes.recipes.map( (recipe) => <RecipeCard onClick={() => navigate(`/recipe/${recipe.id}`)} {...recipe}/>)}
+                {recipes.recipes.map( (recipe) => <RecipeCard key={recipe.id} onClick={() => navigate(`/recipe/${recipe.id}`)} {...recipe}/>)}
             </div>
         );
     } else {
