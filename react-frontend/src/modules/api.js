@@ -28,7 +28,7 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 	};
 }
 
-export function useGetRecipePage(q = undefined, sort = "title", max = 10, page = 1){
+export function useGetRecipePage({q = undefined, sort = "title", max = 10, page = 1}){
 	const [data, setData] = useState(null);
 
 	let uri = new URL(`${api_url}/recipes`);
