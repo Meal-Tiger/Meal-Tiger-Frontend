@@ -42,7 +42,7 @@ export function useGetRecipePage({q = undefined, sort = "title", max = 10, page 
 		fetch(uri)
 		  .then((res) => res.json())
 		  .then((data) => setData(data));
-	}, []);
+	}, [q, sort, max, page]);
 
 	return data;
 }
