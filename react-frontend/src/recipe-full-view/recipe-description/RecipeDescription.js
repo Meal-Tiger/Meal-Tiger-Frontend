@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 
 export default function RecipeDescription() {
 
-    let { recipeid } = useParams();
-    let recipe = useGetRecipe(recipeid);
+    let { recipeId } = useParams();
+    let recipe = useGetRecipe(recipeId);
     if(recipe)
     {
         return (

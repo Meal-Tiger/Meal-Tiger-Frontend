@@ -1,12 +1,18 @@
-import styles  from './ImageSlider.module.css';
+import styles from './ImageSlider.module.css';
 
 import {useEffect, useState} from "react";
 
 import image_01 from './image-01.jpg';
 import image_02 from './image-02.jpg';
 import image_03 from './image-03.jpg';
+import {useParams} from "react-router-dom";
+import {useGetRecipe} from "../../modules/api";
 
 export default function ImageSlider() {
+
+    let {recipeId} = useParams();
+    let recipe = useGetRecipe(recipeId);
+
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -37,16 +43,19 @@ export default function ImageSlider() {
         )
     )
 
-    return (
-        <div className={styles["slider-container"]}>
+
+    if (recipe) {
+        return (<div className={styles["slider-container"]}>
             <div className={styles.slider}>
                 <div className={styles.slide} style={slideImage}>
                     <div className={styles["title-container"]}>
-                        <h1 className={styles.title}>Zufallsgericht</h1>
+                        <h1 className={styles.title}>{recipe.title}</h1>
                     </div>
                     <div className={styles["slider-buttons"]}>{setSliderButtons}</div>
                 </div>
             </div>
-        </div>
-    )
+        </div>);
+    } else {
+        return (<div>loading</div>);
+    }
 }
