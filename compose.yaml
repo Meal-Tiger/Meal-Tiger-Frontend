@@ -26,7 +26,6 @@ services:
 
   node:
     image: "node:18-alpine"
-    user: "node"
     working_dir: /home/node/app
     environment:
       - NODE_ENV=development
@@ -36,4 +35,4 @@ services:
       - ./react-frontend/:/home/node/app
     ports:
       - 3000:3000
-    command: "npm start"
+    command: sh -c "npm i && npm start"
