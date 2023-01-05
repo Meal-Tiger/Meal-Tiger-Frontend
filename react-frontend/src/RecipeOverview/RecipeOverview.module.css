@@ -5,3 +5,8 @@
     gap: var(--space-5);
     padding: var(--space-5) 0;
 }
+
+.next-page-container{
+    display: flex;
+    justify-content: center;
+}
