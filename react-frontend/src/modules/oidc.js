@@ -1,12 +1,10 @@
 import { login_event, logout_event } from "./events"
 
-const authorization_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/auth"
-const token_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token"
-const revocation_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/revoke"
-//const introspection_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/token/introspect"
-//const userinfo_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/userinfo"
-//const end_session_endpoint = "https://auth.meal-tiger.knoepfle.dev/realms/master/protocol/openid-connect/logout"
-const client_id = "mealtiger"
+let configuration_endpoint = process.env.REACT_APP_OIDC_CONFIGURATION_ENDPOINT;
+
+const configuration = fetch(configuration_endpoint).then(resp => resp.json());
+
+const client_id = process.env.REACT_APP_OIDC_CLIENT_ID;
 const scope = "openid email offline_access"
 
 const refresh_error = 2000;
@@ -35,7 +33,7 @@ export async function login(){
     const code_challenge = base64URLEncode(window.btoa(String.fromCharCode(...hash)));
 
     //create popup
-    const auth_url = new URL(authorization_endpoint);
+    const auth_url = new URL(await configuration.authorization_endpoint);
     auth_url.searchParams.append("scope", scope);
 	auth_url.searchParams.append("response_type", "code");
     auth_url.searchParams.append("client_id", client_id);
@@ -54,7 +52,7 @@ export async function login(){
             clearInterval(checkPopup);
 
             //retrieve first token-set
-            const response = await fetch(token_endpoint, {
+            const response = await fetch(await configuration.token_endpoint, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -86,7 +84,7 @@ export async function getAccessToken(){
 }
 
 export async function logout(){
-    await fetch(revocation_endpoint, {
+    await fetch(await configuration.revocation_endpoint, {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -117,7 +115,7 @@ function base64URLEncode(str) {
 }
 
 async function refreshToken(){
-    const response = await fetch(token_endpoint, {
+    const response = await fetch(await configuration.token_endpoint, {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
