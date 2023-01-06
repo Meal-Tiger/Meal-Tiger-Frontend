@@ -11,6 +11,10 @@ body {
     font-size: var(--font-size-body);
 }
 
+textarea, button, input{
+    font-family: "PT Sans", sans-serif;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
