@@ -2,6 +2,12 @@
 
 .slider-container {
     padding-bottom: calc(100vh - var(--navbar-height));
+    margin-top: calc(var(--space-4) * -1);
+}
+@media screen and (max-width: 1140px) {
+    .slider-container{
+        margin-top: calc(var(--space-2) * -1);
+    }
 }
 
 .slider {
