@@ -3,17 +3,17 @@
 }
 
 .left-column {
-    width: 65%;
+    width: 35%;
     margin-right: var(--space-2);
 }
 
 .right-column {
-    width: 35%;
+    width: 65%;
 }
 
 .image-container {
     position: relative;
-    height: 10vw;
+    height: 5.2rem;
     margin-bottom: var(--space-3);
 }
 
@@ -164,11 +164,11 @@
 
     .left-column {
         width: 100%;
-        margin-right: 0;
     }
 
     .right-column {
-        width: 100%
+        width: 100%;
+        margin-right: 0;
     }
 
     .preview-image-container {

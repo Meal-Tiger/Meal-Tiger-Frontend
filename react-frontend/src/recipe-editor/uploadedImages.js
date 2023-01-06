@@ -33,7 +33,7 @@ export default function UploadedImages({images}) {
                         <img data-index={index} className={styles["preview-image"]} src={file} onClick={removeFile} alt=""/>
                     )}
                 </div>
-                <div className={styles.previewImagesRight}>
+                <div className={styles["preview-images-right"]}>
                     {files.filter((file, index) => index >= 1).map((file, index) =>
                         <img data-index={index} className={styles["preview-image"]} src={file} onClick={removeFile} alt=""/>
                     )}

@@ -104,3 +104,19 @@ input.error, textarea.error {
     border-color: var(--border-color-error);
     background-color: var(--background-error);
 }
+
+@media screen and (max-width: 768px ){
+    .hide-mobile{
+        display: none;
+    }
+}
+@media  only screen and (min-width: 769px) and (max-width: 1023px){
+    .hide-tablet{
+        display: none;
+    }
+}
+@media  only screen and (min-width: 1024px){
+    .hide-desktop{
+        display: none;
+    }
+}

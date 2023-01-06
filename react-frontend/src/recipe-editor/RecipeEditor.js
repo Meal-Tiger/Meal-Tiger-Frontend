@@ -53,6 +53,25 @@ export default function RecipeEditor() {
             <form onSubmit={handleSubmit}>
                 <div className={styles.container}>
                     <div className={styles["left-column"]}>
+                        <div className={styles["recipe-input"]}>
+                            <label htmlFor={'recipeName'}>Rezeptname</label>
+                            <input name={'recipeName'} type={'text'} value={recipe.title} onChange={(event) => {
+                                setRecipe({...recipe, title: event.target.value})
+                            }}/>
+                        </div>
+                        <div className={styles["recipe-input"]}>
+                            <label htmlFor={'recipeDescription'}>Rezeptbeschreibung</label>
+                            <textarea name={'recipeDescription'} rows={4} value={recipe.description}
+                                      onChange={(event) => {
+                                          setRecipe({...recipe, description: event.target.value})
+                                      }}></textarea>
+                        </div>
+                        <button className={"btn btn-primary hide-mobile hide-tablet"} type="submit">
+                            Rezept speichern
+                        </button>
+                    </div>
+
+                    <div className={styles["right-column"]}>
                         <UploadedImages images={slides}/>
                         <div className={styles["information-container"]}>
                             <div className={styles["information-container-child"]}>
@@ -85,26 +104,12 @@ export default function RecipeEditor() {
                         <div className={styles["ingredient-table-wrapper"]}>
                             <IngredientsContainerEditable/>
                         </div>
-                    </div>
-
-                    <div className={styles["right-column"]}>
-                        <div className={styles["recipe-input"]}>
-                            <label htmlFor={'recipeName'}>Rezeptname</label>
-                            <input name={'recipeName'} type={'text'} value={recipe.title} onChange={(event) => {
-                                setRecipe({...recipe, title: event.target.value})
-                            }}/>
-                        </div>
-                        <div className={styles["recipe-input"]}>
-                            <label htmlFor={'recipeDescription'}>Rezeptbeschreibung</label>
-                            <textarea name={'recipeDescription'} rows={4} value={recipe.description}
-                                      onChange={(event) => {
-                                          setRecipe({...recipe, description: event.target.value})
-                                      }}></textarea>
-                        </div>
-                        <button className={"btn btn-primary"} type="submit">
+                        <button className={"btn btn-primary hide-desktop"} type="submit">
                             Rezept speichern
                         </button>
                     </div>
+
+
                 </div>
             </form>
         </RecipeContext.Provider>
