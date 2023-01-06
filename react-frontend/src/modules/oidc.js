@@ -66,6 +66,8 @@ export async function login(){
                 })
             });
 
+            if (!response.ok) throw `${response.status} ${response.statusText} - ${response.body}`
+
             const body = await response.json();
 
             localStorage.setItem("access_token", body.access_token)
@@ -84,7 +86,7 @@ export async function getAccessToken(){
 }
 
 export async function logout(){
-    await fetch((await configuration).revocation_endpoint, {
+    const response = await fetch((await configuration).revocation_endpoint, {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,6 +98,8 @@ export async function logout(){
             'token': localStorage.getItem('refresh_token')
         })
     });
+
+    if (!response.ok) throw `${response.status} ${response.statusText} - ${response.body}`
 
     localStorage.removeItem("access_token")
     localStorage.removeItem("access_token_ttl")
@@ -128,6 +132,8 @@ async function refreshToken(){
             'scope': scope
         })
     });
+
+    if (!response.ok) throw `${response.status} ${response.statusText} - ${response.body}`
 
     const body = await response.json();
 
