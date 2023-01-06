@@ -57,7 +57,9 @@ export default function RecipeOverview() {
 				</div>
 			</div>
 		);
-	} else {
+	} else if(error){
+        return <div>{error}</div>
+    }else {
         return (<Throbber/>);
 	}
 }
