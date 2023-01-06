@@ -47,7 +47,9 @@ export default function RecipeOverview() {
         }
     }
 
-	if (recipes) {
+    console.log(recipes);
+
+	if (recipes && recipes.recipes) {
 		return (
 			<div>
                 <div className={styles["filter-top"]}>
