@@ -50,9 +50,9 @@ export default function RecipeOverview() {
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    {recipes.currentPage == 0 ? null : <span className="material-symbols-outlined" onClick={beforePage}>navigate_before</span>}
+                    {recipes.currentPage === 0 ? null : <span className="material-symbols-outlined" onClick={beforePage}>navigate_before</span>}
                     <p>{`${recipes.currentPage +1} von ${recipes.totalPages}`}</p>
-                    {page == recipes.totalPages -1 ? null : <span className="material-symbols-outlined" onClick={nextPage}>navigate_next</span>}
+                    {recipes.currentPage === recipes.totalPages -1 ? null : <span className="material-symbols-outlined" onClick={nextPage}>navigate_next</span>}
 				</div>
 			</div>
 		);
