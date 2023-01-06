@@ -45,7 +45,7 @@ export default function RecipeEditor() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setRecipe({...recipe, time: (parseInt(time[0])*60) + parseInt(time[1])});
-        postRecipe(recipe);
+        let error = postRecipe(recipe);
     };
 
     return (

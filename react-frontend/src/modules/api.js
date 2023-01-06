@@ -29,6 +29,8 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 }
 
 export function useGetRecipePage({q = undefined, sort = 'title', size = 10, page = 0}) {
+	const [error, setError] = useState(null);
+	
 	const [data, setData] = useState(null);
 
 	let uri = new URL(`${api_url}/recipes`);
@@ -40,36 +42,41 @@ export function useGetRecipePage({q = undefined, sort = 'title', size = 10, page
 	useEffect(() => {
 		fetch(uri)
 			.then((res) => {
-				if (res.status == 404) throw `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`
-				else if (res.status == 500) throw `${res.status} ${res.statusText} - Serverfehler`
-				else if (!res.ok) throw `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
+				if (res.status == 404) setError(`${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`)
+				else if (res.status == 500) setError(`${res.status} ${res.statusText} - Serverfehler`)
+				else if (!res.ok) setError(`${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`)
 				else return res.json()
 			})
 			.then((data) => setData(data));
 	}, [q, sort, size, page]);
 
-	return data;
+	return [data, error];
 }
 
 export function useGetRecipe(id) {
+	const [error, setError] = useState(null);
+	
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
 		fetch(`${api_url}/recipes/${id}`)
 			.then((res) => {
-				if (res.status == 404) throw `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
-				else if (res.status == 500) throw `${res.status} ${res.statusText} - Serverfehler`
-				else if (!res.ok) throw `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
+				if (res.status == 404) setError(`${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`)
+				else if (res.status == 500) setError(`${res.status} ${res.statusText} - Serverfehler`)
+				else if (!res.ok) setError(`${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`)
 				else return res.json()
 			})
 			.then((data) => setData(data));
 	}, []);
 
-	return data;
+	return [data, error];
 }
 
 export async function postRecipe(recipe) {
-	return fetch(`${api_url}/recipes`, {
+
+	let error = null;
+
+	fetch(`${api_url}/recipes`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -78,15 +85,20 @@ export async function postRecipe(recipe) {
 		body: JSON.stringify(recipe)
 	})
 	.then((res) => {
-		if (res.status == 401) throw `${res.status} ${res.statusText} - User ist nicht Angemeldet`
-		else if (res.status == 500) throw `${res.status} ${res.statusText} - Serverfehler`
-		else if (!res.ok) throw `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
-		else return res.status
+		if (res.status == 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
+		else if (res.status == 500) error = `${res.status} ${res.statusText} - Serverfehler`
+		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
 	})
+
+	return error;
+
 }
 
 export async function putRecipe(id, recipe) {
-	return fetch(`${api_url}/recipes/${id}`, {
+	
+	let error = null;
+
+	fetch(`${api_url}/recipes/${id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json'
@@ -94,25 +106,32 @@ export async function putRecipe(id, recipe) {
 		body: JSON.stringify(recipe)
 	})
 	.then((res) => {
-		if (res.status == 401) throw `${res.status} ${res.statusText} - User ist nicht Angemeldet`
-		else if (res.status == 403) throw `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
-		else if (res.status == 404) throw `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
-		else if (res.status == 500) throw `${res.status} ${res.statusText} - Serverfehler`
-		else if (!res.ok) throw `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
-		else return res.status
+		if (res.status == 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
+		else if (res.status == 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
+		else if (res.status == 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
+		else if (res.status == 500) error = `${res.status} ${res.statusText} - Serverfehler`
+		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
 	})
+
+	return error;
+	
 }
 
 export async function deleteRecipe(id) {
-	return fetch(`${api_url}/recipes/${id}`, {
+	
+	let error = null;
+
+	fetch(`${api_url}/recipes/${id}`, {
 		method: 'DELETE'
 	})
 	.then((res) => {
-		if (res.status == 401) throw `${res.status} ${res.statusText} - User ist nicht Angemeldet`
-		else if (res.status == 403) throw `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
-		else if (res.status == 404) throw `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
-		else if (res.status == 500) throw `${res.status} ${res.statusText} - Serverfehler`
-		else if (!res.ok) throw `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
-		else return res.status
+		if (res.status == 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
+		else if (res.status == 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
+		else if (res.status == 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
+		else if (res.status == 500) error = `${res.status} ${res.statusText} - Serverfehler`
+		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
 	})
+
+	return error;
+
 }
