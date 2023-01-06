@@ -66,7 +66,7 @@ export default function RecipeEditor() {
                                           setRecipe({...recipe, description: event.target.value})
                                       }}></textarea>
                         </div>
-                        <button className={"btn btn-primary"} type="submit">
+                        <button className={"btn btn-primary hide-mobile hide-tablet"} type="submit">
                             Rezept speichern
                         </button>
                     </div>
@@ -104,6 +104,9 @@ export default function RecipeEditor() {
                         <div className={styles["ingredient-table-wrapper"]}>
                             <IngredientsContainerEditable/>
                         </div>
+                        <button className={"btn btn-primary hide-desktop"} type="submit">
+                            Rezept speichern
+                        </button>
                     </div>
 
 
