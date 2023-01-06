@@ -7,6 +7,7 @@ import image_02 from './image-02.jpg';
 import image_03 from './image-03.jpg';
 import {useParams} from "react-router-dom";
 import {useGetRecipe} from "../../modules/api";
+import Throbber from "../../modules/throbber/throbber";
 
 export default function ImageSlider() {
 
@@ -56,6 +57,6 @@ export default function ImageSlider() {
             </div>
         </div>);
     } else {
-        return (<div>loading</div>);
+        return (<Throbber/>);
     }
 }

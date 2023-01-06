@@ -3,6 +3,7 @@ import styles from './RecipeDescription.module.css';
 import IngredientsContainer from "./IngredientsContainer";
 import { useGetRecipe, getFormatedTime } from '../../modules/api';
 import { useParams } from "react-router-dom";
+import Throbber from "../../modules/throbber/throbber";
 
 export default function RecipeDescription() {
 
@@ -44,6 +45,6 @@ export default function RecipeDescription() {
             </div>
         )
     } else {
-        return (<div>Loading</div>)
+        return (<Throbber/>);
     }
 }

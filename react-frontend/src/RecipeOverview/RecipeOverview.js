@@ -8,6 +8,7 @@ import styles from './RecipeOverview.module.css';
 
 import RecipeCard from './RecipeCard/RecipeCard';
 import { useState } from 'react';
+import Throbber from "../modules/throbber/throbber";
 
 export default function RecipeOverview() {
 
@@ -57,6 +58,6 @@ export default function RecipeOverview() {
 			</div>
 		);
 	} else {
-		return <div>loading</div>;
+        return (<Throbber/>);
 	}
 }
