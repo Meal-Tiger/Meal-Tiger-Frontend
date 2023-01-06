@@ -16,7 +16,7 @@ export default function RecipeOverview() {
 
 	let navigate = useNavigate();
 	let {query, page} = useParams();
-	let recipes = useGetRecipePage({q: query, page: page, size: itemsPerPage});
+	let [recipes, error] = useGetRecipePage({q: query, page: page, size: itemsPerPage});
 
     function nextPage(){
 
