@@ -1,6 +1,8 @@
 :root {
     --navbar-height: 10rem;
     --navbar-height-mobile: 6rem;
+    --footer-height: 10rem;
+    --footer-height-mobile: 6rem;
     --font-size-heading: 3.2rem;
     --font-size-sub-heading: 2.6rem;
     --font-size-highlighted: 1.8rem;
