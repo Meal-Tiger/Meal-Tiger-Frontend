@@ -6,21 +6,24 @@ import Navbar from './navbar/Navbar';
 import RecipeOverview from './RecipeOverview/RecipeOverview';
 import RecipeFullView from './recipe-full-view/RecipeFullView';
 import RecipeEditor from 'recipe-editor/RecipeEditor';
+import ErrorBoundary from "./modules/ErrorBoundary/ErrorBoundary";
 
 function App() {
 
 	return (
 			<BrowserRouter>
-				<Navbar/>
-				<div className='main-content'>
-					<Routes>
-						<Route path="/" element={<RecipeOverview/>}/>
-						<Route path="/page/:page" element={<RecipeOverview />}/>
-						<Route path="/recipe/:recipeId" element={<RecipeFullView />}/>
-						<Route path="/add-recipe" element={<RecipeEditor/>}/>
-						<Route path="/search/:query/page/:page" element={<RecipeOverview />}/>
-					</Routes>
-				</div>
+				<ErrorBoundary> <Navbar/> </ErrorBoundary>
+					<div className='main-content'>
+						<ErrorBoundary>
+							<Routes>
+								<Route path="/" element={<RecipeOverview/>}/>
+								<Route path="/page/:page" element={<RecipeOverview />}/>
+								<Route path="/recipe/:recipeId" element={<RecipeFullView />}/>
+								<Route path="/add-recipe" element={<RecipeEditor/>}/>
+								<Route path="/search/:query/page/:page" element={<RecipeOverview />}/>
+							</Routes>
+						</ErrorBoundary>
+					</div>
 			</BrowserRouter>
 	);
 }
