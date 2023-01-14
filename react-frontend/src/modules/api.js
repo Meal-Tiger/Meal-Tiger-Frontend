@@ -42,8 +42,8 @@ export function useGetRecipePage({q = undefined, sort = 'title', size = 10, page
 	useEffect(() => {
 		fetch(uri)
 			.then((res) => {
-				if (res.status == 404) setError(`${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`)
-				else if (res.status == 500) setError(`${res.status} ${res.statusText} - Serverfehler`)
+				if (res.status === 404) setError(`${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`)
+				else if (res.status === 500) setError(`${res.status} ${res.statusText} - Serverfehler`)
 				else if (!res.ok) setError(`${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`)
 				else return res.json()
 			})
@@ -61,8 +61,8 @@ export function useGetRecipe(id) {
 	useEffect(() => {
 		fetch(`${api_url}/recipes/${id}`)
 			.then((res) => {
-				if (res.status == 404) setError(`${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`)
-				else if (res.status == 500) setError(`${res.status} ${res.statusText} - Serverfehler`)
+				if (res.status === 404) setError(`${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`)
+				else if (res.status === 500) setError(`${res.status} ${res.statusText} - Serverfehler`)
 				else if (!res.ok) setError(`${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`)
 				else return res.json()
 			})
@@ -85,8 +85,8 @@ export async function postRecipe(recipe) {
 		body: JSON.stringify(recipe)
 	})
 	.then((res) => {
-		if (res.status == 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
-		else if (res.status == 500) error = `${res.status} ${res.statusText} - Serverfehler`
+		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
+		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`
 		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
 	})
 
@@ -106,10 +106,10 @@ export async function putRecipe(id, recipe) {
 		body: JSON.stringify(recipe)
 	})
 	.then((res) => {
-		if (res.status == 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
-		else if (res.status == 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
-		else if (res.status == 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
-		else if (res.status == 500) error = `${res.status} ${res.statusText} - Serverfehler`
+		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
+		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
+		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
+		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`
 		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
 	})
 
@@ -125,10 +125,10 @@ export async function deleteRecipe(id) {
 		method: 'DELETE'
 	})
 	.then((res) => {
-		if (res.status == 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
-		else if (res.status == 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
-		else if (res.status == 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
-		else if (res.status == 500) error = `${res.status} ${res.statusText} - Serverfehler`
+		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`
+		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`
+		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`
+		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`
 		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`
 	})
 
