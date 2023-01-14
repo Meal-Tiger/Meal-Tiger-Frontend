@@ -1,13 +1,126 @@
+@import url("./vars.css");
+@import url("./fonts.css");
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: "PT Sans", sans-serif;
+    font-size: var(--font-size-body);
+}
+
+textarea, button, input{
+    font-family: "PT Sans", sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html {
+    font-size: 10px;
+}
+
+h1 {
+    font-family: "Raleway", sans-serif;
+    font-size: var(--font-size-heading);
+    margin-bottom: var(--space-3);
+}
+
+h2, h3, h4 {
+    font-family: "Raleway", sans-serif;
+    font-size: var(--font-size-sub-heading);
+    margin-bottom: var(--space-2);
+}
+
+h5, h6, label, .highlighted {
+    font-family: "Raleway", sans-serif;
+    font-size: var(--font-size-highlighted);
+    margin-bottom: var(--space-2);
+}
+
+p {
+    margin-bottom: var(--space-2);
+}
+
+.main-content {
+    max-width: 1140px;
+    margin: auto;
+    padding: var(--space-4) 0;
+}
+@media screen and (max-width: 1140px) {
+    .main-content{
+        padding: var(--space-2);
+    }
+}
+
+.btn{
+    cursor: pointer;
+    border-radius: 0.6rem;
+    transition: background-color 0.5s;
+    padding: var(--space-1) var(--space-2);
+}
+
+
+.btn:active{
+    transform: scale(0.9);
+}
+
+.btn.btn-primary{
+    color: var(--color-primary);
+    background-color: var(--background-primary);
+    border: 0.2rem solid var(--border-color);
+}
+.btn.btn-primary:hover{
+    color: var(--color-secondary);
+    background-color: var(--background-secondary);
+}
+
+.btn.btn-secondary{
+    color: var(--color-secondary);
+    background-color: var(--background-secondary);
+    border: 0.2rem solid var(--border-color);
+}
+.btn.btn-secondary:hover{
+    color: var(--color-primary);
+    background-color: var(--background-primary);
+}
+
+.btn.btn-icon{
+    background-color:  #E0E4D6;
+    border: 0.2rem solid var(--border-color);
+    align-items: center;
+}
+
+input, select, textarea{
+    border: 0.2rem solid var(--border-color);
+    border-radius: 0.6rem;
+    padding: var(--space-1) var(--space-2);
+}
+input[type="file"]{
+    border: none;
+}
+
+input.error, textarea.error {
+    border-color: var(--border-color-error);
+    background-color: var(--background-error);
+}
+
+@media screen and (max-width: 768px ){
+    .hide-mobile{
+        display: none;
+    }
+}
+@media  only screen and (min-width: 769px) and (max-width: 1023px){
+    .hide-tablet{
+        display: none;
+    }
+}
+@media  only screen and (min-width: 1024px){
+    .hide-desktop{
+        display: none;
+    }
 }

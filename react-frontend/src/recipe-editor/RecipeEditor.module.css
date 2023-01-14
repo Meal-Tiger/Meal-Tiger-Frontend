@@ -1,0 +1,189 @@
+.container {
+    display: flex;
+}
+
+.left-column {
+    width: 35%;
+    margin-right: var(--space-2);
+}
+
+.right-column {
+    width: 65%;
+}
+
+.image-container {
+    position: relative;
+    height: 5.2rem;
+    margin-bottom: var(--space-3);
+}
+
+.has-picture {
+    padding-bottom: 50%;
+}
+
+.add-new-image {
+    bottom: 0;
+    position: absolute;
+    left: 0;
+}
+
+.preview-image-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+}
+
+.main-image {
+    flex: 70%;
+}
+
+.right-images {
+    flex: 30%;
+}
+
+.main-image, .right-images div {
+    border-radius:  0.6rem;
+    background-color: gray;
+    padding: var(--space-2);
+    background-size: cover;
+}
+
+.right-images div {
+    margin: var(--space-2);
+    height: 33%;
+}
+
+.right-images {
+    display: flex;
+    flex-direction: column;
+}
+
+.symbols-difficulty {
+    cursor: pointer;
+}
+
+.symbols-difficulty.inactive {
+    color: lightgray;
+}
+
+.symbols-difficulty.active {
+    color: black;
+}
+
+.information-container {
+    display: flex;
+}
+
+.information-container-child {
+    display: flex;
+    align-items: center;
+}
+
+.information-container-child:first-child {
+    margin-right: var(--space-2);
+    margin-bottom: var(--space-2);
+}
+
+.schedule-input {
+    width: 7rem;
+    margin-right: var(--space-1);
+}
+
+.schedule-input-text {
+    margin-right: var(--space-2);
+}
+
+.recipe-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-3);
+}
+
+.recipe-input label {
+    margin-bottom: var(--space-1);
+}
+
+.upload-image-label {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.6rem;
+}
+
+#uploadImage {
+    display: none;
+}
+
+.preview-images-right {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.first-preview-image {
+    width: 70%;
+    margin-right: var(--space-2);
+    display: flex;
+    justify-content: center;
+}
+
+.first-preview-image img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    padding: 0 0 var(--space-5) 0;
+}
+
+.preview-image {
+    width: 100%;
+    height: auto;
+    margin: var(--space-1) 0;
+}
+
+.preview-image:hover {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.ingredient-table-wrapper {
+    margin-bottom: var(--space-2);
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-column {
+        width: 100%;
+    }
+
+    .right-column {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .preview-image-container {
+        max-width: 100%;
+    }
+
+    .has-picture {
+        padding-bottom: 100%;
+    }
+
+    .information-container {
+        flex-direction: column;
+    }
+
+    .ingredient-table-wrapper {
+        overflow-x: scroll;
+    }
+}

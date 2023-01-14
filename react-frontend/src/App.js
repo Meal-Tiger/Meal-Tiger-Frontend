@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
 
+import {Route, BrowserRouter, Routes} from 'react-router-dom';
+
+import Navbar from './navbar/Navbar';
+import RecipeOverview from './RecipeOverview/RecipeOverview';
+import RecipeFullView from './recipe-full-view/RecipeFullView';
+import RecipeEditor from 'recipe-editor/RecipeEditor';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+	return (
+			<BrowserRouter>
+				<Navbar/>
+				<div className='main-content'>
+					<Routes>
+						<Route path="/" element={<RecipeOverview/>}/>
+						<Route path="/page/:page" element={<RecipeOverview />}/>
+						<Route path="/recipe/:recipeId" element={<RecipeFullView />}/>
+						<Route path="/add-recipe" element={<RecipeEditor/>}/>
+						<Route path="/search/:query/page/:page" element={<RecipeOverview />}/>
+					</Routes>
+				</div>
+			</BrowserRouter>
+	);
 }
 
 export default App;

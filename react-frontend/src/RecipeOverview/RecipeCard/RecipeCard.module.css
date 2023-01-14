@@ -1,0 +1,42 @@
+.user{
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.recipe-card{
+     border: 0.2rem solid var(--border-color);
+     border-radius: 0.6rem;
+     display: inline-flex;
+     flex-direction: row;
+     width: calc(100%/3 - var(--space-5));
+     height: 25rem;
+     cursor: pointer;
+}
+
+@media only screen and (max-width: 1023px) {
+    .recipe-card{width: calc(100%/2 - var(--space-5));}
+}
+
+@media only screen and (max-width: 768px) {
+      .recipe-card{width: 100%;}
+}
+
+.recipe-card .recipe-card-img{
+    width: 50%;
+    height:initial;
+    border-radius: 0.6rem;
+    background-size: cover;
+    background-position: center;
+}
+
+.recipe-card .recipe-card-infobox{
+   width: 50%;
+   padding: var(--space-3) var(--space-2);
+}
+
+.recipe-card .recipe-card-info{
+     display: flex;
+     align-items: center;
+     margin-bottom: var(--space-2);
+}

@@ -1,0 +1,45 @@
+.recipe-overview-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    padding: var(--space-4) 0 var(--space-6) 0;
+}
+
+.filter-top{
+    display: flex;
+    justify-content: space-between;
+}
+@media only screen and (max-width: 768px) {
+    .filter-top{display: block}
+}
+
+.next-page-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-4) var(--space-1);
+    background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%),linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+    background-position: bottom, top;
+    background-size: 15px 1px;
+    background-repeat: repeat-x, repeat-x;
+}
+
+.change-page{
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    border-radius: 0.6rem;
+    margin: 0 var(--space-2);
+}
+
+.inner-pagination{
+    padding: 0 var(--space-3);
+}
+.inner-pagination span{
+    padding: 0 var(--space-1);
+}
+.inner-pagination .active{
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: var(--font-size-highlighted);
+}
