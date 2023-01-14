@@ -5,9 +5,9 @@ export default function Footer(){
     return (
         <footer className={styles.footer}>
             <div className={`${styles["footer-container"]}`}>
-                <Link to={"/impressum"}>Impressum</Link>
+                <Link to={"/imprint"}>Impressum</Link>
                 •
-                <Link to={"/datenschutz"}>Datenschutz</Link>
+                <Link to={"/privacy"}>Datenschutz</Link>
             </div>
         </footer>
     )
