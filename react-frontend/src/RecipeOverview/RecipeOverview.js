@@ -9,6 +9,7 @@ import styles from './RecipeOverview.module.css';
 import RecipeCard from './RecipeCard/RecipeCard';
 import { useState } from 'react';
 import Throbber from "../modules/throbber/throbber";
+import Modal from 'modules/Modal/Modal';
 
 export default function RecipeOverview() {
 
@@ -58,7 +59,7 @@ export default function RecipeOverview() {
 			</div>
 		);
 	} else if(error){
-        return <div>{error}</div>
+        return (<Modal className="error" show={true}>{error}</Modal>);
     }else {
         return (<Throbber/>);
 	}
