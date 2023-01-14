@@ -44,7 +44,7 @@ h5, h6, label, .highlighted {
 
 p {
     margin-bottom: var(--space-2);
-}
+} 
 
 .main-content {
     max-width: 1140px;
@@ -61,6 +61,14 @@ p {
     .main-content{
         min-height: calc(100vh - var(--navbar-height-mobile) - var(--footer-height-mobile));
     }
+}
+
+.error {
+    color: var(--color-secondary) !important;
+    border-color: var(--border-color-error) !important;
+    border-width: 0.2rem !important;
+    border-style: solid !important;
+    background-color: var(--background-error) !important;
 }
 
 .btn{
