@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Meal-Tiger-Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+Meal-Tiger is a recipe website. It was made for a uni project for the module "Software Development 3" in the third
+semester of the course "BSc Medieninformatik" (engl.: "Computer Science and Media")
+at [Hochschule der Medien / Stuttgart Media University](https://www.hdm-stuttgart.de).
 
-In the project directory, you can run:
+The application developed in this repository serves as the frontend for the website.
 
-### `npm start`
+## How to build and use
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Dependencies
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Build Dependencies
 
-### `npm test`
+For building this project you need to have Node.js and npm installed. Depending on your operating system, steps may vary.
+Therefore, the below installation instructions might not apply.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Installing Node.js via package manager](https://nodejs.org/en/download/package-manager/)
 
-### `npm run build`
+### The building process
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After cloning the repository you may run the following commands within the react-frontend folder:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm ci`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm run build --if-present`
 
-### `npm run eject`
+After the process of building, you should find the built project in the folder build.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### How to use
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To deploy the application you can copy the contents of the build folder to a webserver or build a docker container and deploy that. Instructions for building and deploying the docker container will follow.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Configuration
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+A guide on how to configure the application will follow.
 
-## Learn More
+## Dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Runtime dependencies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+|Dependency|Creator|License|
+|:--:|:--:|:--:|
+|[Spring Boot Framework](https://github.com/spring-projects/spring-boot)|[VMware, Inc. and contributors](https://github.com/spring-projects)|[Apache-2.0 License](https://github.com/spring-projects/spring-boot/blob/main/LICENSE.txt)|
+|[Spring Data MongoDB](https://github.com/spring-projects/spring-data-mongodb)|[VMware, Inc. and contributors](https://github.com/spring-projects)|[Apache-2.0 License](https://github.com/spring-projects/spring-data-mongodb/blob/main/LICENSE.txt)|
+|[Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot)|[Okta](https://github.com/okta)|[Apache-2.0 License](https://opensource.org/licenses/Apache-2.0)|
+|[SnakeYAML](https://bitbucket.org/snakeyaml/snakeyaml/src/master/)|[SnakeYAML team of developers](https://bitbucket.org/snakeyaml/snakeyaml/src)|[Apache-2.0 License](https://bitbucket.org/snakeyaml/snakeyaml/src/master/LICENSE.txt)|
 
-### Code Splitting
+### Testing dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+|Dependency|Creator|License|
+|:--:|:--:|:--:|
+|[Spring Boot Test Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test/2.7.5)|[VMware, Inc. and contributors](https://github.com/spring-projects)|[Apache-2.0 License](https://opensource.org/licenses/Apache-2.0)
 
-### Analyzing the Bundle Size
+## Copyright
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Meal-Tiger-Frontend (c) 2022 [Kay Knöpfle](https://github.com/Joystick01), [Dorina Sobiecki](https://github.com/DorinaSobiecki), [JohannesHausch](https://github.com/JohannesHausch), [Konstantinos Gimoussiakakis](https://github.com/Kostanix)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+SPDX-License-Identifier: GPL-3.0
