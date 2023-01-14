@@ -1,0 +1,33 @@
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--footer-height);
+    background-color: var(--border-color);
+    box-shadow: 0 0 16px 0 #0003;
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer{
+        height: var(--footer-height-mobile);
+    }
+}
+
+.footer-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    column-gap: 2rem;
+}
+
+.footer-container a{
+    color: white;
+}
+
+
+

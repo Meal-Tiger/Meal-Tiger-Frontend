@@ -11,6 +11,10 @@ body {
     font-size: var(--font-size-body);
 }
 
+textarea, button, input{
+    font-family: "PT Sans", sans-serif;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -46,10 +50,16 @@ p {
     max-width: 1140px;
     margin: auto;
     padding: var(--space-4) 0;
+    min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
 }
 @media screen and (max-width: 1140px) {
     .main-content{
         padding: var(--space-2);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .main-content{
+        min-height: calc(100vh - var(--navbar-height-mobile) - var(--footer-height-mobile));
     }
 }
 
