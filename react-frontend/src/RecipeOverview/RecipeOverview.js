@@ -16,7 +16,7 @@ export default function RecipeOverview() {
 
 	let navigate = useNavigate();
 	let {query, page} = useParams();
-	let recipes = useGetRecipePage({q: query, page: page, size: itemsPerPage});
+	let [recipes, error] = useGetRecipePage({q: query, page: page, size: itemsPerPage});
 
     function changePage(pageNumber){
         if(query){
@@ -46,8 +46,6 @@ export default function RecipeOverview() {
             navigate(`/page/${recipes.currentPage - 1}`)
         }
     }
-
-    console.log(recipes);
 
 	if (recipes && recipes.recipes) {
 		return (

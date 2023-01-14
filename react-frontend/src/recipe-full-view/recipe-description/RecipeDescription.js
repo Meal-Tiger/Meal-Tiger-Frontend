@@ -8,7 +8,7 @@ import Throbber from "../../modules/throbber/throbber";
 export default function RecipeDescription() {
 
     let { recipeId } = useParams();
-    let recipe = useGetRecipe(recipeId);
+    let [recipe, error] = useGetRecipe(recipeId);
     if(recipe)
     {
         return (
