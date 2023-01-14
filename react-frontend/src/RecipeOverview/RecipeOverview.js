@@ -47,8 +47,6 @@ export default function RecipeOverview() {
         }
     }
 
-    console.log(recipes);
-
 	if (recipes && recipes.recipes) {
 		return (
 			<div>
