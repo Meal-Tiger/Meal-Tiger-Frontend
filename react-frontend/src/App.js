@@ -21,16 +21,18 @@ function App() {
 						<ErrorBoundary>
 							<Routes>
 								<Route path="/" element={<RecipeOverview/>}/>
+								<Route path="/imprint" element={<SiteNotice/>}/>
+								<Route path="/privacy" element={<DataPrivacy/>}/>
 								<Route path="/page/:page" element={<RecipeOverview />}/>
 								<Route path="/recipe/:recipeId" element={<RecipeFullView />}/>
 								<Route path="/add-recipe" element={<RecipeEditor/>}/>
 								<Route path="/search/:query/page/:page" element={<RecipeOverview />}/>
-                <Route path="/add-recipe" element={<RecipeEditor/>}/>
-						    <Route path="/search/:query/page/:page" element={<RecipeOverview />}/>
+                				<Route path="/add-recipe" element={<RecipeEditor/>}/>
+						    	<Route path="/search/:query/page/:page" element={<RecipeOverview />}/>
 							</Routes>
 						</ErrorBoundary>
-            <ErrorBoundary> <Footer/> </ErrorBoundary>
 					</div>
+				<ErrorBoundary> <Footer/> </ErrorBoundary>
 			</BrowserRouter>
 	);
 }
