@@ -44,17 +44,31 @@ h5, h6, label, .highlighted {
 
 p {
     margin-bottom: var(--space-2);
-}
+} 
 
 .main-content {
     max-width: 1140px;
     margin: auto;
     padding: var(--space-4) 0;
+    min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
 }
 @media screen and (max-width: 1140px) {
     .main-content{
         padding: var(--space-2);
     }
+}
+@media only screen and (max-width: 768px) {
+    .main-content{
+        min-height: calc(100vh - var(--navbar-height-mobile) - var(--footer-height-mobile));
+    }
+}
+
+.error {
+    color: var(--color-secondary) !important;
+    border-color: var(--border-color-error) !important;
+    border-width: 0.2rem !important;
+    border-style: solid !important;
+    background-color: var(--background-error) !important;
 }
 
 .btn{

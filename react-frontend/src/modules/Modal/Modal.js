@@ -13,7 +13,7 @@ export default function Modal(props){
 
     return (
         <div className={styles.background} onClick={closeModal}>
-            <div className={styles.modal} onClick={e => e.stopPropagation()}>
+            <div className={`${styles.modal} ${props.className}`} onClick={e => e.stopPropagation()}>
                 {props.children}
             </div>
         </div>
