@@ -325,10 +325,10 @@ export async function postImages(images) {
 	let formdata = new FormData()
 	
 	images.forEach(image => {
-		formdata.append("file", image)
+		formdata.append("files", image)
 	});
 
-	fetch(`${api_url}/recipes`, {
+	fetch(`${api_url}/images`, {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${await getAccessToken()}`
