@@ -11,10 +11,37 @@ import Footer from "./footer/Footer";
 import SiteNotice from "./footer/SiteNotice/SiteNotice";
 import DataPrivacy from "./footer/DataPrivacy/DataPrivacy";
 
+import LoginContext from 'modules/LoginContext';
+import { useState, useEffect } from 'react';
+import { getAccessToken, logout } from 'modules/oidc';
+import { useEvent } from 'modules/events';
+
 
 function App() {
 
+	const [loginStatus, setLoginStatus] = useState(false);
+
+	useEffect(() => {
+		getAccessToken().then((token) => {
+			if(token){
+				setLoginStatus(true);
+			}
+			else{
+				logout();
+			}
+		});
+	}, [])
+
+	useEvent("login", () => {
+		setLoginStatus(true);
+	})
+	
+	useEvent("logout", () => {
+		setLoginStatus(false);
+	})
+
 	return (
+		<LoginContext.Provider value={{loginStatus: loginStatus, setLoginStatus: setLoginStatus}}>
 			<BrowserRouter>
 				<ErrorBoundary> <Navbar/> </ErrorBoundary>
 					<div className='main-content'>
@@ -34,6 +61,7 @@ function App() {
 					</div>
 				<ErrorBoundary> <Footer/> </ErrorBoundary>
 			</BrowserRouter>
+		</LoginContext.Provider>
 	);
 }
 
