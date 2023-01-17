@@ -80,8 +80,8 @@ export async function getRecipe(id) {
 	else json = await res.json();
 	if (json)  {
 		data = json
-		data.rating = await getAverageRating(recipe.id);
-		data.user = await getUserById(recipe.userId);
+		data.rating = await getAverageRating(json.id);
+		data.user = await getUserById(json.userId);
 	};
 
 	return [data, error];

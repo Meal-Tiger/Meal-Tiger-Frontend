@@ -66,7 +66,7 @@ export async function login(){
                 })
             });
 
-            if (!response.ok) throw `${response.status} ${response.statusText} - ${response.body}`
+            if (!response.ok) throw new Error(`${response.status} ${response.statusText} - ${response.body}`)
 
             const body = await response.json();
 
@@ -99,7 +99,7 @@ export async function logout(){
         })
     });
 
-    if (!response.ok) throw `${response.status} ${response.statusText} - ${response.body}`
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText} - ${response.body}`)
 
     localStorage.removeItem("access_token")
     localStorage.removeItem("access_token_ttl")
@@ -133,7 +133,7 @@ async function refreshToken(){
         })
     });
 
-    if (!response.ok) throw `${response.status} ${response.statusText} - ${response.body}`
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText} - ${response.body}`)
 
     const body = await response.json();
 
