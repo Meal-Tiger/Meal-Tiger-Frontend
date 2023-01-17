@@ -80,8 +80,8 @@ export async function getRecipe(id) {
 	else json = await res.json();
 	if (json)  {
 		data = json
-		data.rating = await getAverageRating(recipe.id);
-		data.user = await getUserById(recipe.userId);
+		data.rating = await getAverageRating(json.id);
+		data.user = await getUserById(json.userId);
 	};
 
 	return [data, error];
@@ -104,18 +104,30 @@ export function useGetRecipe(id) {
 export async function postRecipe(recipe) {
 	let error = null;
 
-	fetch(`${api_url}/recipes`, {
+	const res = await fetch(`${api_url}/recipes`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify(recipe)
-	}).then((res) => {
-		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+	
+	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+
+	return error;
+}
+
+export function usePostRecipe(recipe){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		postRecipe(recipe).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -123,20 +135,32 @@ export async function postRecipe(recipe) {
 export async function putRecipe(id, recipe) {
 	let error = null;
 
-	fetch(`${api_url}/recipes/${id}`, {
+	const res = await fetch(`${api_url}/recipes/${id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify(recipe)
-	}).then((res) => {
-		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`;
-		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+
+	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`;
+	else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+
+	return error;
+}
+
+export function usePutRecipe(recipe){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		putRecipe(recipe).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -144,19 +168,31 @@ export async function putRecipe(id, recipe) {
 export async function deleteRecipe(id) {
 	let error = null;
 
-	fetch(`${api_url}/recipes/${id}`, {
+	const res = await fetch(`${api_url}/recipes/${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${await getAccessToken()}`
 		}
-	}).then((res) => {
-		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`;
-		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+	
+	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`;
+	else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+
+	return error;
+}
+
+export function useDeleteRecipe(id){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		deleteRecipe(id).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -249,7 +285,7 @@ export function useGetAverageRating(id){
 export async function postRating(id, {rating = undefined, comment = undefined}) {
 	let error = null;
 
-	fetch(`${api_url}/recipes/${id}/ratings`, {
+	const res = await fetch(`${api_url}/recipes/${id}/ratings`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -259,14 +295,26 @@ export async function postRating(id, {rating = undefined, comment = undefined}) 
 			rating: rating,
 			comment: comment
 		})
-	}).then((res) => {
-		if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
-		else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
-		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+	
+	if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
+	else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
+	else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+
+	return error;
+}
+
+export function usePostRating(id, {rating = undefined, comment = undefined}){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		postRating(id, {rating: rating, comment: comment}).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -274,7 +322,7 @@ export async function postRating(id, {rating = undefined, comment = undefined}) 
 export async function putRating(id, {rating = undefined, comment = undefined}) {
 	let error = null;
 
-	fetch(`${api_url}/recipes/${id}/ratings`, {
+	const res = await fetch(`${api_url}/recipes/${id}/ratings`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -284,14 +332,26 @@ export async function putRating(id, {rating = undefined, comment = undefined}) {
 			rating: rating,
 			comment: comment
 		})
-	}).then((res) => {
+	})
+	
 		if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
 		else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
 		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
 		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
 		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+
+	return error;
+}
+
+export function usePutRating(id, {rating = undefined, comment = undefined}){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		putRating(id, {rating: rating, comment: comment}).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -299,20 +359,32 @@ export async function putRating(id, {rating = undefined, comment = undefined}) {
 export async function deleteRating(id) {
 	let error = null;
 
-	fetch(`${api_url}/recipes/${id}/ratings`, {
+	const res = await fetch(`${api_url}/recipes/${id}/ratings`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${await getAccessToken()}`
 		}
-	}).then((res) => {
+	})
+	
 		if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
 		else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
 		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
 		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
 		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+
+	return error;
+}
+
+export function useDeleteRating(id){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		deleteRating(id).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -328,41 +400,65 @@ export async function postImages(images) {
 		formdata.append("files", image)
 	});
 
-	fetch(`${api_url}/images`, {
+	const res = await fetch(`${api_url}/images`, {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: formdata
-	}).then((res) => {
-		if (res.status === 400) error = `${res.status} ${res.statusText} - Nicht unterstütztes Format`;
-		else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+	
+	if (res.status === 400) error = `${res.status} ${res.statusText} - Nicht unterstütztes Format`;
+	else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 
 	return error;
+}
 
+export function usePostImages(images){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		postImages(images).then((error) => {
+			setError(error);
+		});
+	}, []);
+
+	return error;
 }
 
 export async function deleteImage(id) {
 	let error = null;
 
-	fetch(`${api_url}/image/${id}`, {
+	const res = await fetch(`${api_url}/image/${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Authorization': `Bearer ${await getAccessToken()}`
 		}
-	}).then((res) => {
+	})
+
 		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
 		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Bild zu löschen`;
 		else if (res.status === 404) error = `${res.status} ${res.statusText} - Bild wurde nicht gefunden`;
 		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
 
 	return error;
 }
+
+export function useDeleteImage(id){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		deleteImage(id).then((error) => {
+			setError(error);
+		});
+	}, []);
+
+	return error;
+}
+
 //#endregion
 
 //#region User functions
@@ -400,7 +496,7 @@ export function useGetUser(){
 export async function postUser({username = undefined, picture = undefined}) {
 	let error = null;
 
-	fetch(`${api_url}/user`, {
+	const res = await fetch(`${api_url}/user`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -410,11 +506,23 @@ export async function postUser({username = undefined, picture = undefined}) {
 			username: username,
 			picture: picture
 		})
-	}).then((res) => {
-		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+	
+	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+
+	return error;
+}
+
+export function usePostUser({username = undefined, picture = undefined}){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		postUser({username: username, picture: picture}).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
@@ -422,7 +530,7 @@ export async function postUser({username = undefined, picture = undefined}) {
 export async function putUser({username = undefined, picture = undefined}) {
 	let error = null;
 
-	fetch(`${api_url}/user`, {
+	const res = await fetch(`${api_url}/user`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -432,11 +540,23 @@ export async function putUser({username = undefined, picture = undefined}) {
 			username: username,
 			picture: picture
 		})
-	}).then((res) => {
-		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	});
+	})
+	
+	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+
+	return error;
+}
+
+export function usePutUser({username = undefined, picture = undefined}){
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		putUser({username: username, picture: picture}).then((error) => {
+			setError(error);
+		});
+	}, []);
 
 	return error;
 }
