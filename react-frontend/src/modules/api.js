@@ -31,6 +31,30 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 //#endregion
 
 //#region Recipe functions
+export async function getRecipePage({q = undefined, sort = undefined, size = undefined, page = 0}) {
+	let uri = new URL(`${api_url}/recipes`);
+	if (q) uri.searchParams.append('q', q);
+	if (sort) uri.searchParams.append('sort', sort);
+	if (size) uri.searchParams.append('size', size);
+	if (page) uri.searchParams.append('page', page);
+
+	let res = await fetch(uri);
+	let error = null;
+	let data = null;
+	let json = null;
+	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	else json = await res.json();
+	if (json) json.recipes.map(async recipe => {
+		recipe.rating = await getAverageRating(recipe.id);
+		recipe.user = await getUserById(recipe.userId);
+	});
+
+
+	return [data, error];
+}
+
 export function useGetRecipePage({q = undefined, sort = undefined, size = undefined, page = 0}) {
 	const [error, setError] = useState(null);
 	const [data, setData] = useState(null);
@@ -45,6 +69,24 @@ export function useGetRecipePage({q = undefined, sort = undefined, size = undefi
 	return [data, error];
 }
 
+export async function getRecipe(id) {
+	let res = await fetch(`${api_url}/recipes/${id}`);
+	let error = null;
+	let data = null;
+	let json = null;
+	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
+	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
+	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	else json = await res.json();
+	if (json)  {
+		data = json
+		data.rating = await getAverageRating(recipe.id);
+		data.user = await getUserById(recipe.userId);
+	};
+
+	return [data, error];
+}
+
 export function useGetRecipe(id) {
 	const [error, setError] = useState(null);
 	const [data, setData] = useState(null);
@@ -55,36 +97,6 @@ export function useGetRecipe(id) {
 			setError(error);
 		});
 	}, []);
-
-	return [data, error];
-}
-
-export async function getRecipePage({q = undefined, sort = undefined, size = undefined, page = 0}) {
-	let uri = new URL(`${api_url}/recipes`);
-	if (q) uri.searchParams.append('q', q);
-	if (sort) uri.searchParams.append('sort', sort);
-	if (size) uri.searchParams.append('size', size);
-	if (page) uri.searchParams.append('page', page);
-
-	let res = await fetch(uri);
-	let error = null;
-	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else data = await res.json();
-
-	return [data, error];
-}
-
-export async function getRecipe(id) {
-	let res = await fetch(`${api_url}/recipes/${id}`);
-	let error = null;
-	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else data = await res.json();
 
 	return [data, error];
 }
@@ -151,14 +163,33 @@ export async function deleteRecipe(id) {
 //#endregion
 
 //#region Rating functions
-export async function getRatingsPage(id) {
-	const res = await fetch(`${api_url}/recipes/${id}/ratings`);
+export async function getRatingsPage(id, {sort = undefined, size = undefined, page = 0}) {
+	let uri = new URL(`${api_url}/recipes/${id}/ratings`);
+	if (sort) uri.searchParams.append('sort', sort);
+	if (size) uri.searchParams.append('size', size);
+	if (page) uri.searchParams.append('page', page);
+
+	const res = await fetch(uri);
 	let error = null;
 	let data = null;
 	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Bewertungen für dieses Rezept in der Datenbank gefunden`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
+
+	return [data, error];
+}
+
+export function useGetRatingsPage(id, {sort = undefined, size = undefined, page = 0}){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getRatingsPage({sort: sort, size: size, page: page}).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, [sort, size, page]);
 
 	return [data, error];
 }
@@ -175,6 +206,20 @@ export async function getRatingById(id) {
 	return [data, error];
 }
 
+export function useGetRatingById(id){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getRatingById(id).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
+
+	return [data, error];
+}
+
 export async function getAverageRating(id) {
 	const res = await fetch(`${api_url}/recipes/${id}/rating`);
 	let error = null;
@@ -183,6 +228,20 @@ export async function getAverageRating(id) {
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
+
+	return [data, error];
+}
+
+export function useGetAverageRating(id){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getAverageRating(id).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
 
 	return [data, error];
 }
@@ -324,6 +383,20 @@ export async function getUser() {
 	return [data, error];
 }
 
+export function useGetUser(){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getUser().then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
+
+	return [data, error];
+}
+
 export async function postUser({username = undefined, picture = undefined}) {
 	let error = null;
 
@@ -390,6 +463,20 @@ export async function getUserRecipesPage({sort = undefined, size = undefined, pa
 	return [data, error];
 }
 
+export function useGetUserRecipesPage({sort = undefined, size = undefined, page = 0}){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getUserRecipesPage({sort: sort, size: size, page: page}).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
+
+	return [data, error];
+}
+
 export async function getUserImages() {
 	let uri = new URL(`${api_url}/user/images`);
 
@@ -409,6 +496,20 @@ export async function getUserImages() {
 	return [data, error];
 }
 
+export function useGetUserImages(){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getUserImages().then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
+
+	return [data, error];
+}
+
 export async function getUserById(id) {
 	let res = await fetch(`${api_url}/user/${id}`);
 	let error = null;
@@ -417,6 +518,20 @@ export async function getUserById(id) {
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
+
+	return [data, error];
+}
+
+export function useGetUserById(id){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getUserById(id).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
 
 	return [data, error];
 }
@@ -438,6 +553,20 @@ export async function getUserRecipesPageById(id, {sort = undefined, size = undef
 	return [data, error];
 }
 
+export function useGetUserRecipesPageById(id, {sort = undefined, size = undefined, page = 0}){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getUserRecipesPageById(id, {sort: sort, size: size, page: page}).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
+
+	return [data, error];
+}
+
 export async function getUserImagesById(id) {
 	let uri = new URL(`${api_url}/user/images/${id}`);
 
@@ -448,6 +577,20 @@ export async function getUserImagesById(id) {
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
+
+	return [data, error];
+}
+
+export function useGetUserImagesById(id){
+	const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		getUserImagesById(id).then(([data, error]) => {
+			setData(data);
+			setError(error);
+		});
+	}, []);
 
 	return [data, error];
 }
