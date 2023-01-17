@@ -11,7 +11,7 @@ import Throbber from '../../modules/throbber/throbber';
 
 export default function ImageSlider() {
 	let {recipeId} = useParams();
-	let [recipe, _] = useGetRecipe(recipeId);
+	let [recipe] = useGetRecipe(recipeId);
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 
