@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import {getAccessToken} from './oidc';
 
 let api_url = "http://localhost:8080";
-if (window._env_) configuration_endpoint = window._env_.API_URL;
+if (window._env_) api_url = window._env_.API_URL;
 
 //#region Helper functions
 export function getFormatedTime(time) {
