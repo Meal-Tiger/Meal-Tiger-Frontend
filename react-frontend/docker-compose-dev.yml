@@ -1,0 +1,13 @@
+services:
+  frontend:
+    image: "node:alpine"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - API_URL=http://localhost:8080
+      - OIDC_CONFIGURATION_ENDPOINT=http://localhost:8090/realms/master/.well-known/openid-configuration
+      - OIDC_CLIENT_ID=mealtiger
+    ports:
+      - 3000:3000
+    command: sh -c "npm i && npm start"
