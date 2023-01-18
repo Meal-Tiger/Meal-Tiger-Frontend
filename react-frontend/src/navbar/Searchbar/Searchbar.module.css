@@ -5,6 +5,7 @@
 }
 
 .form input{
+    outline: none;
     border-radius: 0.6rem 0 0 0.6rem;
     width:100%;
 }
@@ -12,4 +13,8 @@
     border-radius: 0 0.6rem 0.6rem 0;
     border-left: none!important;
     display: flex;
+}
+
+.form button:active{
+    transform: none;
 }
