@@ -16,9 +16,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: react-frontend
 
     steps:
     - name: Checkout
@@ -39,10 +36,13 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
-        context: .
+        context: "{{defaultContext}}:react-frontend"
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
