@@ -3,7 +3,7 @@
 import {useState, useEffect} from 'react';
 import {getAccessToken} from './oidc';
 
-let api_url = null;
+let api_url = "http://localhost:8080";
 if (window._env_) configuration_endpoint = window._env_.API_URL;
 
 //#region Helper functions
