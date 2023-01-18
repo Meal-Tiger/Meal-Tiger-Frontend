@@ -14,7 +14,7 @@ export const RecipeContext = createContext({
     recipe: {
         title: "",
         description: "",
-        difficulty: 0,
+        difficulty: 1,
         rating: 5,
         time: 0,
         ingredients: []
@@ -33,7 +33,7 @@ export default function RecipeEditor() {
     const [recipe, setRecipe] = useState({
         title: "",
         description: "",
-        difficulty: 0,
+        difficulty: 1,
         rating: 5,
         time: 0,
         ingredients: []
