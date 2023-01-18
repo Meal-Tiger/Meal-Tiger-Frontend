@@ -3,7 +3,7 @@
 import {useState, useEffect} from 'react';
 import {getAccessToken} from './oidc';
 
-let api_url = process.env.REACT_APP_API_URL;
+let api_url = window._env_.API_URL;
 
 //#region Helper functions
 export function getFormatedTime(time) {
