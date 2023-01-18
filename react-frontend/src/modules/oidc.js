@@ -1,10 +1,13 @@
 import { login_event, logout_event } from "./events"
 
-let configuration_endpoint = window._env_.OIDC_CONFIGURATION_ENDPOINT;
+let configuration_endpoint = process.env.REACT_APP_OIDC_CONFIGURATION_ENDPOINT;
+if (window._env_) configuration_endpoint = window._env_.REACT_APP_OIDC_CONFIGURATION_ENDPOINT;
 
 const configuration = fetch(configuration_endpoint).then(resp => resp.json());
 
-const client_id = window._env_.OIDC_CLIENT_ID;
+let client_id = process.env.REACT_APP_OIDC_CLIENT_ID;
+if (window._env_) client_id = window._env_.REACT_APP_OIDC_CLIENT_ID;
+
 const scope = "openid email offline_access"
 
 const refresh_error = 2000;
