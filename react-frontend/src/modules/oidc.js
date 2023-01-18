@@ -6,7 +6,7 @@ if (window._env_) configuration_endpoint = window._env_.OIDC_CONFIGURATION_ENDPO
 
 const configuration = fetch(configuration_endpoint).then(resp => resp.json());
 
-const client_id = "mealtiger";
+let client_id = "mealtiger";
 if (window._env_) client_id = window._env_.OIDC_CLIENT_ID;
 
 const scope = "openid email offline_access"
