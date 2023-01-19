@@ -237,7 +237,7 @@ export function useGetRatingsPage(id, {size = null, page = 0}){
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		getRatingsPage({size: size, page: page}).then(([data, error]) => {
+		getRatingsPage(id, {size: size, page: page}).then(([data, error]) => {
 			setData(data);
 			setError(error);
 		});
