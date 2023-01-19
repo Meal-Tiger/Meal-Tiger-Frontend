@@ -1,10 +1,10 @@
-import styles from './CommentEditor.module.css';
+import styles from './RatingEditor.module.css';
 import {useState} from 'react';
 import {useParams} from "react-router-dom";
 import { postRating } from 'modules/api';
 import Modal from "../../modules/Modal/Modal";
 
-export default function CommentEditor() {
+export default function RatingEditor() {
     const [rating, setRating] = useState();
     const [comment, setComment] = useState("");
 
