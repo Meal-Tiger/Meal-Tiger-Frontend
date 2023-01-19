@@ -11,6 +11,8 @@ export default function RecipeDescription() {
 	let [recipe, error] = useGetRecipe(recipeId);
 
 	if (recipe) {
+
+		console.log(recipe);
 		return (
 			<div className={styles.descriptionGrid}>
 				<div className={styles.iconContainer}>
