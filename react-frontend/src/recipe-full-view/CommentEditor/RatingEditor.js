@@ -30,8 +30,8 @@ export default function RatingEditor() {
 
     return (
         <div className={styles['comment-editor-container']}>
-            <h1>Kommentare</h1>
-            <div>
+            <h2>Kommentare</h2>
+            <div className={styles['star-line']}>
                 <span className="material-symbols-outlined">star</span>
                 <input 
                     type={"number"} 
@@ -42,7 +42,7 @@ export default function RatingEditor() {
                 </input>
                 <span>/5</span>
             </div>
-            <div>
+            <div className={styles['comment-editor-bottom']}>
                 <textarea
                     rows={4}
                     aria-label="Verfasse einen Kommentar für dieses Rezept."
@@ -50,16 +50,16 @@ export default function RatingEditor() {
                     value={comment || ""}
                     onChange={(event) => setComment(event.target.value)}>
                 </textarea>
-            </div>
-            <div>
-                <button
-                    onClick={() => {
-                        setRating('');
-                        setComment('');
-                    }}>
-                    Abbrechen
-                </button>
-                <button onClick={(event) => handleSubmit(event)}>Senden</button>
+                <div className={styles['comment-editor-buttons']}>
+                    <button className={"btn btn-primary"}
+                        onClick={() => {
+                            setRating('');
+                            setComment('');
+                        }}>
+                        Abbrechen
+                    </button>
+                    <button className={"btn btn-primary"} onClick={(event) => handleSubmit(event)}>Senden</button>
+                </div>
             </div>
             <Modal show={showSuccessMessage} setShow={setShowSuccessMessage}>
                 <h1>Rezept erfolgreich erstellt!</h1>
