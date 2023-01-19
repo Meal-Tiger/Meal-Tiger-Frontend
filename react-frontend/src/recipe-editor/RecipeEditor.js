@@ -57,7 +57,7 @@ export default function RecipeEditor() {
     async function handleSubmit(event){
         event.preventDefault();
         setRecipe({...recipe, time: (parseInt(time[0])*60) + parseInt(time[1])});
-        let error = await postRecipe(recipe);
+        let [id, error] = await postRecipe(recipe);
         if (error == null){
             setShowSuccessMessage(true)
         }
