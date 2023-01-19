@@ -54,9 +54,19 @@ export default function RecipeEditor() {
         setRecipe({...recipe, difficulty: difficulty});
     };
 
+    function setTimeToRecipe(event){
+        let value = event.target.value;
+        if (event.target.name === 'recipeTimeH') {
+            time[0] = value;
+        } else {
+            time[1] = value;
+        }
+        setTime([...time]);
+        setRecipe({...recipe, time: parseInt(time[0])*60+ parseInt(time[1])});
+    }
+
     async function handleSubmit(event){
         event.preventDefault();
-        setRecipe({...recipe, time: (parseInt(time[0])*60) + parseInt(time[1])});
         let error = await postRecipe(recipe);
         if (error == null){
             setShowSuccessMessage(true)
@@ -123,14 +133,12 @@ export default function RecipeEditor() {
                                     <span className="material-symbols-outlined">schedule</span>
                                     <input name={'recipeTimeH'} className={styles["schedule-input"]} type={'number'}
                                            value={time[0]} onChange={(event) => {
-                                        time[0] = event.target.value;
-                                        setTime([...time])
+                                        setTimeToRecipe(event);
                                     }}/>
                                     <span className={styles["schedule-input-text"]}>Std. </span>
                                     <input name={'recipeTimeM'} className={styles["schedule-input"]} type={'number'}
                                            value={time[1]} onChange={(event) => {
-                                        time[1] = event.target.value;
-                                        setTime([...time])
+                                        setTimeToRecipe(event);
                                     }}/>
                                     <span className={styles["schedule-input-text"]}>min.</span>
                                 </div>
