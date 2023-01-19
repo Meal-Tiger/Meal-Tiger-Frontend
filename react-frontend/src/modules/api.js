@@ -119,6 +119,7 @@ export function useGetRecipe(id) {
 
 export async function postRecipe(recipe) {
 	let error = null;
+	let id = null;
 
 	const res = await fetch(`${api_url}/recipes`, {
 		method: 'POST',
@@ -132,8 +133,9 @@ export async function postRecipe(recipe) {
 	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	else id = (await res.json()).id
 
-	return error;
+	return [id, error];
 }
 
 export function usePostRecipe(recipe){

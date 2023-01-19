@@ -60,7 +60,7 @@ export default function RecipeEditor() {
 
     async function handleSubmit(event){
         event.preventDefault();
-        let error = await postRecipe(recipe);
+        let [id, error] = await postRecipe(recipe);
         if (error == null){
             setShowSuccessMessage(true)
         }
