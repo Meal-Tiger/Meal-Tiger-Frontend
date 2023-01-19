@@ -99,7 +99,6 @@ export async function getRecipe(id) {
 		data.rating = (await getAverageRating(data.id))[0];
 		data.user = (await getUserById(data.userId))[0];
 	};
-	console.log(data);
 	return [data, error];
 }
 
@@ -310,7 +309,7 @@ export async function postRating(id, {rating = undefined, comment = undefined}) 
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify({
-			rating: rating,
+			ratingValue: rating,
 			comment: comment
 		})
 	})

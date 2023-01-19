@@ -1,0 +1,5 @@
+.comment-editor-container {
+    display: grid;
+    width: 100%;
+    overflow: hidden !important;
+}
