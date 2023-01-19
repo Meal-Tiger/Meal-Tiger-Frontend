@@ -7,6 +7,19 @@ let api_url = process.env.REACT_APP_API_URL;
 if (window._env_) api_url = window._env_.REACT_APP_API_URL;
 
 //#region Helper functions
+export function getAnonUser(id){
+	return {
+		"userId": id,
+		"username": "Anonym",
+		"picture": "0"
+	}
+}
+
+export function getImageUrl(id){
+	if (id === 0) return "/platzhalter.jpg"
+	else return `${api_url}/image/${id}`
+}
+
 export function getFormatedTime(time) {
 	let hours = Math.floor(time / 60);
 	let minutes = time % 60;
@@ -42,17 +55,20 @@ export async function getRecipePage({q = undefined, sort = undefined, size = und
 	let res = await fetch(uri);
 	let error = null;
 	let data = null;
-	let json = null;
 	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else json = await res.json();
-	if (json) json.recipes.map(async recipe => {
-		recipe.rating = await getAverageRating(recipe.id);
-		recipe.user = await getUserById(recipe.userId);
-	});
+	else data = await res.json();
 
-
+	if(data){
+		data.recipes = await Promise.all(data.recipes.map(async recipe => {
+			return {
+				...recipe,
+				rating: (await getAverageRating(recipe.id))[0],
+				user: (await getUserById(recipe.userId))[0]
+			};
+		}))
+	}
 	return [data, error];
 }
 
@@ -74,17 +90,16 @@ export async function getRecipe(id) {
 	let res = await fetch(`${api_url}/recipes/${id}`);
 	let error = null;
 	let data = null;
-	let json = null;
 	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else json = await res.json();
-	if (json)  {
-		data = json
-		data.rating = await getAverageRating(json.id);
-		data.user = await getUserById(json.userId);
-	};
+	else data = await res.json();
 
+	if (data) {
+		data.rating = (await getAverageRating(data.id))[0];
+		data.user = (await getUserById(data.userId))[0];
+	};
+	console.log(data);
 	return [data, error];
 }
 
@@ -264,7 +279,7 @@ export async function getAverageRating(id) {
 	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else data = await res.json();
+	else data = (await res.json()).ratingValue;;
 
 	return [data, error];
 }
@@ -635,11 +650,13 @@ export async function getUserById(id) {
 	let res = await fetch(`${api_url}/user/${id}`);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Benutzer hat noch kein Profil`;
+	if (res.status === 404){
+		error = `${res.status} ${res.statusText} - Benutzer hat noch kein Profil`;
+		data = getAnonUser(id);
+	}
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
-
 	return [data, error];
 }
 
