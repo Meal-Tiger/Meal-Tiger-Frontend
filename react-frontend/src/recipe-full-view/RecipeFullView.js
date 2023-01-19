@@ -1,6 +1,7 @@
 import RatingEditor from "./CommentEditor/RatingEditor";
 import ImageSlider from "./image-slider/ImageSlider";
 import RecipeDescription from "./recipe-description/RecipeDescription";
+import RatingSection from "./rating-section/RatingSection";
 
 export default function RecipeFullView(){
     return(
@@ -8,6 +9,7 @@ export default function RecipeFullView(){
             <ImageSlider/>
             <RecipeDescription/>
             <RatingEditor/>
+            <RatingSection/>
         </div>
     )
 }

@@ -216,9 +216,8 @@ export function useDeleteRecipe(id){
 //#endregion
 
 //#region Rating functions
-export async function getRatingsPage(id, {sort = undefined, size = undefined, page = 0}) {
+export async function getRatingsPage(id, {size = null, page = 0}) {
 	let uri = new URL(`${api_url}/recipes/${id}/ratings`);
-	if (sort) uri.searchParams.append('sort', sort);
 	if (size) uri.searchParams.append('size', size);
 	if (page) uri.searchParams.append('page', page);
 
@@ -233,16 +232,16 @@ export async function getRatingsPage(id, {sort = undefined, size = undefined, pa
 	return [data, error];
 }
 
-export function useGetRatingsPage(id, {sort = undefined, size = undefined, page = 0}){
+export function useGetRatingsPage(id, {size = null, page = 0}){
 	const [error, setError] = useState(null);
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		getRatingsPage({sort: sort, size: size, page: page}).then(([data, error]) => {
+		getRatingsPage({size: size, page: page}).then(([data, error]) => {
 			setData(data);
 			setError(error);
 		});
-	}, [sort, size, page]);
+	}, [size, page]);
 
 	return [data, error];
 }

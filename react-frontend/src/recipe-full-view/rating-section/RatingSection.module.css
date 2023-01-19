@@ -1,0 +1,13 @@
+.comment-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.comment-left{
+    grid-column-start: 1;
+}
+
+.comment-right{
+    grid-column-start: 2;
+    grid-column-end: span 6;
+}
