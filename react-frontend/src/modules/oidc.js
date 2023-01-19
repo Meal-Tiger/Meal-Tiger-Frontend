@@ -1,4 +1,4 @@
-import { login_event, logout_event } from "./events"
+import { closeLoginModal_event } from "./events"
 
 let configuration_endpoint = process.env.REACT_APP_OIDC_CONFIGURATION_ENDPOINT;
 if (window._env_) configuration_endpoint = window._env_.REACT_APP_OIDC_CONFIGURATION_ENDPOINT;
@@ -77,7 +77,9 @@ export async function login(){
             localStorage.setItem("access_token_ttl",body.expires_in === 0 ? -1 : Date.now() + body.expires_in * 1000 - refresh_error)
             localStorage.setItem("refresh_token", body.refresh_token)
             localStorage.setItem("refresh_token_ttl", body.refresh_expires_in === 0 ? -1 : Date.now() + body.refresh_expires_in * 1000 - refresh_error)
-            document.dispatchEvent(login_event);
+            
+            sessionStorage.setItem('login', 'true');
+            document.dispatchEvent(closeLoginModal_event);
         }
         else return;
     }, 1000)
@@ -85,7 +87,7 @@ export async function login(){
 
 export async function getAccessToken(){
     if(localStorage.getItem('refresh_token_ttl') > Date.now) return localStorage.getItem('refresh_token_ttl');
-    else return await refreshToken();
+    else return (await refreshToken());
 }
 
 export async function logout(){
@@ -110,7 +112,9 @@ export async function logout(){
     localStorage.removeItem("refresh_token_ttl")
     localStorage.removeItem("code_verifier")
 
-    document.dispatchEvent(logout_event)
+    sessionStorage.setItem('login', 'false');
+
+    //document.dispatchEvent(logout_event)
 
 }
 
@@ -136,7 +140,10 @@ async function refreshToken(){
         })
     });
 
-    if (!response.ok) throw new Error(`${response.status} ${response.statusText} - ${response.body}`)
+    if (!response.ok) {
+        //throw new Error(`${response.status} ${response.statusText} - ${response.body}`)
+        return null;
+    }
 
     const body = await response.json();
 
