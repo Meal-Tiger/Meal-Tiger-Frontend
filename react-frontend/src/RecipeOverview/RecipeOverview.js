@@ -9,6 +9,7 @@ import styles from './RecipeOverview.module.css';
 import RecipeCard from './RecipeCard/RecipeCard';
 import { useState } from 'react';
 import Throbber from "../modules/throbber/throbber";
+import Modal from 'modules/Modal/Modal';
 
 export default function RecipeOverview() {
 
@@ -16,7 +17,7 @@ export default function RecipeOverview() {
 
 	let navigate = useNavigate();
 	let {query, page} = useParams();
-	let recipes = useGetRecipePage({q: query, page: page, size: itemsPerPage});
+	let [recipes, error] = useGetRecipePage({q: query, page: page, size: itemsPerPage});
 
     function changePage(pageNumber){
         if(query){
@@ -46,8 +47,6 @@ export default function RecipeOverview() {
             navigate(`/page/${recipes.currentPage - 1}`)
         }
     }
-
-    console.log(recipes);
 
 	if (recipes && recipes.recipes) {
 		return (
@@ -103,7 +102,9 @@ export default function RecipeOverview() {
                 </div>
 			</div>
 		);
-	} else {
+	} else if(error){
+        return (<Modal className="error" show={true}>{error}</Modal>);
+    }else {
         return (<Throbber/>);
 	}
 }
