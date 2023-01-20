@@ -16,7 +16,7 @@ export function getAnonUser(id){
 }
 
 export function getImageUrl(id){
-	if (id === 0) return "/platzhalter.jpg"
+	if (id === '0') return "/platzhalter.jpg"
 	else return `${api_url}/image/${id}`
 }
 
@@ -98,7 +98,7 @@ export async function getRecipe(id) {
 	if (data) {
 		data.rating = (await getAverageRating(data.id))[0];
 		data.user = (await getUserById(data.userId))[0];
-	};
+	}
 	return [data, error];
 }
 
@@ -287,7 +287,7 @@ export async function getAverageRating(id) {
 	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else data = (await res.json()).ratingValue;;
+	else data = (await res.json()).ratingValue;
 
 	return [data, error];
 }
