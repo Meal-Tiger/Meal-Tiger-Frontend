@@ -10,6 +10,7 @@ import RecipeCard from './RecipeCard/RecipeCard';
 import { useState } from 'react';
 import Throbber from "../modules/throbber/throbber";
 import Modal from 'modules/Modal/Modal';
+import Pagination from "../modules/pagination/pagination";
 
 export default function RecipeOverview() {
 
@@ -67,39 +68,7 @@ export default function RecipeOverview() {
 						<RecipeCard key={recipe.id} onClick={() => navigate(`/recipe/${recipe.id}`)} {...recipe} />
 					))}
 				</div>
-				<div className={styles['next-page-container']}>
-                    {recipes.currentPage === 0 ? null : <span className={`${styles["change-page"]} material-symbols-outlined`} onClick={beforePage}>navigate_before</span>}
-
-                    {recipes.totalPages >= 4 && recipes.currentPage >= 2 ? <span onClick={() => changePage(0)}> 1... </span> : ""}
-
-                    <div className={styles["inner-pagination"]}>
-
-                        {recipes.currentPage <= 1  ?
-                            <span onClick={recipes.currentPage === 0 ?  null : beforePage} className={recipes.currentPage === 0 ?  styles.active:null}>1</span>
-                            : recipes.currentPage >= recipes.totalPages-2 ? <span onClick={ recipes.currentPage === recipes.totalPages-1 ? () => changePage(recipes.totalPages-3) : beforePage}>{recipes.totalPages-2}</span>
-                                :<span onClick={beforePage}>{recipes.currentPage}</span>
-                        }
-
-                        {recipes.totalPages >= 2 ?
-                        recipes.currentPage <= 1  ?
-                            <span onClick={recipes.currentPage === 1 ? null : nextPage} className={recipes.currentPage === 1 ?  styles.active:null}>2</span>
-                            : recipes.currentPage >= recipes.totalPages-1 ? <span onClick={ recipes.currentPage === recipes.totalPages-1 ? beforePage :null}>{recipes.totalPages-1}</span>
-                            :<span className={styles.active}>{recipes.currentPage +1}</span>
-                        : null}
-
-                        {recipes.totalPages >= 3 ?
-                        recipes.currentPage <= 1 ?
-                            <span onClick={() => changePage(2)}>3</span>
-                            :recipes.currentPage >= recipes.totalPages-2 ? <span onClick={ recipes.currentPage === recipes.totalPages -1 ?  null :nextPage} className={recipes.currentPage === recipes.totalPages -1 ? styles.active:null}>{recipes.totalPages}</span>
-                            : <span onClick={nextPage}>{recipes.currentPage +2}</span>
-                        : null}
-
-                    </div>
-
-                    {recipes.totalPages >= 4 && recipes.currentPage <= recipes.totalPages -3 ? <span onClick={() => changePage(recipes.totalPages-1)}> ...{recipes.totalPages}</span> : ""}
-
-                    {recipes.currentPage === recipes.totalPages -1 ? null : <span className={`${styles["change-page"]} material-symbols-outlined`} onClick={nextPage}>navigate_next</span>}
-                </div>
+				<Pagination paginationObject={recipes}/>
 			</div>
 		);
 	} else if(error){

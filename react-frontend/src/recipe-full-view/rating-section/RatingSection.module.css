@@ -11,6 +11,10 @@
     grid-column-start: 2;
     grid-column-end: span 6;
 }
+.rating-right div{
+    display: flex;
+    align-items: center;
+}
 
 .profile-picture {
     max-width: 75px;
