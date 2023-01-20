@@ -1,62 +1,60 @@
-import {render, screen} from "@testing-library/react";
-
-
-import * as hooks from 'modules/api';
-import * as router from 'react-router';
-
+import React from 'react';
+import { render } from '@testing-library/react';
 import RecipeOverview from "../RecipeOverview/RecipeOverview";
+import {MemoryRouter} from "react-router-dom";
 
-beforeEach(() => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => jest.fn())
-})
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn(),
+    useParams: () => ({query: 'lol', page:''})
+}));
 
-test("Render RecipeOverview", () => {
-
-    jest.spyOn(hooks, 'useGetRecipePage').mockReturnValue({recipes:[{
-            "id": 0,
-            "title": "string",
-            "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "ingredients": [
-                {
-                    "amount": 0,
-                    "unit": "string",
-                    "name": "string"
-                }
-            ],
-            "description": "string",
-            "difficulty": 3,
-            "time": 1,
-            "images": [
-                "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-            ]
-        },
-
+jest.mock('../modules/api', () => ({
+    useGetRecipePage: () => {return [{
+        "recipes": [
             {
-                "id": 2,
-                "title": "string",
-                "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "id": "63c98870430aa840641e8b23",
+                "title": "hubba bubba",
+                "userId": "101adc4e-951d-48c5-8340-f5b4c3062d4c",
                 "ingredients": [
                     {
-                        "amount": 0,
-                        "unit": "string",
-                        "name": "string"
+                        "amount": 5,
+                        "unit": "Blätter",
+                        "name": "AAl"
                     }
                 ],
-                "description": "string",
-                "difficulty": 3,
-                "time": 1,
-                "images": [
-                    "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                ]
+                "description": "hubba bubba",
+                "difficulty": 2,
+                "time": 243,
+                "images": []
+            },
+            {
+                "id": "63c6e3d6430aa840641e8b13",
+                "title": "Testrezept",
+                "userId": "16844c69-480d-4bee-abb9-f76b955969ed",
+                "ingredients": [
+                    {
+                        "amount": 5,
+                        "unit": "Beet/e",
+                        "name": "Test"
+                    }
+                ],
+                "description": "Dies ist ein Test",
+                "difficulty": 2,
+                "time": 60,
+                "images": []
             }
         ],
-        "currentPage": 0,
-        "totalItems": 2,
-        "totalPages": 1
-    });
+        "totalItems": 18,
+        "totalPages": 9,
+        "currentPage": 0
+    }, null]}
+}));
 
+jest.mock('../RecipeOverview/RecipeCard/RecipeCard', () => jest.fn());
 
-    render(<RecipeOverview/>)
+test("Render RecipeOverview", () => {
+    const {container} = render(<MemoryRouter><RecipeOverview/></MemoryRouter>);
 
-    screen.debug()
+    expect(container.firstChild).toBeTruthy();
 });

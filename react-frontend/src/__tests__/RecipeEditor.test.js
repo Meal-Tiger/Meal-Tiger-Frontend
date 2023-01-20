@@ -1,12 +1,37 @@
+import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import RecipeEditor from "../recipe-editor/RecipeEditor";
 
-jest.mock('../modules/api', () => ({
-    postRecipe: jest.fn()
+jest.mock("../modules/api", () => ({
+    postRecipe: jest.fn(() => Promise.resolve(null)),
 }));
 
-test('renders RecipeEditor and submits a recipe', () => {
-    render(<RecipeEditor />);
+jest.mock("../modules/events", () => ({
+    useEvent: jest.fn(),
+}));
+
+jest.mock("../modules/api", () => ({
+    postRecipe: jest.fn(() => Promise.resolve(null)),
+}));
+
+jest.mock('../recipe-editor/IngredientsContainerEditable', () => () => <div />);
+
+jest.mock("../recipe-editor/uploadedImages", () => () => <div />);
+
+jest.mock("../navbar/Usermenu/LoginWithKeycloak/LoginWithKeycloak", () => () => <div />);
+
+jest.mock("../modules/Modal/Modal", () => jest.fn((props) => <div {...props} />));
+
+
+afterEach(() => {
+    jest.clearAllMocks()
+    cleanup()
 });
 
-afterEach(cleanup);
+describe('RecipeEditor component', () => {
+
+    it('renders without crashing', () => {
+        const { asFragment } = render(<RecipeEditor />);
+        expect(asFragment()).toMatchSnapshot();
+    });
+});

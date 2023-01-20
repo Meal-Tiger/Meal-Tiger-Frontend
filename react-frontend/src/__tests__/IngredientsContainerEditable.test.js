@@ -1,13 +1,42 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import {cleanup, render} from '@testing-library/react';
 import IngredientsContainerEditable from "../recipe-editor/IngredientsContainerEditable";
 
-test('renders IngredientsContainerEditable component', () => {
-    const recipe = {
-        ingredients: [
-            {amount: '1', unit: 'g', name: 'sugar'},
-            {amount: '2', unit: 'kg', name: 'flour'}
-        ]
-    };
-    render(<IngredientsContainerEditable recipe={recipe} setRecipe={() => {}} />);
+afterEach(() => {
+    cleanup()
+})
+
+jest.mock('../recipe-editor/options', () => ({
+    options: ['g', 'kg', 'ml', 'l']
+}));
+
+jest.mock('../recipe-editor/RecipeEditor', () => ({
+    RecipeContext: {
+        recipe: {}
+    }
+}))
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useContext: () => {
+        return {
+            recipe: {
+                title: "",
+                description: "",
+                difficulty: 0,
+                rating: 5,
+                time: 0,
+                ingredients: []
+            },
+            setRecipe: () => {
+            },
+        }
+    }
+}))
+test('renders without crashing', () => {
+
+        const { asFragment } = render(
+                <IngredientsContainerEditable />
+        );
+        expect(asFragment()).toMatchSnapshot();
 });
