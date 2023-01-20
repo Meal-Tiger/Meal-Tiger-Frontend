@@ -228,6 +228,14 @@ export async function getRatingsPage(id, {size = null, page = 0}) {
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
+	if(data){
+		data.ratings = await Promise.all(data.ratings.map(async rating => {
+			return {
+				...rating,
+				user: (await getUserById(rating.userId))[0]
+			};
+		}))
+	}
 
 	return [data, error];
 }
