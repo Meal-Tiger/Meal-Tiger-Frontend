@@ -1,13 +1,17 @@
-.comment-container {
+.rating-container {
     display: grid;
     grid-template-columns: 1fr 5fr;
 }
 
-.comment-left{
+.rating-left{
     grid-column-start: 1;
 }
 
-.comment-right{
+.rating-right{
     grid-column-start: 2;
     grid-column-end: span 6;
+}
+
+.profile-picture {
+    max-width: 75px;
 }

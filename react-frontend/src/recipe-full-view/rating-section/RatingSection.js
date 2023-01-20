@@ -1,6 +1,6 @@
 import styles from './RatingSection.module.css';
 import {useParams} from 'react-router-dom';
-import {useGetRatingsPage} from '../../modules/api';
+import {getImageUrl, useGetRatingsPage} from '../../modules/api';
 import Throbber from '../../modules/throbber/throbber';
 import Modal from '../../modules/Modal/Modal';
 
@@ -12,11 +12,16 @@ export default function RatingSection() {
 
 	let getRating = () => {
 		if (ratingList) {
-            return ratingList.ratings.map((element) => {
+			return ratingList.ratings.map((element) => {
 				return (
-					<div className={styles['comment-container']}>
-						<div className={styles['comment-left']}>{element.userId}</div>
-						<div className={styles['comment-right']}>
+					<div className={styles['rating-container']}>
+						<div className={styles['rating-left']}>
+							<div>
+								<img className={styles['profile-picture']} src={getImageUrl(element.user.picture)} alt={'Food'}/>
+							</div>
+							<div>{element.user.username}</div>
+						</div>
+						<div className={styles['rating-right']}>
 							<div>
 								<span className="material-symbols-outlined">star</span>
 								{element.ratingValue}/5
