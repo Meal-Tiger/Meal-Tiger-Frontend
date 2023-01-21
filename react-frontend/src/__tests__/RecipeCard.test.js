@@ -5,6 +5,7 @@ import RecipeCard from "../RecipeOverview/RecipeCard/RecipeCard";
 afterEach(cleanup);
 
 jest.mock('../modules/api', () => ({
+    ...jest.requireActual('../modules/api'),
     useGetRecipe: () => {return [
         {
             "id": "63c6e3d6430aa840641e8b13",
@@ -31,7 +32,9 @@ describe('RecipeCard component', () => {
             <RecipeCard
                 title="Test Recipe"
                 time={30}
+                images={[]}
                 rating={4}
+                user={{imageId: undefined}}
                 onClick={() => {}}
             />
         );
