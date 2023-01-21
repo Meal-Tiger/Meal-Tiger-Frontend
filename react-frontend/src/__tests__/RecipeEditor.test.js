@@ -14,6 +14,10 @@ jest.mock("../modules/api", () => ({
     postRecipe: jest.fn(() => Promise.resolve(null)),
 }));
 
+jest.mock("react-router", () => ({
+    useNavigate: jest.fn(() => Promise.resolve(null)),
+}));
+
 jest.mock('../recipe-editor/IngredientsContainerEditable', () => () => <div />);
 
 jest.mock("../recipe-editor/uploadedImages", () => () => <div />);
