@@ -1,4 +1,5 @@
 import {getFormatedTime, getImageUrl} from 'modules/api.js';
+import Difficulty from 'modules/Difficulty/Difficulty';
 import styles from './RecipeCard.module.css';
 import user from './user.png';
 
@@ -16,13 +17,9 @@ export default function RecipeCard(props) {
 					<span className="material-symbols-outlined">schedule</span>
 					{getFormatedTime(props.time)}
 				</div>
-				<div className={`${styles['recipe-card-info']} ${'difficulty'}`}>
-					<span className="material-symbols-outlined">lunch_dining</span>
-					<span className="material-symbols-outlined">lunch_dining</span>
-					<span className="material-symbols-outlined">lunch_dining</span>
-				</div>
+				<Difficulty difficulty={props.difficulty}/>
 				<div className={` ${styles['recipe-card-info']} ${styles.user}`}>
-					<img className={styles.user} src={user} alt=""></img> Benutzername
+					<img className={styles.user} src={getImageUrl(props.user.imageId)} alt=""></img> {props.user.username}
 				</div>
 				<div className={`${styles['recipe-card-info']} ${'rating'}`}>
 					<span className={'material-symbols-outlined'}>star</span>
