@@ -1,7 +1,6 @@
 import {getFormatedTime, getImageUrl} from 'modules/api.js';
 import Difficulty from 'modules/Difficulty/Difficulty';
 import styles from './RecipeCard.module.css';
-import user from './user.png';
 
 export default function RecipeCard(props) {
 	return (
