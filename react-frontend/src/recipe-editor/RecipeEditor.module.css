@@ -187,8 +187,4 @@
         overflow-x: scroll;
     }
 
-    .modal-container{
-        display: flex;
-        flex-direction: column;
-    }
 }

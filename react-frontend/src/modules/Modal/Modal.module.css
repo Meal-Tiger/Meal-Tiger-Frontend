@@ -18,6 +18,8 @@
 }
 
 .modal{
+    display: flex;
+    flex-direction: column;
     background-color: #fefefe;
     margin: auto; /* 15% from the top and centered */
     padding: 20px;

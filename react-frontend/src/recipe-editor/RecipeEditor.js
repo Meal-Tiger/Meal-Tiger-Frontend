@@ -85,7 +85,7 @@ export default function RecipeEditor() {
 		return (
 			<RecipeContext.Provider value={value}>
 				<form onSubmit={handleSubmit}>
-					<Modal className={styles['modal-container']} show={showSuccessMessage} setShow={setShowSuccessMessage}>
+					<Modal show={showSuccessMessage} setShow={setShowSuccessMessage}>
 						<h1>Rezept erfolgreich erstellt!</h1>
 						<button className={"btn-primary btn"} onClick={() => navigate(`/recipe/${id}`)}>Zu meinem Rezept</button>
 					</Modal>
