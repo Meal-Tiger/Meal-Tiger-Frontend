@@ -1,7 +1,6 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
 
 import {useState, useEffect} from 'react';
-import { json } from 'react-router-dom';
 import {getAccessToken} from './oidc';
 
 let api_url = process.env.REACT_APP_API_URL;
@@ -17,7 +16,7 @@ export function getAnonUser(id){
 }
 
 export function getImageUrl(id){
-	if (id === '0' || id == undefined) return "/platzhalter.jpg"
+	if (id === '0' || id === undefined) return "/platzhalter.jpg"
 	else return `${api_url}/image/${id}`
 }
 

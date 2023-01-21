@@ -1,7 +1,6 @@
 import {getFormatedTime, getImageUrl} from 'modules/api.js';
 import Difficulty from 'modules/Difficulty/Difficulty';
 import styles from './RecipeCard.module.css';
-import user from './user.png';
 
 export default function RecipeCard(props) {
 	return (
@@ -9,7 +8,7 @@ export default function RecipeCard(props) {
 			<div
 				title={props.title}
 				className={`${styles['recipe-card-img']}`}
-				style={{backgroundImage: `url(${props.images[0] ? getImageUrl(props.images[0]) : getImageUrl(0)})`}}
+				style={{backgroundImage: `url(${props.images.length > 0 ? getImageUrl(props.images[0]) : getImageUrl(0)})`}}
 			></div>
 			<div className={styles['recipe-card-infobox']}>
 				<h1 className="titel">{props.title}</h1>
