@@ -64,10 +64,9 @@ export default function RecipeEditor() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		let [imageIds, imageError] = await postImages(images);
-		console.log(imageIds);
+		let imageIds, imageError = null;
+		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
 		let [id, error] = await postRecipe({...recipe, images: await imageIds});
-
 		if (error || imageError) {
 			setError(error + imageError);
 			setShowModal(true);
