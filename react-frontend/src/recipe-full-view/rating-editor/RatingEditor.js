@@ -18,7 +18,7 @@ export default function RatingEditor() {
         event.preventDefault();
 
         let ratingObject = {rating: parseInt(rating), comment}
-        let [id, error] = await postRating(recipeId, ratingObject);
+        let [, error] = await postRating(recipeId, ratingObject);
 
         if (error) {
 			setError(error);
