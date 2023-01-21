@@ -19,3 +19,9 @@
 .profile-picture {
     max-width: 75px;
 }
+
+.filter-top{
+    margin-top: var(--space-3);
+    display: flex;
+    justify-content: space-between;
+}

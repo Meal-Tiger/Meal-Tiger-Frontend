@@ -3,18 +3,21 @@ import {useParams} from 'react-router-dom';
 import {getImageUrl, useGetRatingsPage} from '../../modules/api';
 import Throbber from '../../modules/throbber/throbber';
 import Modal from '../../modules/Modal/Modal';
+import Pagination from "../../modules/pagination/pagination";
+import {useState} from "react";
 
 export default function RatingSection() {
 	let {recipeId} = useParams();
-	let [ratingList, error] = useGetRatingsPage(recipeId, {});
+	let {page} = useParams();
+	const [itemsPerPage, setItemsPerPage] = useState(15);
 
-	console.log(ratingList);
+	let [ratingList, error] = useGetRatingsPage(recipeId, {size: itemsPerPage, page:page});
 
 	let getRating = () => {
-		if (ratingList) {
+		if (ratingList && ratingList.ratings) {
 			return ratingList.ratings.map((element) => {
 				return (
-					<div className={styles['rating-container']}>
+					<div key={element.id} className={styles['rating-container']}>
 						<div className={styles['rating-left']}>
 							<div>
 								<img className={styles['profile-picture']} src={getImageUrl(element.user.picture)} alt={'Food'}/>
@@ -37,7 +40,29 @@ export default function RatingSection() {
 	};
 
 	if (!error) {
-		return <div>{getRating()}</div>;
+		if (ratingList && ratingList.ratings){
+			return <div>
+				<div className={styles["filter-top"]}>
+					<div>{ratingList.totalItems} Kommentare insgesammt</div>
+					<div>
+						<label htmlFor={"itemsPerPage"}>Anzahl Kommentare pro Seite </label>
+						<select id={"itemsPerPage"} value={itemsPerPage} onChange={(event) => {setItemsPerPage(event.target.value)}}>
+							<option>15</option>
+							<option>50</option>
+							<option>100</option>
+						</select>
+					</div>
+				</div>
+				{getRating()}
+				<Pagination paginationObject={{object: ratingList,error: error}}/>
+			</div>;
+		}else{
+			return(
+			<div>
+				Loding
+			</div>
+			);
+		}
 	} else if (error.includes('404')) {
 		return (
 			<div>
