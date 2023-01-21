@@ -20,35 +20,6 @@ export default function RecipeOverview() {
 	let {query, page} = useParams();
 	let [recipes, error] = useGetRecipePage({q: query, page: page, size: itemsPerPage});
 
-    function changePage(pageNumber){
-        if(query){
-            navigate(`/search/${query}/page/${pageNumber}`);
-        }
-        else {
-            navigate(`/page/${pageNumber}`);
-        }
-    }
-
-    function nextPage(){
-        if (recipes.currentPage+1 === recipes.totalPages) return;
-        if(query){
-            navigate(`/search/${query}/page/${recipes.currentPage + 1}`);
-        }
-        else {
-            navigate(`/page/${recipes.currentPage + 1}`);
-        }
-    }
-
-    const beforePage = () => {
-        if (recipes.currentPage-1 === -1) return;
-        if(query){
-            navigate(`/search/${query}/page/${recipes.currentPage - 1} `)
-        }
-        else{
-            navigate(`/page/${recipes.currentPage - 1}`)
-        }
-    }
-
 	if (recipes && recipes.recipes) {
 		return (
 			<div>
@@ -68,7 +39,7 @@ export default function RecipeOverview() {
 						<RecipeCard key={recipe.id} onClick={() => navigate(`/recipe/${recipe.id}`)} {...recipe} />
 					))}
 				</div>
-				<Pagination paginationObject={recipes}/>
+				<Pagination paginationObject={{object: recipes,error: error}}/>
 			</div>
 		);
 	} else if(error){

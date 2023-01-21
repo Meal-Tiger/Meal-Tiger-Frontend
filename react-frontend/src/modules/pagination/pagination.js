@@ -1,44 +1,48 @@
-import styles from './pagination.modules.css'
-import {useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {useGetRatingsPage, useGetRecipePage} from "../api";
+import styles from './pagination.module.css'
+import {useNavigate, useParams, useLocation} from "react-router-dom";
 import Modal from "../Modal/Modal";
 
 export default function Pagination(props) {
-
-    const [itemsPerPage, setItemsPerPage] = useState(15);
-
     let navigate = useNavigate();
-    let {query, page} = useParams();
-    let [paginationObject, error] = useGetRecipePage({q: query, page: page, size: itemsPerPage});
+    let {query} = useParams();
 
-    paginationObject = props.paginationObject;
+    let paginationObject = props.paginationObject.object;
+    let error = props.paginationObject.error;
+
+    let urlPath = (useLocation()).pathname;
+    urlPath = (urlPath.split("/page"))[0]
+    urlPath = (urlPath.split("/search"))[0]
+    if (urlPath === "/"){
+        urlPath = "";
+    }
+
 
     function changePage(pageNumber) {
         if (query) {
-            navigate(`/search/${query}/page/${pageNumber}`);
+            navigate(`${urlPath}/search/${query}/page/${pageNumber}`);
         } else {
-            navigate(`/page/${pageNumber}`);
+            navigate(`${urlPath}/page/${pageNumber}`);
         }
     }
 
     function nextPage() {
         if (paginationObject.currentPage + 1 === paginationObject.totalPages) return;
         if (query) {
-            navigate(`/search/${query}/page/${paginationObject.currentPage + 1}`);
+            navigate(`${urlPath}/search/${query}/page/${paginationObject.currentPage + 1}`);
         } else {
-            navigate(`/page/${paginationObject.currentPage + 1}`);
+            navigate(`${urlPath}/page/${paginationObject.currentPage + 1}`);
         }
     }
 
     const beforePage = () => {
         if (paginationObject.currentPage - 1 === -1) return;
         if (query) {
-            navigate(`/search/${query}/page/${paginationObject.currentPage - 1} `)
+            navigate(`${urlPath}/search/${query}/page/${paginationObject.currentPage - 1} `)
         } else {
-            navigate(`/page/${paginationObject.currentPage - 1}`)
+            navigate(`${urlPath}/page/${paginationObject.currentPage - 1}`)
         }
     }
+
     if(error){
         return (
             <Modal className="error" show={true}>{error}</Modal>
