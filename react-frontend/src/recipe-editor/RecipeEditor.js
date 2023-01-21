@@ -5,7 +5,7 @@ import image_03 from '../recipe-full-view/image-slider/image-03.jpg';
 import UploadedImages from './uploadedImages';
 import {createContext, useMemo, useState, useEffect} from 'react';
 import IngredientsContainerEditable from './IngredientsContainerEditable';
-import {postRecipe} from 'modules/api';
+import {postImages, postRecipe} from 'modules/api';
 import Modal from '../modules/Modal/Modal';
 import {Navigate} from 'react-router-dom';
 import {openLoginModal_event} from 'modules/events';
@@ -19,7 +19,9 @@ export const RecipeContext = createContext({
 		time: 0,
 		ingredients: []
 	},
-	setRecipe: () => {}
+	setRecipe: () => {},
+	images: [],
+	setImages: () => {}
 });
 
 export default function RecipeEditor() {
@@ -33,6 +35,7 @@ export default function RecipeEditor() {
 	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
 	const [time, setTime] = useState([0, 0]);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [images, setImages] = useState([]);
 	const [recipe, setRecipe] = useState({
 		title: '',
 		description: '',
@@ -42,7 +45,7 @@ export default function RecipeEditor() {
 		ingredients: []
 	});
 
-	const value = useMemo(() => ({recipe, setRecipe}), [recipe]);
+	const value = useMemo(() => ({recipe, setRecipe, images, setImages}), [recipe, images]);
 
 	const switchDifficulty = (difficulty) => {
 		setRecipe({...recipe, difficulty: difficulty});
@@ -61,11 +64,14 @@ export default function RecipeEditor() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		let [id, error] = await postRecipe(recipe);
-		if (error) {
-			setError(error);
+		let [imageIds, imageError] = await postImages(images);
+		console.log(imageIds);
+		let [id, error] = await postRecipe({...recipe, images: await imageIds});
+
+		if (error || imageError) {
+			setError(error + imageError);
 			setShowModal(true);
-		} else if (error == null) {
+		} else if (error == null && imageError == null) {
 			setShowSuccessMessage(true);
 		}
 	}

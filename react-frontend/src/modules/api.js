@@ -1,6 +1,7 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
 
 import {useState, useEffect} from 'react';
+import { json } from 'react-router-dom';
 import {getAccessToken} from './oidc';
 
 let api_url = process.env.REACT_APP_API_URL;
@@ -411,6 +412,7 @@ export function useDeleteRating(id){
 export async function postImages(images) {
 
 	let error = null;
+	let data = null;
 	let formdata = new FormData()
 	
 	images.forEach(image => {
@@ -429,8 +431,8 @@ export async function postImages(images) {
 	else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-
-	return error;
+	else data = await res.json();
+	return [data, error];
 }
 
 export function usePostImages(images){
