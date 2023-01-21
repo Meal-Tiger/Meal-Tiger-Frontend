@@ -35,7 +35,14 @@ To deploy the application you can copy the contents of the build folder to a web
 
 ## Configuration
 
-A guide on how to configure the application will follow.
+To configure the Project you have to specify the following environment variables in the `.env` file in the `src` directory:
+
+* REACT_APP_API_URL
+  * The URL, where your Backend is hosted
+* REACT_APP_OIDC_CONFIGURATION_ENDPOINT
+  * The URL, where your OIDC-Provider specifies the Endpoints
+* REACT_APP_OIDC_CLIENT_ID
+  * your OIDC client ID
 
 ## Dependencies
 
