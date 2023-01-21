@@ -13,9 +13,8 @@ export default function UploadedImages() {
         for (let i = 0; i < event.target.files.length; i++) {
             setImages(files => [
                 ...files,
-                URL.createObjectURL(event.target.files[i])
+                event.target.files[i]
             ]);
-            console.log(images);
         }
     }
 
@@ -32,12 +31,12 @@ export default function UploadedImages() {
             <div className={styles["preview-image-container"]}>
                 <div className={styles["first-preview-image"]}>
                     {images.filter((file, index) => index === 0).map((file, index) =>
-                        <img data-index={index} className={styles["preview-image"]} src={file} onClick={removeFile} alt=""/>
+                        <img data-index={index} className={styles["preview-image"]} src={URL.createObjectURL(file)} onClick={removeFile} alt=""/>
                     )}
                 </div>
                 <div className={styles["preview-images-right"]}>
                     {images.filter((file, index) => index >= 1).map((file, index) =>
-                        <img data-index={index} className={styles["preview-image"]} src={file} onClick={removeFile} alt=""/>
+                        <img data-index={index} className={styles["preview-image"]} src={URL.createObjectURL(file)} onClick={removeFile} alt=""/>
                     )}
                 </div>
             </div>
