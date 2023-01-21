@@ -52,6 +52,8 @@ function App() {
 							<Route path="/privacy" element={<DataPrivacy />} />
 							<Route path="/page/:page" element={<RecipeOverview />} />
 							<Route path="/recipe/:recipeId" element={<RecipeFullView />} />
+							<Route path="/recipe/:recipeId/search/:query/page/:page" element={<RecipeFullView />} />
+							<Route path="/recipe/:recipeId/page/:page" element={<RecipeFullView />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />

@@ -1,0 +1,33 @@
+.comment-editor-container {
+    display: grid;
+    width: 100%;
+    overflow: hidden !important;
+    background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%),linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+    background-position: top;
+    background-size: 15px 1px;
+    background-repeat: repeat-x, repeat-x;
+}
+
+.star-line{
+    display: flex;
+    align-items: center;
+}
+
+.comment-editor-bottom{
+    margin-top: var(--space-2);
+}
+.comment-editor-bottom textarea{
+    width: 100%;
+}
+.comment-editor-bottom{
+    max-width: 720px;
+}
+
+.comment-editor-buttons{
+    text-align: right;
+    margin-top: var(--space-2);
+}
+
+.comment-editor-buttons button:first-child{
+    margin-right: var(--space-2);
+}

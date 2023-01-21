@@ -16,7 +16,7 @@ export function getAnonUser(id){
 }
 
 export function getImageUrl(id){
-	if (id === 0) return "/platzhalter.jpg"
+	if (id === '0' || id === undefined) return "/platzhalter.jpg"
 	else return `${api_url}/image/${id}`
 }
 
@@ -98,8 +98,7 @@ export async function getRecipe(id) {
 	if (data) {
 		data.rating = (await getAverageRating(data.id))[0];
 		data.user = (await getUserById(data.userId))[0];
-	};
-	console.log(data);
+	}
 	return [data, error];
 }
 
@@ -217,9 +216,8 @@ export function useDeleteRecipe(id){
 //#endregion
 
 //#region Rating functions
-export async function getRatingsPage(id, {sort = undefined, size = undefined, page = 0}) {
+export async function getRatingsPage(id, {size = null, page = 0}) {
 	let uri = new URL(`${api_url}/recipes/${id}/ratings`);
-	if (sort) uri.searchParams.append('sort', sort);
 	if (size) uri.searchParams.append('size', size);
 	if (page) uri.searchParams.append('page', page);
 
@@ -230,20 +228,28 @@ export async function getRatingsPage(id, {sort = undefined, size = undefined, pa
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
 	else data = await res.json();
+	if(data){
+		data.ratings = await Promise.all(data.ratings.map(async rating => {
+			return {
+				...rating,
+				user: (await getUserById(rating.userId))[0]
+			};
+		}))
+	}
 
 	return [data, error];
 }
 
-export function useGetRatingsPage(id, {sort = undefined, size = undefined, page = 0}){
+export function useGetRatingsPage(id, {size = null, page = 0}){
 	const [error, setError] = useState(null);
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		getRatingsPage({sort: sort, size: size, page: page}).then(([data, error]) => {
+		getRatingsPage(id, {size: size, page: page}).then(([data, error]) => {
 			setData(data);
 			setError(error);
 		});
-	}, [sort, size, page]);
+	}, [size, page]);
 
 	return [data, error];
 }
@@ -281,7 +287,7 @@ export async function getAverageRating(id) {
 	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else data = (await res.json()).ratingValue;;
+	else data = Math.round((await res.json()).ratingValue * 100) / 100;
 
 	return [data, error];
 }
@@ -310,7 +316,7 @@ export async function postRating(id, {rating = undefined, comment = undefined}) 
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify({
-			rating: rating,
+			ratingValue: rating,
 			comment: comment
 		})
 	})
@@ -412,6 +418,7 @@ export function useDeleteRating(id){
 export async function postImages(images) {
 
 	let error = null;
+	let data = null;
 	let formdata = new FormData()
 	
 	images.forEach(image => {
@@ -430,8 +437,8 @@ export async function postImages(images) {
 	else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
 	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
 	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-
-	return error;
+	else data = await res.json();
+	return [data, error];
 }
 
 export function usePostImages(images){

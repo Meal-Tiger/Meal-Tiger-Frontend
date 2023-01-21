@@ -1,0 +1,27 @@
+.rating-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.rating-left{
+    grid-column-start: 1;
+}
+
+.rating-right{
+    grid-column-start: 2;
+    grid-column-end: span 6;
+}
+.rating-right div{
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    max-width: 75px;
+}
+
+.filter-top{
+    margin-top: var(--space-3);
+    display: flex;
+    justify-content: space-between;
+}

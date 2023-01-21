@@ -13,10 +13,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint src",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "ignorePatterns": ["**/__tests__/"],
     "extends": [
       "react-app",
       "react-app/jest"

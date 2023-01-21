@@ -5,6 +5,7 @@ import {useGetRecipe, getFormatedTime} from '../../modules/api';
 import {useParams} from 'react-router-dom';
 import Throbber from '../../modules/throbber/throbber';
 import Modal from "../../modules/Modal/Modal";
+import Difficulty from 'modules/Difficulty/Difficulty';
 
 export default function RecipeDescription() {
 	let {recipeId} = useParams();
@@ -26,9 +27,7 @@ export default function RecipeDescription() {
 					</div>
 					<div className={styles.informationContainer}>
 						<div className={styles.informationContainer}>
-							<span className={`material-symbols-outlined ${styles.iconDifficulty}`}>lunch_dining</span>
-							<span className={`material-symbols-outlined ${styles.iconDifficulty} ${recipe.difficulty >= 2 ? styles.active : styles.inactive}`}>lunch_dining</span>
-							<span className={`material-symbols-outlined ${styles.iconDifficulty} ${recipe.difficulty >= 2 ? styles.active : styles.inactive}`}>lunch_dining</span>
+							<Difficulty difficulty = {recipe.difficulty}/>
 							Schwierigkeit
 						</div>
 						<div className={styles.informationContainer}>

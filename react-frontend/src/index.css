@@ -54,7 +54,7 @@ p {
 }
 @media screen and (max-width: 1140px) {
     .main-content{
-        padding: var(--space-2);
+        padding: var(--space-3);
     }
 }
 @media only screen and (max-width: 768px) {

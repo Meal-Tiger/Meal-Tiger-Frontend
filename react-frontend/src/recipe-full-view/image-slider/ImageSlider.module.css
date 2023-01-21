@@ -6,7 +6,7 @@
 }
 @media screen and (max-width: 1140px) {
     .slider-container{
-        margin-top: calc(var(--space-2) * -1);
+        margin-top: calc(var(--space-3) * -1);
     }
 }
 
@@ -34,7 +34,14 @@
     display: flex;
     align-items: center;
     height: 100%;
-    padding-right: 135px;
+    padding-right: var(--space-5);
+}
+@media only screen and (max-width: 768px) {
+    .title-container{
+        padding-right: 0;
+        padding-left: var(--space-2);
+        justify-content: unset;
+    }
 }
 
 .slider-buttons {

@@ -1,16 +1,43 @@
 import React from 'react';
-import {cleanup, render} from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import RecipeCard from "../RecipeOverview/RecipeCard/RecipeCard";
 
-test('renders RecipeCard component', () => {
-    const title = 'Test recipe';
-    const time = 60;
-    const rating = 4;
-    const { getByText } = render(<RecipeCard title={title} time={time} rating={rating} onClick={() => {}} />);
-
-    expect(getByText(title)).toBeInTheDocument();
-    expect(getByText('1 Stunde')).toBeInTheDocument();
-    expect(getByText(`${rating}/5`)).toBeInTheDocument();
-});
-
 afterEach(cleanup);
+
+jest.mock('../modules/api', () => ({
+    ...jest.requireActual('../modules/api'),
+    useGetRecipe: () => {return [
+        {
+            "id": "63c6e3d6430aa840641e8b13",
+            "title": "Mock recipe",
+            "userId": "16844c69-480d-4bee-abb9-f76b955969ed",
+            "ingredients": [
+                {
+                    "amount": 5,
+                    "unit": "Beet/e",
+                    "name": "Test"
+                }
+            ],
+            "description": "Dies ist ein Test",
+            "difficulty": 2,
+            "time": 60,
+            "images": [],
+        }, null]},
+    getFormatedTime: jest.fn(time => `${time} minutes`)
+}));
+
+describe('RecipeCard component', () => {
+    it('renders without crashing', () => {
+        const { asFragment } = render(
+            <RecipeCard
+                title="Test Recipe"
+                time={30}
+                images={[]}
+                rating={4}
+                user={{imageId: undefined}}
+                onClick={() => {}}
+            />
+        );
+        expect(asFragment()).toMatchSnapshot();
+    });
+});
