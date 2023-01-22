@@ -22,7 +22,7 @@ export default function Usermenu() {
 					Rezept erstellen
 				</Link>
 				<Link to={"/profile"} className={` ${sessionStorage.getItem("login") === "true" ? "" : styles.hide } ${styles["drop-link"]}`}>
-					Profile
+					Profil
 				</Link>
 				<Link to={"/"} className={` ${sessionStorage.getItem("login") === "true" ? "" : styles.hide } ${styles["drop-link"]}`} onClick={logout}>
 					Logout
