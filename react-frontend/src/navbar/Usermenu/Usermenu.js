@@ -11,7 +11,7 @@ import {getImageUrl, useGetUser} from '../../modules/api';
 
 export default function Usermenu() {
 	const [showDropdown, setShowDropdown] = useState(false);
-	const [user, userError] = useGetUser();
+	const [user, ] = useGetUser();
 
 	const image = getImageUrl(user ? user.profilePictureId : 0);
 

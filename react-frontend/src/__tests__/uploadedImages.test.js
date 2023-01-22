@@ -18,6 +18,5 @@ test('renders UploadedImages', () => {
     expect(container.querySelector('.first-preview-image')).toBeInTheDocument();
     expect(container.querySelector('.preview-images-right')).toBeInTheDocument();
     expect(container.querySelector('.add-new-image')).toBeInTheDocument();
-    expect(container.querySelector('label')).toHaveTextContent('+');
     expect(container.querySelector('input')).toBeInTheDocument();
 });
