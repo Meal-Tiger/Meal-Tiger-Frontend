@@ -27,7 +27,7 @@ export default function UploadedImages() {
     }
 
     return (
-        <div className={`${styles["image-container"]} ${(images.length >= 1 ? styles["has-picture"] : styles["no-picture"])}`}>
+        <div className={`${styles["image-container"]} ${(images.length === 1 ? styles["has-one-picture"] : "")} ${(images.length >= 1 ? styles["has-picture"] : styles["no-picture"])}`}>
             <div className={styles["preview-image-container"]}>
                 <div className={styles["first-preview-image"]}>
                     {images.filter((file, index) => index === 0).map((file, index) =>
@@ -41,8 +41,7 @@ export default function UploadedImages() {
                 </div>
             </div>
             <div className={styles["add-new-image"]}>
-                <label htmlFor={"uploadImage"} className={"btn btn-icon"}>+</label>
-                <input id={"uploadImage"} multiple={true} type='file' accept="image/*" onChange={handleChange}/>
+                <input id={"uploadImage"} className={styles["upload-images"]} multiple={true} type='file' accept="image/*" onChange={handleChange}/>
             </div>
         </div>
     )
