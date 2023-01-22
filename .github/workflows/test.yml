@@ -40,5 +40,5 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'react-frontend/package-lock.json'
     - run: npm ci
-    - run: npm run build --if-present
+    - run: npm run lint
     - run: CI=true npm run test a

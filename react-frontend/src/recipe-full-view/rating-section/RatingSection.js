@@ -13,14 +13,16 @@ export default function RatingSection() {
 
 	let [ratingList, error] = useGetRatingsPage(recipeId, {size: itemsPerPage, page:page});
 
+
 	let getRating = () => {
 		if (ratingList && ratingList.ratings) {
+			console.log(ratingList);
 			return ratingList.ratings.map((element) => {
 				return (
 					<div key={element.id} className={styles['rating-container']}>
 						<div className={styles['rating-left']}>
 							<div>
-								<img className={styles['profile-picture']} src={getImageUrl(element.user.picture)} alt={'Food'}/>
+								<img className={styles['profile-picture']} src={getImageUrl(element.user.profilePictureId)} alt={'Food'}/>
 							</div>
 							<div>{element.user.username}</div>
 						</div>

@@ -11,7 +11,7 @@ jest.mock('../recipe-full-view/recipe-description/RecipeDescription', () => () =
     return <div role='mockedRecipeDescription'><mockedRecipeDescription/></div>;
 })
 
-test('Renders the modules for RecipeOverview', () => {
+test('Renders the modules for recipe-overview', () => {
     render(<RecipeFullView/>);
 
     const mockedImageSlider = screen.getByRole("mockedImageSlider");

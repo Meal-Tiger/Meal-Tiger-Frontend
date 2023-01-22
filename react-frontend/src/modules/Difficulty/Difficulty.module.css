@@ -1,0 +1,7 @@
+.iconDifficulty.inactive {
+    color: lightgray;
+}
+
+.iconDifficulty.active {
+    color: black;
+}

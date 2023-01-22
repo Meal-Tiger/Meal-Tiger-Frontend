@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 
 import Navbar from './navbar/Navbar';
-import RecipeOverview from './RecipeOverview/RecipeOverview';
+import RecipeOverview from './recipe-overview/RecipeOverview';
 import RecipeFullView from './recipe-full-view/RecipeFullView';
 import RecipeEditor from 'recipe-editor/RecipeEditor';
 import ErrorBoundary from './modules/ErrorBoundary/ErrorBoundary';
