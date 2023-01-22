@@ -16,6 +16,7 @@ import Modal from 'modules/Modal/Modal';
 import LoginWithKeycloak from 'navbar/Usermenu/LoginWithKeycloak/LoginWithKeycloak';
 import {getAccessToken} from 'modules/oidc';
 import { useEvent } from 'modules/events';
+import Profile from "./profile/Profile";
 
 function App() {
 	useEffect(() => {
@@ -58,6 +59,7 @@ function App() {
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />
+							<Route path="/profile" element={<Profile/>}/>
 						</Routes>
 					</ErrorBoundary>
 				</div>
