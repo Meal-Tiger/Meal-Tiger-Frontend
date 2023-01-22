@@ -26,4 +26,5 @@
     border: 1px solid #888;
     border-radius: 20px;
     min-width: 400px;
+    white-space: pre-wrap;
 }
