@@ -36,7 +36,7 @@ export default function RatingEditor() {
                 <input 
                     type={"number"} 
                     max={5}
-                    min={0}
+                    min={1}
                     value={rating || ""}
                     onChange={(event) => setRating(event.target.value)}>
                 </input>
