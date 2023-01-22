@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import RecipeOverview from "../RecipeOverview/RecipeOverview";
+import RecipeOverview from "../recipe-overview/RecipeOverview";
 import {MemoryRouter} from "react-router-dom";
 
 jest.mock('react-router-dom', () => ({
@@ -51,9 +51,9 @@ jest.mock('../modules/api', () => ({
     }, null]}
 }));
 
-jest.mock('../RecipeOverview/RecipeCard/RecipeCard', () => jest.fn());
+jest.mock('../recipe-overview/RecipeCard/RecipeCard', () => jest.fn());
 
-test("Render RecipeOverview", () => {
+test("Render recipe-overview", () => {
     const {container} = render(<MemoryRouter><RecipeOverview/></MemoryRouter>);
 
     expect(container.firstChild).toBeTruthy();
