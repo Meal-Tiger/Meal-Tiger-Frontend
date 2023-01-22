@@ -1,5 +1,5 @@
 import {postImages, putUser, useGetUser,} from "../modules/api";
-import ProfileImage from "./profileImage/ProfileImage";
+import ProfileImageInput from "./profile-image-input/ProfileImageInput";
 import Throbber from "../modules/throbber/throbber";
 import {useState} from "react";
 import styles from "./Profile.module.css"
@@ -59,8 +59,8 @@ function Profile() {
                     </div>
 
                     <h2>Dein Profilbild</h2>
-                    <ProfileImage image={image} setImage={setImage} userId={user.userId}
-                                  profilePictureId={user.profilePictureId}/>
+                    <ProfileImageInput image={image} setImage={setImage} userId={user.userId}
+                                       profilePictureId={user.profilePictureId}/>
                     <button className={"btn btn-primary"}>Speichern</button>
                 </form>
             </div>

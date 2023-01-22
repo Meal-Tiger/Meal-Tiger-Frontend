@@ -1,7 +1,7 @@
-import styles from "./ProfileImage.module.css"
+import styles from "./ProfileImageInput.module.css"
 import {getImageUrl} from "../../modules/api";
 
-export default function ProfileImage(props) {
+export default function ProfileImageInput(props) {
 
     let {image, setImage} = props;
 
@@ -9,13 +9,13 @@ export default function ProfileImage(props) {
         if (image) {
             return (
                 <label htmlFor={"uploadImage"}>
-                    <img className={styles["profile-image"]} src={URL.createObjectURL(image)} alt=""/>
+                    <img className={styles["profile-image-input"]} src={URL.createObjectURL(image)} alt=""/>
                 </label>
             )
         } else if (props.profilePictureId) {
             return (
                 <label htmlFor={"uploadImage"}>
-                    <img className={styles["profile-image"]} src={getImageUrl(props.profilePictureId)} alt=""/>
+                    <img className={styles["profile-image-input"]} src={getImageUrl(props.profilePictureId)} alt=""/>
                 </label>
             )
         } else {
