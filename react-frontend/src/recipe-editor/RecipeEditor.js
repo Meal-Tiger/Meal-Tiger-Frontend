@@ -138,7 +138,9 @@ export default function RecipeEditor() {
 									<input
 										name={'recipeTimeH'}
 										className={styles['schedule-input']}
-										type={'number'}
+										type={'text'}
+										pattern={"^\\d*[0-9]\\d*$"}
+										title="Zeitangabe in Stunden"
 										value={time[0]}
 										onChange={(event) => {
 											setTimeToRecipe(event);
@@ -148,7 +150,9 @@ export default function RecipeEditor() {
 									<input
 										name={'recipeTimeM'}
 										className={styles['schedule-input']}
-										type={'number'}
+										type={'text'}
+										pattern={"^\\d*[0-9]\\d*$"}
+										title="Zeitangabe in Minuten"
 										value={time[1]}
 										onChange={(event) => {
 											setTimeToRecipe(event);
