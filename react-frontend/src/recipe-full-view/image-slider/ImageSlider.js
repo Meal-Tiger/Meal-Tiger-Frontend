@@ -6,7 +6,11 @@ import {useParams} from 'react-router-dom';
 import {getImageUrl, useGetRecipe} from '../../modules/api';
 import Throbber from '../../modules/throbber/throbber';
 
-export default function ImageSlider() {
+export default function ImageSlider(pros) {
+
+	let showModal = pros.showModal;
+	let setShowModal = pros.setShowModal;
+
 	let {recipeId} = useParams();
 	let [recipe] = useGetRecipe(recipeId);
 
@@ -28,9 +32,15 @@ export default function ImageSlider() {
 		setCurrentIndex((currentIndex + 1) % getSlides().length);
 	};
 
-	const slideImage = {
-		backgroundImage: `linear-gradient(to right, transparent, white), url(${getSlides()[currentIndex]})`
+	let slideImage = {
+		 backgroundImage: `linear-gradient(to right, transparent, white), url(${getSlides()[currentIndex]})`
 	};
+
+	if (pros.noLinearGrid){
+		slideImage = {
+			backgroundImage: `url(${getSlides()[currentIndex]})`
+		};
+	}
 
 	const setSliderButtons = getSlides().map((slide, slideIndex) => (
 		<div key={slideIndex} onClick={() => setCurrentIndex(slideIndex)} style={slideIndex === currentIndex ? {color: 'grey'} : {color: 'white'}}>
@@ -40,7 +50,7 @@ export default function ImageSlider() {
 
 	if (recipe) {
 		return (
-			<div className={styles['slider-container']}>
+			<div className={styles['slider-container']} onClick={setShowModal}>
 				<div className={styles.slider}>
 					<div className={styles.slide} style={slideImage}>
 						<div className={styles['title-container']}>
