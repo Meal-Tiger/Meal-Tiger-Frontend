@@ -9,7 +9,6 @@ import styles from './RecipeOverview.module.css';
 import RecipeCard from './RecipeCard/RecipeCard';
 import { useState } from 'react';
 import Throbber from "../modules/throbber/throbber";
-import Modal from 'modules/Modal/Modal';
 import Pagination from "../modules/pagination/pagination";
 
 export default function RecipeOverview() {
@@ -43,7 +42,19 @@ export default function RecipeOverview() {
 			</div>
 		);
 	} else if(error){
-        return (<Modal className="error" show={true}>{error}</Modal>);
+        return (
+            <div>
+                <div className={styles["filter-top"]}>
+                    <div>0 Rezepte gefunden: {error}</div>
+                </div>
+                <div className={styles['no-recipe-container']}>
+                    <h1>Kein Rezept gefunden</h1>
+                    <div>
+                        Versuche es mit einem anderen Suchbegriff.
+                    </div>
+                </div>
+            </div>
+        )
     }else {
         return (<Throbber/>);
 	}
