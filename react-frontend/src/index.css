@@ -138,3 +138,18 @@ input.error, textarea.error {
         display: none;
     }
 }
+.image-modal{
+    position: relative;
+    width: calc(100% - var(--space-3));
+    padding: 0!important;
+    border: none!important;
+    background: none;
+}
+.image-modal div{
+    background-size: contain!important;
+    background-repeat: no-repeat;
+}
+
+.image-modal h1{
+    display: none;
+}
