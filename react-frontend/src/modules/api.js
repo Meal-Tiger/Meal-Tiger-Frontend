@@ -552,7 +552,7 @@ export function usePostUser({username = undefined, picture = undefined}){
 	return error;
 }
 
-export async function putUser({username = undefined, picture = undefined}) {
+export async function putUser({username = undefined, profilePictureId = undefined}) {
 	let error = null;
 
 	const res = await fetch(`${api_url}/user`, {
@@ -563,7 +563,7 @@ export async function putUser({username = undefined, picture = undefined}) {
 		},
 		body: JSON.stringify({
 			username: username,
-			picture: picture
+			profilePictureId: profilePictureId
 		})
 	})
 	
@@ -574,11 +574,11 @@ export async function putUser({username = undefined, picture = undefined}) {
 	return error;
 }
 
-export function usePutUser({username = undefined, picture = undefined}){
+export function usePutUser({username = undefined, profilePictureId = undefined}){
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		putUser({username: username, picture: picture}).then((error) => {
+		putUser({username: username, profilePictureId: profilePictureId}).then((error) => {
 			setError(error);
 		});
 	}, []);
