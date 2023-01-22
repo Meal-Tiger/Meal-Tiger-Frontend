@@ -19,7 +19,7 @@ export default function ProfileImageInput(props) {
                 </label>
             )
         } else {
-            return <label htmlFor={"uploadImage"}>Du hast momentan noch kein Profilbild hochgeladen</label>
+            return <label htmlFor={"uploadImage"}>Du hast momentan noch kein Profilbild hochgeladen.</label>
         }
     }
 
