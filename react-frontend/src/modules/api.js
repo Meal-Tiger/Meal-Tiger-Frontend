@@ -345,7 +345,7 @@ export async function putRating(id, {rating = undefined, comment = undefined}) {
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify({
-			rating: rating,
+			ratingValue: rating,
 			comment: comment
 		})
 	})
