@@ -56,7 +56,7 @@ export async function createError(response){
 		path = response.url;
 	}
 
-	return `${timestamp}\n${status} - ${error}\nPath: ${path}`
+	return `${timestamp}\n${status}\n${error}\nPath: ${path}`
 }
 //#endregion
 
