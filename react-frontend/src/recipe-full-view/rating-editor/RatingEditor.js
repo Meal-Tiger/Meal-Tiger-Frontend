@@ -1,7 +1,7 @@
 import styles from './RatingEditor.module.css';
 import {useState} from 'react';
 import {useParams} from "react-router-dom";
-import { postRating } from 'modules/api';
+import { putRating } from 'modules/api';
 import Modal from "../../modules/Modal/Modal";
 
 export default function RatingEditor() {
@@ -18,7 +18,7 @@ export default function RatingEditor() {
         event.preventDefault();
 
         let ratingObject = {rating: parseInt(rating), comment}
-        let [, error] = await postRating(recipeId, ratingObject);
+        let error = await putRating(recipeId, ratingObject);
 
         if (error) {
 			setError(error);
