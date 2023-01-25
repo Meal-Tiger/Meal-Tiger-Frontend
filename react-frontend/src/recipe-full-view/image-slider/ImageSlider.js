@@ -60,8 +60,7 @@ export default function ImageSlider(pros) {
 	));
 
 	let dragBind = useDrag(({swipe: [dx], intentional}) => {
-		if (dx && intentional) {
-			//event.preventDefault();
+		if (dx && intentional && !showModal) {
 			if (dx < 0) {
 				switchToNextIndex();
 			}
@@ -71,10 +70,6 @@ export default function ImageSlider(pros) {
 			}
 		}
 	}, {swipe: {duration: 2000}, axis: "x"});
-
-	if (showModal) {
-		dragBind = () => {};
-	}
 
 	if (recipe) {
 		return (

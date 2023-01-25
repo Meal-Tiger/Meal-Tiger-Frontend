@@ -10,7 +10,7 @@ export default function RecipeFullView(){
     return(
         <div>
             <ImageSlider showModal={showModal} setShowModal={setShowModal}/>
-            <Modal show={showModal} setShow={setShowModal} className={"image-modal"}> <ImageSlider noLinearGrid={true}/></Modal>
+            <Modal show={showModal} setShow={setShowModal} className={"image-modal"}> <ImageSlider showModal={showModal} noLinearGrid={true}/></Modal>
             <RecipeDescription/>
             <RatingEditor/>
             <RatingSection/>
