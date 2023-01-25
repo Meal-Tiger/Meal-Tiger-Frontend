@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {getImageUrl, useGetRecipe} from '../../modules/api';
 import Throbber from '../../modules/throbber/throbber';
+import {useDrag} from "@use-gesture/react";
 
 export default function ImageSlider(pros) {
 
@@ -32,8 +33,18 @@ export default function ImageSlider(pros) {
 		setCurrentIndex((currentIndex + 1) % getSlides().length);
 	};
 
+	const switchToLastIndex = () => {
+		if (currentIndex > 0) {
+			setCurrentIndex(currentIndex - 1);
+		} else {
+			setCurrentIndex(getSlides().length - 1);
+		}
+
+	};
+
 	let slideImage = {
-		 backgroundImage: `linear-gradient(to right, transparent, white), url(${getSlides()[currentIndex]})`
+		backgroundImage: `linear-gradient(to right, transparent, white), url(${getSlides()[currentIndex]})`,
+		touchAction: "pan-y"
 	};
 
 	if (pros.noLinearGrid){
@@ -48,11 +59,28 @@ export default function ImageSlider(pros) {
 		</div>
 	));
 
+	let dragBind = useDrag(({swipe: [dx], intentional}) => {
+		if (dx && intentional) {
+			//event.preventDefault();
+			if (dx < 0) {
+				switchToNextIndex();
+			}
+
+			if (dx > 0) {
+				switchToLastIndex();
+			}
+		}
+	}, {swipe: {duration: 2000}, axis: "x"});
+
+	if (showModal) {
+		dragBind = () => {};
+	}
+
 	if (recipe) {
 		return (
 			<div className={styles['slider-container']} onClick={setShowModal}>
 				<div className={styles.slider}>
-					<div className={styles.slide} style={slideImage}>
+					<div {...dragBind()} className={styles.slide} style={slideImage}>
 						<div className={styles['title-container']}>
 							<h1 className={styles.title}>{recipe.title}</h1>
 						</div>
