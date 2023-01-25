@@ -59,7 +59,7 @@ export default function ImageSlider(pros) {
 		</div>
 	));
 
-	let dragBind = useDrag(({swipe: [dx], intentional}) => {
+	const dragBind = useDrag(({swipe: [dx], intentional}) => {
 		if (dx && intentional && !showModal) {
 			if (dx < 0) {
 				switchToNextIndex();
