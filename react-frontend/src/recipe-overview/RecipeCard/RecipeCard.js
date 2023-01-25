@@ -3,12 +3,14 @@ import Difficulty from 'modules/Difficulty/Difficulty';
 import styles from './RecipeCard.module.css';
 
 export default function RecipeCard(props) {
-	return (
-		<div onClick={props.onClick} className={styles['recipe-card']}>
+
+	if(props.images.length > 0){
+		return (
+			<div onClick={props.onClick} className={styles['recipe-card']}>
 			<div
 				title={props.title}
 				className={`${styles['recipe-card-img']}`}
-				style={{backgroundImage: `url(${props.images.length > 0 ? getImageUrl(props.images[0]) : getImageUrl(0)})`}}
+				style={{backgroundImage: `url(${getImageUrl(props.images[0])}`}}
 			></div>
 			<div className={styles['recipe-card-infobox']}>
 				<h1 className="titel">{props.title}</h1>
@@ -26,5 +28,28 @@ export default function RecipeCard(props) {
 				</div>
 			</div>
 		</div>
-	);
+		)
+	}
+	else {
+		return (
+			<div onClick={props.onClick} className={styles['recipe-card']}>
+				<div className={styles['recipe-card-infobox']}>
+					<h1 className="titel">{props.title}</h1>
+					<div className={styles['recipe-card-info']}>
+						<span className="material-symbols-outlined">schedule</span>
+						{getFormatedTime(props.time)}
+					</div>
+					<Difficulty difficulty={props.difficulty}/>
+					<div className={` ${styles['recipe-card-info']} ${styles.user}`}>
+						<img className={styles.user} src={getImageUrl(props.user.imageId)} alt=""></img> {props.user.username}
+					</div>
+					<div className={`${styles['recipe-card-info']} ${'rating'}`}>
+						<span className={'material-symbols-outlined'}>star</span>
+						{props.rating}/5
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 }

@@ -1,5 +1,6 @@
 .user{
     height: 30px;
+    width: 30px;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -25,18 +26,28 @@
 .recipe-card .recipe-card-img{
     width: 50%;
     height:initial;
-    border-radius: 0.6rem;
     background-size: cover;
     background-position: center;
+    flex-shrink: 0;
 }
 
 .recipe-card .recipe-card-infobox{
-   width: 50%;
-   padding: var(--space-3) var(--space-2);
+   margin: var(--space-3) var(--space-2);
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 }
 
 .recipe-card .recipe-card-info{
      display: flex;
      align-items: center;
      margin-bottom: var(--space-2);
+}
+
+.recipe-card h1{
+    line-height: 1;
+    max-height: calc(2* var(--font-size-heading));
+    margin: 0;
+    margin-bottom: var(--space-3);
 }
