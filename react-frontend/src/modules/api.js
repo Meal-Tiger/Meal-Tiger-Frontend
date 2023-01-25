@@ -469,27 +469,30 @@ export async function getUser() {
 	});
 	let error = null;
 	let data = null;
-	if (!res.ok) error = await createError(res);
-	else data = await res.json();
+	let status = null
+	if (!res.ok){ error = await createError(res); status = res.status;}
+	else { data = await res.json(); status = res.status;}
 
-	return [data, error];
+	return [data, error, status];
 }
 
 export function useGetUser(){
 	const [error, setError] = useState(null);
 	const [data, setData] = useState(null);
+	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
-		getUser().then(([data, error]) => {
+		getUser().then(([data, error, status]) => {
 			setData(data);
 			setError(error);
+			setStatus(status);
 		});
 	}, []);
 
-	return [data, error];
+	return [data, error, status];
 }
 
-export async function postUser({username = undefined, picture = undefined}) {
+export async function postUser({username = undefined, profilePictureId = undefined}) {
 	let error = null;
 
 	const res = await fetch(`${api_url}/user`, {
@@ -500,7 +503,7 @@ export async function postUser({username = undefined, picture = undefined}) {
 		},
 		body: JSON.stringify({
 			username: username,
-			picture: picture
+			profilePictureId: profilePictureId
 		})
 	})
 	
@@ -509,11 +512,11 @@ export async function postUser({username = undefined, picture = undefined}) {
 	return error;
 }
 
-export function usePostUser({username = undefined, picture = undefined}){
+export function usePostUser({username = undefined, profilePictureId = undefined}){
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		postUser({username: username, picture: picture}).then((error) => {
+		postUser({username: username, profilePictureId: profilePictureId}).then((error) => {
 			setError(error);
 		});
 	}, []);
