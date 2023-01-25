@@ -16,7 +16,6 @@ export default function RatingSection() {
 
 	let getRating = () => {
 		if (ratingList && ratingList.ratings) {
-			console.log(ratingList);
 			return ratingList.ratings.map((element) => {
 				return (
 					<div key={element.id} className={styles['rating-container']}>

@@ -30,12 +30,10 @@ function App() {
 
 	useEvent("openLoginModal", () => {
 		setShowModal(true)
-		console.log("OPEN");
 	})
 
 	useEvent("closeLoginModal", () => {
 		setShowModal(false)
-		console.log("CLOSE");
 	})
 
 	return (
