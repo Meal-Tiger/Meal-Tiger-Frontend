@@ -469,7 +469,10 @@ export async function getUser() {
 	});
 	let error = null;
 	let data = null;
-	if (!res.ok) error = await createError(res);
+	if (!res.ok) {
+		error = await createError(res);
+		data = getAnonUser(0);
+	}
 	else data = await res.json();
 
 	return [data, error];
