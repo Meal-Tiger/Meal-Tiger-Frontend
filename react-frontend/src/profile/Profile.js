@@ -55,7 +55,7 @@ function Profile() {
                     <h1>Dein Profil</h1>
                     <div className={styles["input-container"]}>
                         <label htmlFor={"username"}>Nutzername</label>
-                        <input id={"username"} placeholder={user.username}
+                        <input id={"username"} placeholder={` ${user.userId === 0 ? "Nutzername" : user.username} `}
                                onChange={event => setName(event.target.value)}/>
                     </div>
 
