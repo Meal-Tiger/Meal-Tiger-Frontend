@@ -144,10 +144,12 @@ input.error, textarea.error {
     padding: 0!important;
     border: none!important;
     background: none;
+    overflow: hidden;
 }
 .image-modal div{
     background-size: contain!important;
     background-repeat: no-repeat;
+    margin-top: 0;
 }
 
 .image-modal h1{
