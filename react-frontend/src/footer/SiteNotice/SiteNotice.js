@@ -19,7 +19,7 @@ export default function SiteNotice() {
             <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
                 DE999999999</p>
 
-            <h2>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+            <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
             <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 
             <p>Quelle: <a href={"https://www.e-recht24.de"}>e-recht24.de</a></p>
