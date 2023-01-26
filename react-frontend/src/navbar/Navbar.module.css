@@ -19,6 +19,7 @@
     width: 100%;
     max-width: 1440px;
     margin: auto;
+    padding-right: var(--space-2);
 }
 @media only screen and (max-width: 768px) {
     .navbar{
