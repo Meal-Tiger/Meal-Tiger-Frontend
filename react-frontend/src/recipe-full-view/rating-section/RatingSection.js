@@ -1,5 +1,5 @@
 import styles from './RatingSection.module.css';
-import {useParams} from 'react-router-dom';
+import {useLocation, useParams, useNavigate} from 'react-router-dom';
 import {getImageUrl, useGetRatingsPage} from '../../modules/api';
 import Throbber from '../../modules/throbber/throbber';
 import Modal from '../../modules/Modal/Modal';
@@ -13,6 +13,14 @@ export default function RatingSection() {
 
 	let [ratingList, error] = useGetRatingsPage(recipeId, {size: itemsPerPage, page:page});
 
+	let navigate = useNavigate();
+	let urlPath = useLocation().pathname;
+	const handleChange = (newItemsize) => {
+		urlPath = (urlPath.split("page/"));
+		urlPath = urlPath[0] + "page/0"
+		setItemsPerPage(newItemsize);
+		navigate(urlPath);
+	}
 
 	let getRating = () => {
 		if (ratingList && ratingList.ratings) {
@@ -47,7 +55,7 @@ export default function RatingSection() {
 					<div>{ratingList.totalItems} Kommentare insgesammt</div>
 					<div>
 						<label htmlFor={"itemsPerPage"}>Anzahl Kommentare pro Seite </label>
-						<select id={"itemsPerPage"} value={itemsPerPage} onChange={(event) => {setItemsPerPage(event.target.value)}}>
+						<select id={"itemsPerPage"} value={itemsPerPage} onChange={(event) => {handleChange(event.target.value)}}>
 							<option>15</option>
 							<option>50</option>
 							<option>100</option>
