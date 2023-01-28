@@ -30,7 +30,7 @@
 }
 
 .ingredientColumnRight{
-    padding-left: 8%;
+    padding: var(--space-1) 0 var(--space-1) 8%;
     width: 100%;
     text-align: left;
 }
@@ -48,7 +48,19 @@
 .ingredientTable{
     height: min-content;
     grid-column: 1;
-    white-space: nowrap;
+    border-spacing: 0;
+}
+.ingredientTable tr:nth-child(odd) {background-color: #edeaea}
+
+.ingredientTable td{
+    vertical-align: top;
+}
+
+
+@media screen and (min-width: 961px) {
+    .desc-container{
+        padding-left: var(--space-3);
+    }
 }
 
 @media screen and (max-width: 960px) {
