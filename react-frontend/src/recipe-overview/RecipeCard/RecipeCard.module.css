@@ -45,9 +45,12 @@
      margin-bottom: var(--space-2);
 }
 
-.recipe-card h1{
+.recipe-card h3{
     line-height: 1;
-    max-height: calc(2* var(--font-size-heading));
+    max-height: calc(3* var(--font-size-sub-heading));
     margin: 0;
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
