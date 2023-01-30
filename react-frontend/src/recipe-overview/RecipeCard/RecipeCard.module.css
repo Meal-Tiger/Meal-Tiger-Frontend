@@ -1,7 +1,7 @@
 .user{
     height: 30px;
-    width: 30px;
-    object-fit: cover;
+    background-size: cover;
+    padding-right: 30px;
     border-radius: 50%;
 }
 
