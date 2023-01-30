@@ -131,7 +131,7 @@
     max-height: 100%;
     padding: 0 0 var(--space-5) 0;
 }
-.preview-images-right{
+.preview-images-down{
     overflow-x: auto;
     display: flex;
     height: 25%;
@@ -142,6 +142,10 @@
 
 .has-one-picture .first-preview-image{
     height: 100%;
+}
+
+.has-one-picture .preview-images-down{
+    height: 0;
 }
 
 .preview-image {
