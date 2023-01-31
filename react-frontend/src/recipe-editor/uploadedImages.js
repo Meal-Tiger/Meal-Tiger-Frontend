@@ -34,7 +34,7 @@ export default function UploadedImages() {
                         <img data-index={index} className={styles["preview-image"]} src={URL.createObjectURL(file)} onClick={removeFile} alt=""/>
                     )}
                 </div>
-                <div className={styles["preview-images-right"]}>
+                <div className={styles["preview-images-down"]}>
                     {images.filter((file, index) => index >= 1).map((file, index) =>
                         <img data-index={index} className={styles["preview-image"]} src={URL.createObjectURL(file)} onClick={removeFile} alt=""/>
                     )}
