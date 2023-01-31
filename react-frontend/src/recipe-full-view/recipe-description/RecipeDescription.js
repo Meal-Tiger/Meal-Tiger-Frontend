@@ -37,7 +37,7 @@ export default function RecipeDescription() {
 					</div>
 				</div>
 				<IngredientsContainer ingredientArray={recipe.ingredients} />
-				<div>
+				<div className={styles["desc-container"]}>
 					<h2>Rezeptbeschreibung</h2>
 					<p>{recipe.description}</p>
 				</div>

@@ -11,6 +11,13 @@ jest.mock('../recipe-full-view/recipe-description/RecipeDescription', () => () =
     return <div role='mockedRecipeDescription'><mockedRecipeDescription/></div>;
 })
 
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn(),
+    useLocation: () => ({pathname: 'lol', page:''}),
+    useParams: () => ({query: 'lol', page:''})
+}));
+
 test('Renders the modules for recipe-overview', () => {
     render(<RecipeFullView/>);
 

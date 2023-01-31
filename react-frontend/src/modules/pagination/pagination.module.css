@@ -9,6 +9,10 @@
     background-repeat: repeat-x, repeat-x;
 }
 
+.next-page-container span{
+    cursor: pointer;
+}
+
 .change-page{
     cursor: pointer;
     border: 1px solid var(--border-color);

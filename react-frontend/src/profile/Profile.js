@@ -9,6 +9,7 @@ function Profile() {
     const [showModal, setShowModal] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [error, setError] = useState(null);
+    
     let [user, errorUser] = useGetUser();
     let [name, setName] = useState("");
     const [image, setImage] = useState(null);
@@ -36,7 +37,7 @@ function Profile() {
         }
     }
 
-    if (errorUser || error) {
+    if (error) {
         return (
             <Modal className="error" show={showModal}>{errorUser + error}</Modal>
         );
@@ -54,7 +55,7 @@ function Profile() {
                     <h1>Dein Profil</h1>
                     <div className={styles["input-container"]}>
                         <label htmlFor={"username"}>Nutzername</label>
-                        <input id={"username"} placeholder={user.username}
+                        <input id={"username"} placeholder={` ${user.userId === 0 ? "Nutzername" : user.username} `}
                                onChange={event => setName(event.target.value)}/>
                     </div>
 
