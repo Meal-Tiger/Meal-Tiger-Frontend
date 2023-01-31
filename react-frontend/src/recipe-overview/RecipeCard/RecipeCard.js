@@ -3,9 +3,6 @@ import Difficulty from 'modules/Difficulty/Difficulty';
 import styles from './RecipeCard.module.css';
 
 export default function RecipeCard(props) {
-
-	console.log(props.user);
-
 	if (props.images.length > 0) {
 		return (
 			<div onClick={props.onClick} className={styles['recipe-card']}>
