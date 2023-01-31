@@ -20,7 +20,7 @@ export default function RecipeCard(props) {
 				</div>
 				<Difficulty difficulty={props.difficulty}/>
 				<div className={` ${styles['recipe-card-info']} ${styles.user}`}>
-					<img className={styles.user} src={getImageUrl(props.user.imageId)} alt=""></img> {props.user.username}
+					<div className={` ${props.user.profilePictureId !== null ? styles.user : "" }`} style={{backgroundImage: `url(${getImageUrl(props.user.profilePictureId)}`}}></div> <span>{props.user.username}</span>
 				</div>
 				<div className={`${styles['recipe-card-info']} ${'rating'}`}>
 					<span className={'material-symbols-outlined'}>star</span>
