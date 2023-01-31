@@ -35,7 +35,7 @@ describe('Helper functions', () => {
             expect(result).toEqual({
                 userId: id,
                 username: 'Anonym',
-                picture: '0',
+                profilePictureId: '0',
             });
         });
     });
