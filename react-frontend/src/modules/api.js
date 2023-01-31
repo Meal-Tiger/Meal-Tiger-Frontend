@@ -11,12 +11,13 @@ export function getAnonUser(id){
 	return {
 		"userId": id,
 		"username": "Anonym",
-		"picture": "0"
+		"profilePictureId": "0"
 	}
 }
 
 export function getImageUrl(id){
-	if (id === '0' || id === undefined) return "/platzhalter.jpg"
+	if (id === null) return "/user-platzhalter.jpg"
+	if (id === "0") return "/platzhalter.jpg"
 	else return `${api_url}/image/${id}`
 }
 
