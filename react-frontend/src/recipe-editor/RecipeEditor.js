@@ -5,9 +5,9 @@ import image_03 from '../recipe-full-view/image-slider/image-03.jpg';
 import UploadedImages from './uploadedImages';
 import {createContext, useMemo, useState, useEffect} from 'react';
 import IngredientsContainerEditable from './IngredientsContainerEditable';
-import {postImages, postRecipe} from 'modules/api';
+import {getRecipe, postImages, postRecipe, useGetRecipe} from 'modules/api';
 import Modal from '../modules/Modal/Modal';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {openLoginModal_event} from 'modules/events';
 
 export const RecipeContext = createContext({
@@ -25,23 +25,31 @@ export const RecipeContext = createContext({
 });
 
 export default function RecipeEditor() {
+	let {recipeId} = useParams();
+
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		if (sessionStorage.getItem('login') === 'false') document.dispatchEvent(openLoginModal_event);
+		if(recipeId) getRecipe(recipeId).then((recipe) => {
+			setRecipe(recipe[0]);
+			setTime([Math.floor(recipe[0].time/60), recipe[0].time%60])
+			console.log(recipe);});
 	}, []);
 
 	let navigate = useNavigate();
 
 	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
-	const [time, setTime] = useState([0, 0]);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [images, setImages] = useState([]);
 	const [id, setId] = useState("");
+	
+	const [images, setImages] = useState([]);
+
+	const [time, setTime] = useState([0, 0]);
 	const [recipe, setRecipe] = useState({
-		title: '',
-		description: '',
+		title: "",
+		description: "",
 		difficulty: 1,
 		rating: 5,
 		time: 0,
@@ -68,9 +76,11 @@ export default function RecipeEditor() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		let imageIds, imageError = null;
+
 		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
 		let [id, error] = await postRecipe({...recipe, images: await imageIds});
 		setId(id);
+
 		if (error || imageError) {
 			setError(error + imageError);
 			setShowModal(true);
