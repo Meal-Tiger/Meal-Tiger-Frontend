@@ -62,7 +62,7 @@ export default function RatingEditor() {
                 </div>
             </div>
             <Modal show={showSuccessMessage} setShow={setShowSuccessMessage}>
-                <h1>Rezept erfolgreich erstellt!</h1>
+                <h1>Dein Kommentar wurde hinzugefügt.</h1>
             </Modal>
             <Modal className="error" show={showModal} setShow={setShowModal}>
                 {error}
