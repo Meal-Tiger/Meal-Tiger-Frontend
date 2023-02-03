@@ -14,6 +14,7 @@ export default function Modal(props){
     return (
         <div className={styles.background} onClick={closeModal}>
             <div className={`${styles.modal} ${props.className}`} onClick={e => e.stopPropagation()}>
+                {props.closeButton ? <span onClick={closeModal} className={`material-symbols-outlined ${styles["close-button"]}`}>cancel</span> : ''}
                 {props.children}
             </div>
         </div>
