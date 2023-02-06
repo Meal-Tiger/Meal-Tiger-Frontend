@@ -7,13 +7,20 @@
 
 .recipe-card{
      background-color: var(--color-primary);
-     /*border: 0.2rem solid var(--border-color);*/
+     box-shadow: 15px 20px 25px silver;
      border-radius: 0.6rem;
      display: inline-flex;
      flex-direction: row;
      width: calc(100%/3 - var(--space-5));
      height: 25rem;
      cursor: pointer;
+     transition: all 100ms ease-in-out;
+}
+
+.recipe-card:hover{
+    transform: scale(0.9, 0.9);
+    box-shadow: unset;
+    /*transform: scale(1.1, 1.1);*/
 }
 
 @media only screen and (max-width: 1023px) {
