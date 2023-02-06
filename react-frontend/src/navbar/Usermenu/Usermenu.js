@@ -11,7 +11,7 @@ import {getImageUrl, useGetUser} from '../../modules/api';
 
 export default function Usermenu() {
 	const [showDropdown, setShowDropdown] = useState(false);
-	const [user, ] = useGetUser();
+	const [user] = useGetUser();
 
 	const image = getImageUrl(user ? user.profilePictureId : 0);
 
@@ -22,16 +22,28 @@ export default function Usermenu() {
 			</div>
 			<Dropdown show={showDropdown} setShow={setShowDropdown}>
 				<Link to={'/add-recipe'} className={styles['drop-link']}>
-					Rezept erstellen
+					<div className={styles['drop-link-container']}>
+						<span className={'material-symbols-outlined'}>note_add</span>
+						<div>Rezept erstellen</div>
+					</div>
 				</Link>
-				<Link to={'/profile'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide } ${styles['drop-link']}`}>
-					Profil
+				<Link to={'/profile'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide} ${styles['drop-link']}`}>
+					<div className={styles['drop-link-container']}>
+						<span className={'material-symbols-outlined'}>person</span>
+						<div>Profil</div>
+					</div>
 				</Link>
 				<Link to={'/'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide} ${styles['drop-link']}`} onClick={logout}>
-					Logout
+					<div className={styles['drop-link-container']}>
+						<span className={'material-symbols-outlined'}>logout</span>
+						<div>Logout</div>
+					</div>
 				</Link>
 				<Link to={''} className={` ${sessionStorage.getItem('login') === 'true' ? styles.hide : ''} ${styles['drop-link']}`} onClick={() => document.dispatchEvent(openLoginModal_event)}>
-					Login
+					<div className={styles['drop-link-container']}>
+						<span className={'material-symbols-outlined'}>login</span>
+						<div>Login</div>
+					</div>
 				</Link>
 			</Dropdown>
 		</div>
