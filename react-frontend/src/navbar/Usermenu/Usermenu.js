@@ -24,6 +24,9 @@ export default function Usermenu() {
 				<Link to={'/add-recipe'} className={styles['drop-link']}>
 					Rezept erstellen
 				</Link>
+				<Link to={'/my-recipes'} className={styles['drop-link']}>
+					Meine Rezepte
+				</Link>
 				<Link to={'/profile'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide } ${styles['drop-link']}`}>
 					Profil
 				</Link>
