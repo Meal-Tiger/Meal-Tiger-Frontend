@@ -6,7 +6,8 @@
 }
 
 .recipe-card{
-     border: 0.2rem solid var(--border-color);
+     background-color: var(--color-primary);
+     /*border: 0.2rem solid var(--border-color);*/
      border-radius: 0.6rem;
      display: inline-flex;
      flex-direction: row;
@@ -24,6 +25,7 @@
 }
 
 .recipe-card .recipe-card-img{
+    border-radius: 0.6rem 0 0 0.6rem;
     width: 50%;
     height:initial;
     background-size: cover;

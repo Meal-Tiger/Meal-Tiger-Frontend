@@ -6,13 +6,13 @@
 }
 
 .recipe-container{
+    box-shadow: 15px 20px 25px silver;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     border-radius: 0.5rem;
     background-color: rgb(255 255 255/1);
-    padding: var(--space-3);
     gap: 3rem;
 }
 
@@ -20,13 +20,14 @@
 .recipe-card-img{
     width: 15rem;
     height: 15rem;
-    border-radius: 0.5rem;
+    border-radius: 0.6rem 0 0 0.6rem;
     background-size: cover;
     background-position: center;
     object-fit: cover;
 }
 
 .button-container{
+    padding: var(--space-3);
     display: flex;
     flex-direction: column;
     justify-content: center;
