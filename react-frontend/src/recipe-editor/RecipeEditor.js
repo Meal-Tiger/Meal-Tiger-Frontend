@@ -5,7 +5,7 @@ import image_03 from '../recipe-full-view/image-slider/image-03.jpg';
 import UploadedImages from './uploadedImages';
 import {createContext, useMemo, useState, useEffect} from 'react';
 import IngredientsContainerEditable from './IngredientsContainerEditable';
-import {getImageUrl, getRecipe, postImages, postRecipe, putRecipe} from 'modules/api';
+import {deleteImage, getImageUrl, getRecipe, postImages, postRecipe, putRecipe} from 'modules/api';
 import Modal from '../modules/Modal/Modal';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {openLoginModal_event} from 'modules/events';
@@ -81,9 +81,11 @@ export default function RecipeEditor() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		let imageIds, imageError = undefined;
-
 		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
 		let id, error = null;
+		recipe.images.forEach(image => {
+			deleteImage(image);
+		})
 		if (recipeId){ [id, error] = await putRecipe(recipeId, {...recipe, images: await imageIds});}
 		else{ [id, error] = await postRecipe({...recipe, images: await imageIds});}
 
