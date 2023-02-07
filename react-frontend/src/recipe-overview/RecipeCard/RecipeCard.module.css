@@ -18,7 +18,7 @@
 }
 
 .recipe-card:hover{
-    transform: scale(0.9, 0.9);
+    transform: scale(0.99, 0.99);
     box-shadow: unset;
     /*transform: scale(1.1, 1.1);*/
 }
