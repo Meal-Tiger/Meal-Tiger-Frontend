@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useGetUserRecipesPage} from "../modules/api";
-import styles from "./UserRecipes.module.css";
 import UserRecipeCard from "./user-recipe-card/UserRecipeCard";
+import Pagination from "../modules/pagination/pagination";
 
 export default function UserRecipes() {
     const [itemsPerPage, setItemsPerPage] = useState(15);
@@ -16,7 +16,8 @@ export default function UserRecipes() {
 
         return (
             <div>
-            <UserRecipeCard recipes={recipes}/>
+                <UserRecipeCard recipes={recipes}/>
+                <Pagination paginationObject={{object: recipes,error: error}}/>
             </div>
         )
     }
