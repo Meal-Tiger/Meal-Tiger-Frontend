@@ -24,13 +24,31 @@ export function getImageUrl(id){
 export function getFormatedTime(time) {
 	let hours = Math.floor(time / 60);
 	let minutes = time % 60;
+	let minText = "";
 
-	if (!hours && minutes === 1) return `1 Minute`;
-	if (!hours && minutes > 1) return `${minutes} Minuten`;
-	if (hours === 1 && minutes < 5) return `1 Stunde`;
-	if (hours === 1 && minutes >= 5) return `1:${minutes} Stunde`;
-	if (hours > 1 && minutes < 5) return `${hours} Stunden`;
-	if (hours > 1 && minutes >= 5) return `${hours}:${minutes} Stunden`;
+	if (minutes <= 7  && hours >= 1){
+		minText = "";
+	}else if (minutes <= 22 ){
+		minText = "15";
+	}else if(minutes <= 37){
+		minText =  "30";
+	}else if(minutes <= 52){
+		minText =  "45";
+	}else if(minutes > 52){
+		hours++;
+	}
+
+	if (hours > 0 && minText !== ""){
+		minText = ":" + minText;
+	}
+
+	if (hours === 1){
+		return `1${minText} Stunde`;
+	}else if(hours > 1 ){
+		return `${hours}${minText} Stunden`;
+	}else{
+		return `${minText} Minuten`;
+	}
 }
 
 export function createRecipe({title = undefined, ingredients = undefined, description = undefined, difficulty = undefined, time = undefined}) {
