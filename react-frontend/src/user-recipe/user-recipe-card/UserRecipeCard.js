@@ -33,9 +33,9 @@ export default function UserRecipeCard({recipes}) {
 							<button className={'btn error'} type="button" onClick={() => deleteModal(recipe.id)}>
 								Löschen
 							</button>
-							<button className={'btn'} onClick={() => navigate('')}>
+							<button className={'btn'} onClick={() => navigate(`/recipe/${recipe.id}/edit`)}>
 								Bearbeiten
-							</button>{' '}
+							</button>
 							{/*// TODO Link zum Editor einfügen.*/}
 						</div>
 					</div>
