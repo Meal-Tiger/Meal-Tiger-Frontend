@@ -16,6 +16,7 @@ jest.mock("../modules/api", () => ({
 
 jest.mock("react-router", () => ({
     useNavigate: jest.fn(() => Promise.resolve(null)),
+    useParams: () => {return {recipeId: null}},
 }));
 
 jest.mock('../recipe-editor/IngredientsContainerEditable', () => () => <div />);
