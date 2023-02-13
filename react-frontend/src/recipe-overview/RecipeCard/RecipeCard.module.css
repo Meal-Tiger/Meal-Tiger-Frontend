@@ -6,13 +6,21 @@
 }
 
 .recipe-card{
-     border: 0.2rem solid var(--border-color);
+     background-color: var(--color-primary);
+     box-shadow: 15px 20px 25px silver;
      border-radius: 0.6rem;
      display: inline-flex;
      flex-direction: row;
      width: calc(100%/3 - var(--space-5));
      height: 25rem;
      cursor: pointer;
+     transition: all 100ms ease-in-out;
+}
+
+.recipe-card:hover{
+    transform: scale(0.99, 0.99);
+    box-shadow: unset;
+    /*transform: scale(1.1, 1.1);*/
 }
 
 @media only screen and (max-width: 1023px) {
@@ -24,6 +32,7 @@
 }
 
 .recipe-card .recipe-card-img{
+    border-radius: 0.6rem 0 0 0.6rem;
     width: 50%;
     height:initial;
     background-size: cover;

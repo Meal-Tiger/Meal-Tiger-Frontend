@@ -17,6 +17,7 @@ import LoginWithKeycloak from 'navbar/Usermenu/LoginWithKeycloak/LoginWithKeyclo
 import {getAccessToken} from 'modules/oidc';
 import { useEvent } from 'modules/events';
 import Profile from "./profile/Profile";
+import UserRecipes from "./user-recipe/UserRecipes";
 
 function App() {
 	useEffect(() => {
@@ -31,7 +32,6 @@ function App() {
 	useEvent("openLoginModal", () => {
 		setShowModal(true)
 	})
-
 	useEvent("closeLoginModal", () => {
 		setShowModal(false)
 	})
@@ -55,6 +55,7 @@ function App() {
 							<Route path="/recipe/:recipeId/search/:query/page/:page" element={<RecipeFullView />} />
 							<Route path="/recipe/:recipeId/page/:page" element={<RecipeFullView />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />
+							<Route path="/my-recipes" element={<UserRecipes/>}/>
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />

@@ -27,6 +27,7 @@
 
 .ingredientColumnLeft{
     text-align: right;
+    min-width: 10rem;
 }
 
 .ingredientColumnRight{

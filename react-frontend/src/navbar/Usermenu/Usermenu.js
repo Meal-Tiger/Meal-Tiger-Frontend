@@ -23,8 +23,14 @@ export default function Usermenu() {
 			<Dropdown show={showDropdown} setShow={setShowDropdown}>
 				<Link to={'/add-recipe'} className={styles['drop-link']}>
 					<div className={styles['drop-link-container']}>
-						<span className={'material-symbols-outlined'}>note_add</span>
+						<span className={'material-symbols-outlined'}>post_add</span>
 						<div>Rezept erstellen</div>
+					</div>
+				</Link>
+				<Link to={'/my-recipes'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide} ${styles['drop-link']}`}>
+					<div className={styles['drop-link-container']}>
+						<span className={'material-symbols-outlined'}>menu_book</span>
+						<div>Meine Rezepte</div>
 					</div>
 				</Link>
 				<Link to={'/profile'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide} ${styles['drop-link']}`}>
