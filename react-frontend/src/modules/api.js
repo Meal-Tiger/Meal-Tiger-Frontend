@@ -28,7 +28,7 @@ export function getFormatedTime(time) {
 	if (!hours && minutes === 1) return `1 Minute`;
 	if (!hours && minutes > 1) return `${minutes} Minuten`;
 	if (hours === 1 && minutes < 5) return `1 Stunde`;
-	if (hours === 1 && minutes >= 5) return `1:${minutes} Stunde`;
+	if (hours === 1 && minutes >= 5) return `1:${minutes.toString().padStart(2, "0")} Stunde`;
 	if (hours > 1 && minutes < 5) return `${hours} Stunden`;
 	if (hours > 1 && minutes >= 5) return `${hours}:${minutes} Stunden`;
 }
