@@ -36,7 +36,6 @@ export default function UserRecipeCard({recipes}) {
 							<button className={'btn'} onClick={() => navigate(`/recipe/${recipe.id}/edit`)}>
 								Bearbeiten
 							</button>
-							{/*// TODO Link zum Editor einfügen.*/}
 						</div>
 					</div>
 				);
