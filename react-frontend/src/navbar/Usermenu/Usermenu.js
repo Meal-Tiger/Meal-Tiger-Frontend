@@ -13,7 +13,7 @@ export default function Usermenu() {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [user] = useGetUser();
 
-	const image = getImageUrl(user ? user.profilePictureId : 0);
+	const image = getImageUrl(user?.profilePictureId);
 
 	return (
 		<div className={styles['usermenu-container']}>
