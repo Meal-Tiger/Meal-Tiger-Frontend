@@ -18,7 +18,7 @@ export default function RecipeDescription() {
 					<div className={styles.informationContainer}>
 						<div className={styles.informationContainer}>
 							<span className="material-symbols-outlined">person</span>
-							Nutzer
+							{recipe.user.username}
 						</div>
 						<div className={styles.informationContainer}>
 							<span className="material-symbols-outlined">star</span>
