@@ -1,5 +1,4 @@
 import styles from'./Navbar.module.css';
-import logo from'./logo.png';
 
 import Searchbar from './Searchbar/Searchbar';
 import Usermenu from './Usermenu/Usermenu';
@@ -10,7 +9,10 @@ function Navbar(){
         <div className={styles.navbar}>
             <div className={`${styles["navbar-container"]}`}>
                 <Link to={"/"} className={styles.logo}>
-                    <img className={styles.logo} src={logo} alt="Meal-Tiger Logo"/>
+                    <picture>
+                        <source srcSet={"/logo512.webp"} type={"image/webp"}/>
+                        <img className={styles.logo} src="/logo512.jpg" alt="Meal-Tiger Logo"/>
+                    </picture>
                 </Link>
                 <Searchbar/>
                 <Usermenu/>
