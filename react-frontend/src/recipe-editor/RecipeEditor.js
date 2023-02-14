@@ -5,7 +5,7 @@ import image_03 from '../recipe-full-view/image-slider/image-03.jpg';
 import UploadedImages from './uploadedImages';
 import {createContext, useMemo, useState, useEffect} from 'react';
 import IngredientsContainerEditable from './IngredientsContainerEditable';
-import {deleteImage, getImageUrl, getRecipe, postImages, postRecipe, putRecipe} from 'modules/api';
+import {deleteImage, getImageUrl, getRecipe, getUser, postImages, postRecipe, putRecipe} from 'modules/api';
 import Modal from '../modules/Modal/Modal';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {openLoginModal_event} from 'modules/events';
