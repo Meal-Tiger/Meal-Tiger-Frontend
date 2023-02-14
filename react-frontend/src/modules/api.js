@@ -11,7 +11,7 @@ export function getAnonUser(id){
 	return {
 		"userId": id,
 		"username": "Anonym",
-		"profilePictureId": "0"
+		"profilePictureId": null
 	}
 }
 
