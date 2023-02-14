@@ -11,6 +11,25 @@ jest.mock('../recipe-full-view/recipe-description/RecipeDescription', () => () =
     return <div role='mockedRecipeDescription'><mockedRecipeDescription/></div>;
 })
 
+jest.mock('modules/api', () => ({
+    ...jest.requireActual('modules/api'),
+    useGetRecipe: () => {
+        return [{
+        title: "Test recipe",
+        rating: 4,
+        difficulty: 2,
+        time: 60,
+        images: [0],
+        ingredients: [
+            { amount: '1', unit: 'cup', name: 'sugar' },
+            { amount: '2', unit: 'tbsp', name: 'flour' },
+            { amount: '1/2', unit: 'tsp', name: 'salt' }
+        ],
+        description: "Test recipe description"
+        }]
+    }
+}));
+
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useNavigate: jest.fn(),
