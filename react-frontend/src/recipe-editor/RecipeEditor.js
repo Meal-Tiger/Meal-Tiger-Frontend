@@ -83,10 +83,13 @@ export default function RecipeEditor() {
 		let imageIds, imageError = undefined;
 		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
 		let id, error = null;
-		recipe.images.forEach(image => {
+		if (recipe.images) {
+			recipe.images.forEach(image => {
 			deleteImage(image);
 		})
+		}
 		if (recipeId){ [id, error] = await putRecipe(recipeId, {...recipe, images: await imageIds});}
+		
 		else{ [id, error] = await postRecipe({...recipe, images: await imageIds});}
 
 		//let [id, error] = await postRecipe({...recipe, images: await imageIds});
