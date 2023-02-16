@@ -1,7 +1,7 @@
 .descriptionGrid {
     display: grid;
     grid-template-columns: 2fr 3fr;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .iconContainer{
