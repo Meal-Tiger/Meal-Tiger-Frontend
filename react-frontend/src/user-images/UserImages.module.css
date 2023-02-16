@@ -1,0 +1,32 @@
+.button-container{
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+
+}
+
+.button-container button{
+    font-size: var(--font-size-highlighted);
+}
+
+.deleteCard{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: space-between;
+    padding: var(--space-3);
+    border-radius: 0.6rem;
+    height: 300px;
+}
+
+.image{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.cardBox{
+    display: flex;
+    gap: var(--space-3);
+}
