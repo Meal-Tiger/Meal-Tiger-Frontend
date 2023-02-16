@@ -46,7 +46,10 @@ export default function ImageSlider(pros) {
 	}
 
 	const setSliderButtons = getSlides().map((slide, slideIndex) => (
-		<div key={slideIndex} onClick={() => setCurrentIndex(slideIndex)} style={slideIndex === currentIndex ? {color: 'grey'} : {color: 'white'}}>
+		<div key={slideIndex} onClick={(event) => {
+			setCurrentIndex(slideIndex);
+			event.stopPropagation();
+		}} style={slideIndex === currentIndex ? {color: 'grey'} : {color: 'white'}}>
 			•
 		</div>
 	));
