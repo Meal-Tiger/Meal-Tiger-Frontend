@@ -1,5 +1,5 @@
 import styles from './RatingSection.module.css';
-import {useLocation, useParams, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {getImageUrl, useGetRatingsPage} from '../../modules/api';
 import Throbber from '../../modules/throbber/throbber';
 import Modal from '../../modules/Modal/Modal';
@@ -22,6 +22,21 @@ export default function RatingSection() {
 		navigate(urlPath);
 	}
 
+	let getStars = (amount) => {
+		return [
+			<span style={amount > 0 ? {fontVariationSettings: "'FILL' 1"} : {}}
+				  className="material-symbols-outlined">star</span>,
+			<span style={amount > 1 ? {fontVariationSettings: "'FILL' 1"} : {}}
+				  className="material-symbols-outlined">star</span>,
+			<span style={amount > 2 ? {fontVariationSettings: "'FILL' 1"} : {}}
+				  className="material-symbols-outlined">star</span>,
+			<span style={amount > 3 ? {fontVariationSettings: "'FILL' 1"} : {}}
+				  className="material-symbols-outlined">star</span>,
+			<span style={amount > 4 ? {fontVariationSettings: "'FILL' 1"} : {}}
+				  className="material-symbols-outlined">star</span>
+		];
+	}
+
 	let getRating = () => {
 		if (ratingList && ratingList.ratings) {
 			return ratingList.ratings.map((element) => {
@@ -29,14 +44,13 @@ export default function RatingSection() {
 					<div key={element.id} className={styles['rating-container']}>
 						<div className={styles['rating-left']}>
 							<div>
-								<img className={styles['profile-picture']} src={getImageUrl(element.user.profilePictureId)} alt={'Food'}/>
+								<img className={styles['profile-picture']} src={getImageUrl(element.user.profilePictureId)} alt={''}/>
 							</div>
 							<div>{element.user.username}</div>
 						</div>
 						<div className={styles['rating-right']}>
 							<div>
-								<span className="material-symbols-outlined">star</span>
-								{element.ratingValue}/5
+								{getStars(element.ratingValue)}
 							</div>
 							<div>{element.comment}</div>
 						</div>
@@ -52,9 +66,9 @@ export default function RatingSection() {
 		if (ratingList && ratingList.ratings){
 			return <div>
 				<div className={styles["filter-top"]}>
-					<div>{ratingList.totalItems} Kommentare insgesammt</div>
+					<div>{ratingList.totalItems} Kommentare insgesamt</div>
 					<div>
-						<label htmlFor={"itemsPerPage"}>Anzahl Kommentare pro Seite </label>
+						<label htmlFor={"itemsPerPage"}>Kommentare pro Seite </label>
 						<select id={"itemsPerPage"} value={itemsPerPage} onChange={(event) => {handleChange(event.target.value)}}>
 							<option>15</option>
 							<option>50</option>
@@ -68,7 +82,7 @@ export default function RatingSection() {
 		}else{
 			return(
 			<div>
-				Loding
+				Loading...
 			</div>
 			);
 		}
@@ -76,8 +90,6 @@ export default function RatingSection() {
 		return (
 			<div>
 				Für dieses Rezept gibt es bisher keine Bewertungen.
-				<br />
-				HIER KÖNNTE IHRE BEWERTUNG STEHEN!
 			</div>
 		);
 	} else {
