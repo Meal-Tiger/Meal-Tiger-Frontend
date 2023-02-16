@@ -33,6 +33,12 @@ export default function Usermenu() {
 						<div>Meine Rezepte</div>
 					</div>
 				</Link>
+				<Link to={'/my-images'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide} ${styles['drop-link']}`}>
+					<div className={styles['drop-link-container']}>
+						<span className={'material-symbols-outlined'}>image</span>
+						<div>Meine Bilder</div>
+					</div>
+				</Link>
 				<Link to={'/profile'} className={` ${sessionStorage.getItem('login') === 'true' ? '' : styles.hide} ${styles['drop-link']}`}>
 					<div className={styles['drop-link-container']}>
 						<span className={'material-symbols-outlined'}>person</span>
