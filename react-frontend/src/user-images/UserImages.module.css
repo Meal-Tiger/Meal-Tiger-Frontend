@@ -24,9 +24,17 @@
 .image{
     max-width: 200px;
     max-height: 200px;
+    margin: auto;
 }
 
 .cardBox{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-3);
+}
+
+@media only screen and (max-width: 768px) {
+    .cardBox {
+        grid-template-columns: 1fr;
+    }
 }
