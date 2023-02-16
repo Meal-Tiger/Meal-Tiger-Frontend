@@ -28,19 +28,31 @@ export default function RatingEditor() {
 		}
     }
 
+    let getStars = () => {
+        return [
+            <span style={rating > 0 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(1)}>star</span>,
+            <span style={rating > 1 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(2)}>star</span>,
+            <span style={rating > 2 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(3)}>star</span>,
+            <span style={rating > 3 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(4)}>star</span>,
+            <span style={rating > 4 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(5)}>star</span>
+        ];
+    }
+
     return (
         <div className={styles['comment-editor-container']}>
             <h2>Kommentare</h2>
             <div className={styles['star-line']}>
-                <span className="material-symbols-outlined">star</span>
-                <input 
-                    type={"number"} 
-                    max={5}
-                    min={1}
-                    value={rating || ""}
-                    onChange={(event) => setRating(event.target.value)}>
-                </input>
-                <span>/5</span>
+                {getStars()}
             </div>
             <div className={styles['comment-editor-bottom']}>
                 <textarea
