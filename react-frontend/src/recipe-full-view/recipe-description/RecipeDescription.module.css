@@ -41,8 +41,8 @@
     font-size: 1.5em;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     font-weight: bold;
 }
 
@@ -57,6 +57,10 @@
     vertical-align: top;
 }
 
+.desc-container{
+    word-break: break-word;
+    hyphens: auto;
+}
 
 @media screen and (min-width: 961px) {
     .desc-container{
