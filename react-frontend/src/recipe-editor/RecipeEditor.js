@@ -20,7 +20,7 @@ export const RecipeContext = createContext({
 		ingredients: []
 	},
 	setRecipe: () => {},
-	images: [],
+	images: {files: [], ids: []},
 	setImages: () => {}
 });
 
@@ -30,26 +30,10 @@ export default function RecipeEditor() {
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		if (sessionStorage.getItem('login') === 'false') document.dispatchEvent(openLoginModal_event);
-		if(recipeId) getRecipe(recipeId).then((recipe) => {
-			setRecipe(recipe[0]);
-			setTime([Math.floor(recipe[0].time/60), recipe[0].time%60])
-			recipe[0].images.forEach( image => {
-				fetch(getImageUrl(image))
-				.then(res => res.blob())
-				.then(blob => setImages([...images, blob]))
-			});
-		});
-	}, []);
-
-	let navigate = useNavigate();
-
-	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
-	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [id, setId] = useState("");
-	
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState({
+		files: [],
+		ids: []
+	});
 
 	const [time, setTime] = useState([0, 0]);
 	const [recipe, setRecipe] = useState({
@@ -60,6 +44,42 @@ export default function RecipeEditor() {
 		time: 0,
 		ingredients: []
 	});
+
+	useEffect(() => {
+		if (sessionStorage.getItem('login') === 'false') document.dispatchEvent(openLoginModal_event);
+		if(recipeId) getRecipe(recipeId).then((_recipe) => {
+
+			setRecipe(_recipe[0]);
+			setTime([Math.floor(_recipe[0].time/60), _recipe[0].time%60])
+
+			images.ids = _recipe[0].images;
+			setImages({...images});
+			
+			console.log(_recipe[0]);
+			_recipe[0].images.forEach(id => {
+				fetch(getImageUrl(id))
+				.then(res => res.blob())
+				.then(blob => {
+					images.files.push(blob)
+					setImages({...images});
+				})
+			})
+
+			// recipe[0].images.forEach( image => {
+			// 	fetch(getImageUrl(image))
+			// 	.then(res => res.blob())
+			// 	.then(blob => {setImages([...images, blob])})
+			// });
+		});
+	}, []);
+
+	let navigate = useNavigate();
+
+	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [id, setId] = useState("");
+
+	//const [images, setImages] = useState([]);
 
 	const value = useMemo(() => ({recipe, setRecipe, images, setImages}), [recipe, images]);
 
@@ -81,18 +101,27 @@ export default function RecipeEditor() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		let imageIds, imageError = undefined;
-		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
 		let id, error = null;
+		
+		/*
+		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
+		
 		if (recipe.images) {
 			recipe.images.forEach(image => {
 			deleteImage(image);
 		})
 		}
-		if (recipeId){ [id, error] = await putRecipe(recipeId, {...recipe, images: await imageIds});}
-		
-		else{ [id, error] = await postRecipe({...recipe, images: await imageIds});}
+		*/
 
-		//let [id, error] = await postRecipe({...recipe, images: await imageIds});
+		const sendIds = images.ids;
+		console.log(sendIds);
+		if (recipeId){ 
+			error = await putRecipe(recipeId, {...recipe, images: sendIds});
+			id = recipeId;
+		}
+		
+		else{ [id, error] = await postRecipe({...recipe, images: images.ids});}
+
 		setId(id);
 
 		if (error || imageError) {
