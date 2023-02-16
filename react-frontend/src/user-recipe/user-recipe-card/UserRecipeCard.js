@@ -25,8 +25,8 @@ export default function UserRecipeCard({recipes}) {
 			{recipes.recipes.map((recipe) => {
 				return (
 					<div className={styles['recipe-container']} onClick={() => navigate(`/recipe/${recipe.id}`)}>
-						<img className={`${styles['recipe-card-img']}`} src={recipe.images.length > 0 ? getImageUrl(recipe.images[0]) : getImageUrl(0)} alt={'Food image'}></img>
-						<div>
+						<img className={`${styles['recipe-card-img']}`} src={recipe.images.length > 0 ? getImageUrl(recipe.images[0]) : getImageUrl("0")} alt={""}></img>
+						<div className={styles['recipe-card-title']}>
 							<h1>{recipe.title}</h1>
 						</div>
 						<div className={styles['button-container']} onClick={(event) => event.stopPropagation()}>

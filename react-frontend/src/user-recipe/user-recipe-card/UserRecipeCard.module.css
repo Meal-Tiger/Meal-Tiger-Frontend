@@ -37,3 +37,18 @@
 .button-container button{
     font-size: var(--font-size-highlighted);
 }
+
+@media only screen and (max-width: 768px) {
+    .recipe-container {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .button-container {
+        flex-direction: row;
+    }
+
+    .recipe-card-title > h1 {
+        text-align: center;
+    }
+}
