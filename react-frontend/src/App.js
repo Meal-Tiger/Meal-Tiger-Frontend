@@ -18,6 +18,7 @@ import {getAccessToken} from 'modules/oidc';
 import { useEvent } from 'modules/events';
 import Profile from "./profile/Profile";
 import UserRecipes from "./user-recipe/UserRecipes";
+import UserImages from "./user-images/UserImages";
 
 function App() {
 	useEffect(() => {
@@ -56,6 +57,7 @@ function App() {
 							<Route path="/recipe/:recipeId/page/:page" element={<RecipeFullView />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />
 							<Route path="/my-recipes" element={<UserRecipes/>}/>
+							<Route path="/my-images" element={<UserImages/>}/>
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />
 							<Route path="/add-recipe" element={<RecipeEditor />} />
 							<Route path="/search/:query/page/:page" element={<RecipeOverview />} />
