@@ -5,7 +5,7 @@ import image_03 from '../recipe-full-view/image-slider/image-03.jpg';
 import UploadedImages from './uploadedImages';
 import {createContext, useMemo, useState, useEffect} from 'react';
 import IngredientsContainerEditable from './IngredientsContainerEditable';
-import {deleteImage, getImageUrl, getRecipe, getUser, postImages, postRecipe, putRecipe} from 'modules/api';
+import {getImageUrl, getRecipe, postRecipe, putRecipe} from 'modules/api';
 import Modal from '../modules/Modal/Modal';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {openLoginModal_event} from 'modules/events';
@@ -64,12 +64,6 @@ export default function RecipeEditor() {
 					setImages({...images});
 				})
 			})
-
-			// recipe[0].images.forEach( image => {
-			// 	fetch(getImageUrl(image))
-			// 	.then(res => res.blob())
-			// 	.then(blob => {setImages([...images, blob])})
-			// });
 		});
 	}, []);
 
@@ -78,8 +72,6 @@ export default function RecipeEditor() {
 	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [id, setId] = useState("");
-
-	//const [images, setImages] = useState([]);
 
 	const value = useMemo(() => ({recipe, setRecipe, images, setImages}), [recipe, images]);
 
@@ -100,34 +92,23 @@ export default function RecipeEditor() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		let imageIds, imageError = undefined;
-		let id, error = null;
-		
-		/*
-		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
-		
-		if (recipe.images) {
-			recipe.images.forEach(image => {
-			deleteImage(image);
-		})
-		}
-		*/
+		let id, error;
 
 		const sendIds = images.ids;
-		console.log(sendIds);
+
 		if (recipeId){ 
 			error = await putRecipe(recipeId, {...recipe, images: sendIds});
 			id = recipeId;
+		} else{
+			[id, error] = await postRecipe({...recipe, images: images.ids});
 		}
-		
-		else{ [id, error] = await postRecipe({...recipe, images: images.ids});}
 
 		setId(id);
 
-		if (error || imageError) {
-			setError(error + imageError);
+		if (error) {
+			setError(error);
 			setShowModal(true);
-		} else if (error == null && imageError == null) {
+		} else if (error == null) {
 			setShowSuccessMessage(true);
 		}
 	}
@@ -139,7 +120,7 @@ export default function RecipeEditor() {
 			<RecipeContext.Provider value={value}>
 				<form onSubmit={handleSubmit}>
 					<Modal show={showSuccessMessage} setShow={setShowSuccessMessage}>
-						<h1>Rezept erfolgreich erstellt!</h1>
+						{recipeId ? <h1>Rezept erfolgreich bearbeitet!</h1> : <h1>Rezept erfolgreich erstellt!</h1>}
 						<button className={"btn-primary btn"} onClick={() => navigate(`/recipe/${id}`)}>Zu meinem Rezept</button>
 					</Modal>
 					<div className={styles.container}>
