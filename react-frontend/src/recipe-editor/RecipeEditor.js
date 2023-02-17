@@ -5,9 +5,9 @@ import image_03 from '../recipe-full-view/image-slider/image-03.jpg';
 import UploadedImages from './uploadedImages';
 import {createContext, useMemo, useState, useEffect} from 'react';
 import IngredientsContainerEditable from './IngredientsContainerEditable';
-import {postImages, postRecipe} from 'modules/api';
+import {getImageUrl, getRecipe, postRecipe, putRecipe} from 'modules/api';
 import Modal from '../modules/Modal/Modal';
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {openLoginModal_event} from 'modules/events';
 
 export const RecipeContext = createContext({
@@ -20,30 +20,57 @@ export const RecipeContext = createContext({
 		ingredients: []
 	},
 	setRecipe: () => {},
-	images: [],
+	images: {files: [], ids: []},
 	setImages: () => {}
 });
 
 export default function RecipeEditor() {
+	let {recipeId} = useParams();
+
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		if (sessionStorage.getItem('login') === 'false') document.dispatchEvent(openLoginModal_event);
-	}, []);
+	const [images, setImages] = useState({
+		files: [],
+		ids: []
+	});
 
-	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
 	const [time, setTime] = useState([0, 0]);
-	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [images, setImages] = useState([]);
 	const [recipe, setRecipe] = useState({
-		title: '',
-		description: '',
+		title: "",
+		description: "",
 		difficulty: 1,
 		rating: 5,
 		time: 0,
 		ingredients: []
 	});
+
+	useEffect(() => {
+		if (sessionStorage.getItem('login') === 'false') document.dispatchEvent(openLoginModal_event);
+		if(recipeId) getRecipe(recipeId).then((_recipe) => {
+
+			setRecipe(_recipe[0]);
+			setTime([Math.floor(_recipe[0].time/60), _recipe[0].time%60])
+
+			images.ids = _recipe[0].images;
+			setImages({...images});
+			
+			_recipe[0].images.forEach(id => {
+				fetch(getImageUrl(id))
+				.then(res => res.blob())
+				.then(blob => {
+					images.files.push(blob)
+					setImages({...images});
+				})
+			})
+		});
+	}, []);
+
+	let navigate = useNavigate();
+
+	const slides = [{url: image_01}, {url: image_02}, {url: image_03}];
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [id, setId] = useState("");
 
 	const value = useMemo(() => ({recipe, setRecipe, images, setImages}), [recipe, images]);
 
@@ -64,13 +91,23 @@ export default function RecipeEditor() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		let imageIds, imageError = null;
-		if(images.length > 0) {[imageIds, imageError] = await postImages(images);}
-		let [, error] = await postRecipe({...recipe, images: await imageIds});
-		if (error || imageError) {
-			setError(error + imageError);
+		let id, error;
+
+		const sendIds = images.ids;
+
+		if (recipeId){ 
+			error = await putRecipe(recipeId, {...recipe, images: sendIds});
+			id = recipeId;
+		} else{
+			[id, error] = await postRecipe({...recipe, images: images.ids});
+		}
+
+		setId(id);
+
+		if (error) {
+			setError(error);
 			setShowModal(true);
-		} else if (error == null && imageError == null) {
+		} else if (error == null) {
 			setShowSuccessMessage(true);
 		}
 	}
@@ -82,7 +119,8 @@ export default function RecipeEditor() {
 			<RecipeContext.Provider value={value}>
 				<form onSubmit={handleSubmit}>
 					<Modal show={showSuccessMessage} setShow={setShowSuccessMessage}>
-						<h1>Rezept erfolgreich erstellt!</h1>
+						{recipeId ? <h1>Rezept erfolgreich bearbeitet!</h1> : <h1>Rezept erfolgreich erstellt!</h1>}
+						<button className={"btn-primary btn"} onClick={() => navigate(`/recipe/${id}`)}>Zu meinem Rezept</button>
 					</Modal>
 					<div className={styles.container}>
 						<div className={styles['left-column']}>
@@ -133,7 +171,9 @@ export default function RecipeEditor() {
 									<input
 										name={'recipeTimeH'}
 										className={styles['schedule-input']}
-										type={'number'}
+										type={'text'}
+										pattern={"^\\d*[0-9]\\d*$"}
+										title="Zeitangabe in Stunden"
 										value={time[0]}
 										onChange={(event) => {
 											setTimeToRecipe(event);
@@ -143,7 +183,9 @@ export default function RecipeEditor() {
 									<input
 										name={'recipeTimeM'}
 										className={styles['schedule-input']}
-										type={'number'}
+										type={'text'}
+										pattern={"^\\d*[0-9]\\d*$"}
+										title="Zeitangabe in Minuten"
 										value={time[1]}
 										onChange={(event) => {
 											setTimeToRecipe(event);

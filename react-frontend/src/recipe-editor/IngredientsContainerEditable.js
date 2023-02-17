@@ -43,7 +43,7 @@ export default function IngredientsContainerEditable() {
 		setRecipe({...recipe});
 		setNewIngredient({
 			amount: '',
-			unit: '',
+			unit: newIngredient.unit,
 			name: ''
 		});
 	};

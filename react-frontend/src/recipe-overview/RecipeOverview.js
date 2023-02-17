@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import {useGetRecipePage} from '../modules/api';
 
@@ -9,7 +9,6 @@ import styles from './RecipeOverview.module.css';
 import RecipeCard from './RecipeCard/RecipeCard';
 import { useState } from 'react';
 import Throbber from "../modules/throbber/throbber";
-import Modal from 'modules/Modal/Modal';
 import Pagination from "../modules/pagination/pagination";
 
 export default function RecipeOverview() {
@@ -20,6 +19,14 @@ export default function RecipeOverview() {
 	let {query, page} = useParams();
 	let [recipes, error] = useGetRecipePage({q: query, page: page, size: itemsPerPage});
 
+    let urlPath = useLocation().pathname;
+    const handleChange = (newItemsize) => {
+        urlPath = (urlPath.split("page/"));
+        urlPath = urlPath[0] + "page/0"
+        setItemsPerPage(newItemsize);
+        navigate(urlPath);
+    }
+
 	if (recipes && recipes.recipes) {
 		return (
 			<div>
@@ -27,7 +34,7 @@ export default function RecipeOverview() {
                     <div>{recipes.totalItems} Rezepte gefunden</div>
                     <div>
                         <label htmlFor={"itemsPerPage"}>Anzahl Rezepte pro Seite </label>
-                        <select id={"itemsPerPage"} value={itemsPerPage} onChange={(event) => {setItemsPerPage(event.target.value)}}>
+                        <select id={"itemsPerPage"} value={itemsPerPage} onChange={(event) => {handleChange(event.target.value)}}>
                             <option>15</option>
                             <option>50</option>
                             <option>100</option>
@@ -43,7 +50,19 @@ export default function RecipeOverview() {
 			</div>
 		);
 	} else if(error){
-        return (<Modal className="error" show={true}>{error}</Modal>);
+        return (
+            <div>
+                <div className={styles["filter-top"]}>
+                    <div>0 Rezepte gefunden: {error}</div>
+                </div>
+                <div className={styles['no-recipe-container']}>
+                    <h1>Kein Rezept gefunden</h1>
+                    <div>
+                        Versuche es mit einem anderen Suchbegriff.
+                    </div>
+                </div>
+            </div>
+        )
     }else {
         return (<Throbber/>);
 	}

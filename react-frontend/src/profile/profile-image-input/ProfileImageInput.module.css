@@ -1,0 +1,13 @@
+.profile-image-input{
+    max-width: 100%;
+    max-height: 100vh;
+}
+
+.upload-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-2);
+}
+.upload-container input[type="file"]{
+    padding: var(--space-2) 0;
+}

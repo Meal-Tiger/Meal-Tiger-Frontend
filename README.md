@@ -48,15 +48,29 @@ To configure the Project you have to specify the following environment variables
 
 ### Runtime dependencies
 
--> package-lock.json
+| Department | Related to | Name               | License period | Material not material | License type | Link                                                 | Remote version | Installed version | Defined version | Author                                                        |
+| :--------- | :--------- | :----------------- | :------------- | :-------------------- | :----------- | :--------------------------------------------------- | :------------- | :---------------- | :-------------- | :------------------------------------------------------------ |
+| kessler    | stuff      | @use-gesture/react | perpetual      | material              | MIT          | git+https://github.com/pmndrs/use-gesture.git        | 10.2.24        | 10.2.23           | ^10.2.23        | Paul Henschel                                                 |
+| kessler    | stuff      | material-symbols   | perpetual      | material              | Apache-2.0   | git+https://github.com/marella/material-symbols.git  | 0.2.15         | 0.2.13            | ^0.2.13         | n/a                                                           |
+| kessler    | stuff      | react              | perpetual      | material              | MIT          | git+https://github.com/facebook/react.git            | 18.2.0         | 18.2.0            | ^18.2.0         | n/a                                                           |
+| kessler    | stuff      | react-dom          | perpetual      | material              | MIT          | git+https://github.com/facebook/react.git            | 18.2.0         | 18.2.0            | ^18.2.0         | n/a                                                           |
+| kessler    | stuff      | react-router-dom   | perpetual      | material              | MIT          | git+https://github.com/remix-run/react-router.git    | 6.8.1          | 6.4.2             | ^6.4.2          | Remix Software <hello@remix.run>                              |
+| kessler    | stuff      | react-scripts      | perpetual      | material              | MIT          | git+https://github.com/facebook/create-react-app.git | 5.0.1          | 5.0.1             | 5.0.1           | n/a                                                           |
+| kessler    | stuff      | web-vitals         | perpetual      | material              | Apache-2.0   | git+https://github.com/GoogleChrome/web-vitals.git   | 2.1.4          | 2.1.4             | ^2.1.4          | Philip Walton philip@philipwalton.com http://philipwalton.com |
 
-Complete List will follow
+### Development dependencies
 
-### Testing dependencies
-
--> package-lock.json
-
-Complete List will follow
+| Department | Related to | Name                        | License period | Material not material | License type | Link                                                             | Remote version | Installed version | Defined version | Author                                                      |
+| :--------- | :--------- | :-------------------------- | :------------- | :-------------------- | :----------- | :--------------------------------------------------------------- | :------------- | :---------------- | :-------------- | :---------------------------------------------------------- |
+| kessler    | stuff      | @babel/preset-env           | perpetual      | material              | MIT          | https://github.com/babel/babel.git                               | 7.20.2         | 7.20.2            | ^7.20.2         | The Babel Team (https://babel.dev/team)                     |
+| kessler    | stuff      | @babel/preset-react         | perpetual      | material              | MIT          | https://github.com/babel/babel.git                               | 7.18.6         | 7.18.6            | ^7.18.6         | The Babel Team (https://babel.dev/team)                     |
+| kessler    | stuff      | @testing-library/jest-dom   | perpetual      | material              | MIT          | git+https://github.com/testing-library/jest-dom.git              | 5.16.5         | 5.16.5            | ^5.16.5         | Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io) |
+| kessler    | stuff      | @testing-library/react      | perpetual      | material              | MIT          | git+https://github.com/testing-library/react-testing-library.git | 13.4.0         | 13.4.0            | ^13.4.0         | Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com)  |
+| kessler    | stuff      | @testing-library/user-event | perpetual      | material              | MIT          | git+https://github.com/testing-library/user-event.git            | 13.5.0         | 13.5.0            | ^13.5.0         | Giorgio Polvara <polvara@gmail.com>                         |
+| kessler    | stuff      | babel-jest                  | perpetual      | material              | MIT          | git+https://github.com/facebook/jest.git                         | 29.4.3         | 29.3.1            | ^29.3.1         | n/a                                                         |
+| kessler    | stuff      | jest                        | perpetual      | material              | MIT          | git+https://github.com/facebook/jest.git                         | 27.5.1         | 27.5.1            | ^27.5.1         | n/a                                                         |
+| kessler    | stuff      | jest-fetch-mock             | perpetual      | material              | MIT          | git+https://github.com/jefflau/jest-fetch-mock.git               | 3.0.3          | 3.0.3             | ^3.0.3          | Jeff Lau <jeff-lau@live.com> (http://jefflau.net/)          |
+| kessler    | stuff      | react-test-renderer         | perpetual      | material              | MIT          | git+https://github.com/facebook/react.git                        | 18.2.0         | 18.2.0            | ^18.2.0         | n/a                                                         |
 
 ## Copyright
 

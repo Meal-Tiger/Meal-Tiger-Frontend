@@ -2,13 +2,13 @@ import styles from './ImageSlider.module.css';
 
 import {useEffect, useState} from 'react';
 
-import {useParams} from 'react-router-dom';
-import {getImageUrl, useGetRecipe} from '../../modules/api';
-import Throbber from '../../modules/throbber/throbber';
+import {getImageUrl} from '../../modules/api';
+import {useDrag} from "@use-gesture/react";
 
-export default function ImageSlider() {
-	let {recipeId} = useParams();
-	let [recipe] = useGetRecipe(recipeId);
+export default function ImageSlider(pros) {
+
+	let showModal = pros.showModal;
+	let setShowModal = pros.setShowModal;
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -18,40 +18,64 @@ export default function ImageSlider() {
 	});
 
 	let getSlides = () => {
-		if (recipe)
-			return recipe.images.map((element) =>  getImageUrl(element));
-		else
-			return [];
+		return pros.recipe.images.map((element) =>  getImageUrl(element));
 	};
 
 	const switchToNextIndex = () => {
 		setCurrentIndex((currentIndex + 1) % getSlides().length);
 	};
 
-	const slideImage = {
-		backgroundImage: `linear-gradient(to right, transparent, white), url(${getSlides()[currentIndex]})`
+	const switchToLastIndex = () => {
+		if (currentIndex > 0) {
+			setCurrentIndex(currentIndex - 1);
+		} else {
+			setCurrentIndex(getSlides().length - 1);
+		}
+
 	};
 
+	let slideImage = {
+		backgroundImage: `linear-gradient(to right, transparent, white), url(${getSlides()[currentIndex]})`,
+		touchAction: "pan-y"
+	};
+
+	if (pros.noLinearGrid){
+		slideImage = {
+			backgroundImage: `url(${getSlides()[currentIndex]})`
+		};
+	}
+
 	const setSliderButtons = getSlides().map((slide, slideIndex) => (
-		<div key={slideIndex} onClick={() => setCurrentIndex(slideIndex)} style={slideIndex === currentIndex ? {color: 'grey'} : {color: 'white'}}>
+		<div key={slideIndex} onClick={(event) => {
+			setCurrentIndex(slideIndex);
+			event.stopPropagation();
+		}} style={slideIndex === currentIndex ? {color: 'grey'} : {color: 'white'}}>
 			•
 		</div>
 	));
 
-	if (recipe) {
-		return (
-			<div className={styles['slider-container']}>
-				<div className={styles.slider}>
-					<div className={styles.slide} style={slideImage}>
-						<div className={styles['title-container']}>
-							<h1 className={styles.title}>{recipe.title}</h1>
-						</div>
-						<div className={styles['slider-buttons']}>{setSliderButtons}</div>
+	const dragBind = useDrag(({swipe: [dx], intentional}) => {
+		if (dx && intentional && !showModal) {
+			if (dx < 0) {
+				switchToNextIndex();
+			}
+
+			if (dx > 0) {
+				switchToLastIndex();
+			}
+		}
+	}, {swipe: {duration: 2000}, axis: "x"});
+
+	return (
+		<div className={styles['slider-container']} onClick={setShowModal}>
+			<div className={styles.slider}>
+				<div {...dragBind()} className={styles.slide} style={slideImage}>
+					<div className={styles['title-container']}>
+						<h1 className={styles.title}>{pros.recipe.title}</h1>
 					</div>
+					<div className={styles['slider-buttons']}>{setSliderButtons}</div>
 				</div>
 			</div>
-		);
-	} else {
-		return <Throbber />;
-	}
+		</div>
+	);
 }

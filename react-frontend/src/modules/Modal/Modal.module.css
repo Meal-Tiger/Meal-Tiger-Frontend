@@ -18,10 +18,26 @@
 }
 
 .modal{
+    display: flex;
+    flex-direction: column;
     background-color: #fefefe;
     margin: auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     border-radius: 20px;
-    min-width: 400px;
+    white-space: pre-wrap;
+}
+
+.close-button{
+    cursor: pointer;
+    position: absolute;
+    right: var(--space-2);
+    top: var(--space-2);
+    z-index: 1;
+}
+
+@media  only screen and (min-width: 1024px){
+    .modal{
+        min-width: 400px;
+    }
 }

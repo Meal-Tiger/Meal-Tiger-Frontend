@@ -11,12 +11,13 @@ export function getAnonUser(id){
 	return {
 		"userId": id,
 		"username": "Anonym",
-		"picture": "0"
+		"profilePictureId": null
 	}
 }
 
 export function getImageUrl(id){
-	if (id === '0' || id === undefined) return "/platzhalter.jpg"
+	if (id === null) return "/user-platzhalter.jpg"
+	if (id === "0") return "/platzhalter.jpg"
 	else return `${api_url}/image/${id}`
 }
 
@@ -27,7 +28,7 @@ export function getFormatedTime(time) {
 	if (!hours && minutes === 1) return `1 Minute`;
 	if (!hours && minutes > 1) return `${minutes} Minuten`;
 	if (hours === 1 && minutes < 5) return `1 Stunde`;
-	if (hours === 1 && minutes >= 5) return `1:${minutes} Stunde`;
+	if (hours === 1 && minutes >= 5) return `1:${minutes.toString().padStart(2, "0")} Stunde`;
 	if (hours > 1 && minutes < 5) return `${hours} Stunden`;
 	if (hours > 1 && minutes >= 5) return `${hours}:${minutes} Stunden`;
 }
@@ -42,6 +43,22 @@ export function createRecipe({title = undefined, ingredients = undefined, descri
 		time: time
 	};
 }
+
+export async function createError(response){
+
+	let timestamp, status, error, path = null;
+
+	try {
+		({timestamp, status, error, path} = (await response.json()));
+	} catch {
+		timestamp = Date.now();
+		status = response.status;
+		error = response.statusText;
+		path = response.url;
+	}
+
+	return `${timestamp}\n${status}\n${error}\nPath: ${path}`
+}
 //#endregion
 
 //#region Recipe functions
@@ -55,9 +72,7 @@ export async function getRecipePage({q = undefined, sort = undefined, size = und
 	let res = await fetch(uri);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 
 	if(data){
@@ -90,9 +105,7 @@ export async function getRecipe(id) {
 	let res = await fetch(`${api_url}/recipes/${id}`);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 
 	if (data) {
@@ -129,9 +142,7 @@ export async function postRecipe(recipe) {
 		body: JSON.stringify(recipe)
 	})
 	
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else id = (await res.json()).id
 
 	return [id, error];
@@ -161,11 +172,7 @@ export async function putRecipe(id, recipe) {
 		body: JSON.stringify(recipe)
 	})
 
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`;
-	else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
@@ -193,11 +200,7 @@ export async function deleteRecipe(id) {
 		}
 	})
 	
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht berechtigt, diese Ressource zu verwalten`;
-	else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
@@ -224,10 +227,9 @@ export async function getRatingsPage(id, {size = null, page = 0}) {
 	const res = await fetch(uri);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Bewertungen für dieses Rezept in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
+
 	if(data){
 		data.ratings = await Promise.all(data.ratings.map(async rating => {
 			return {
@@ -258,10 +260,8 @@ export async function getRatingById(id) {
 	const res = await fetch(`${api_url}/ratings/${id}`);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Bewertung wurde nicht in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-	else data = await res.json();
+	if (!res.ok) error = await createError(res);
+	else data = Math.round((await res.json()).ratingValue * 100) / 100;
 
 	return [data, error];
 }
@@ -284,9 +284,7 @@ export async function getAverageRating(id) {
 	const res = await fetch(`${api_url}/recipes/${id}/rating`);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = Math.round((await res.json()).ratingValue * 100) / 100;
 
 	return [data, error];
@@ -321,12 +319,7 @@ export async function postRating(id, {rating = undefined, comment = undefined}) 
 		})
 	})
 	
-	if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
-	else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
-	else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
@@ -353,17 +346,12 @@ export async function putRating(id, {rating = undefined, comment = undefined}) {
 			'Authorization': `Bearer ${await getAccessToken()}`
 		},
 		body: JSON.stringify({
-			rating: rating,
+			ratingValue: rating,
 			comment: comment
 		})
 	})
 	
-		if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
-		else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
-		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
@@ -391,13 +379,7 @@ export async function deleteRating(id) {
 		}
 	})
 	
-		if (res.status === 400) error = `${res.status} ${res.statusText} - Bewertung hat das Falsche Format`;
-		else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Rezept zu Bewerten`;
-		else if (res.status === 404) error = `${res.status} ${res.statusText} - Rezept wurde nicht gefunden`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
-
+	if (!res.ok) error = await createError(res);
 	return error;
 }
 
@@ -433,10 +415,7 @@ export async function postImages(images) {
 		body: formdata
 	})
 	
-	if (res.status === 400) error = `${res.status} ${res.statusText} - Nicht unterstütztes Format`;
-	else if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 	return [data, error];
 }
@@ -463,11 +442,7 @@ export async function deleteImage(id) {
 		}
 	})
 
-		if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-		else if (res.status === 403) error = `${res.status} ${res.statusText} - User ist nicht Autorisiert, dieses Bild zu löschen`;
-		else if (res.status === 404) error = `${res.status} ${res.statusText} - Bild wurde nicht gefunden`;
-		else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-		else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
@@ -495,10 +470,10 @@ export async function getUser() {
 	});
 	let error = null;
 	let data = null;
-	if (res.status === 401) error = `${res.status} ${res.statusText} - Benutzer ist nicht angemeldet`;
-	else if (res.status === 404) error = `${res.status} ${res.statusText} - Benutzer hat noch kein Profil`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) {
+		error = await createError(res);
+		data = getAnonUser(0);
+	}
 	else data = await res.json();
 
 	return [data, error];
@@ -533,9 +508,7 @@ export async function postUser({username = undefined, picture = undefined}) {
 		})
 	})
 	
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
@@ -552,7 +525,7 @@ export function usePostUser({username = undefined, picture = undefined}){
 	return error;
 }
 
-export async function putUser({username = undefined, picture = undefined}) {
+export async function putUser({username = undefined, profilePictureId = undefined}) {
 	let error = null;
 
 	const res = await fetch(`${api_url}/user`, {
@@ -563,22 +536,20 @@ export async function putUser({username = undefined, picture = undefined}) {
 		},
 		body: JSON.stringify({
 			username: username,
-			picture: picture
+			profilePictureId: profilePictureId
 		})
 	})
 	
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht Angemeldet`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 
 	return error;
 }
 
-export function usePutUser({username = undefined, picture = undefined}){
+export function usePutUser({username = undefined, profilePictureId = undefined}){
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		putUser({username: username, picture: picture}).then((error) => {
+		putUser({username: username, profilePictureId: profilePictureId}).then((error) => {
 			setError(error);
 		});
 	}, []);
@@ -599,10 +570,7 @@ export async function getUserRecipesPage({sort = undefined, size = undefined, pa
 	});
 	let error = null;
 	let data = null;
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht angemeldet`;
-	else if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 
 	return [data, error];
@@ -632,10 +600,7 @@ export async function getUserImages() {
 	});
 	let error = null;
 	let data = null;
-	if (res.status === 401) error = `${res.status} ${res.statusText} - User ist nicht angemeldet`;
-	else if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Bilder in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 
 	return [data, error];
@@ -663,8 +628,7 @@ export async function getUserById(id) {
 		error = `${res.status} ${res.statusText} - Benutzer hat noch kein Profil`;
 		data = getAnonUser(id);
 	}
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 	return [data, error];
 }
@@ -692,9 +656,7 @@ export async function getUserRecipesPageById(id, {sort = undefined, size = undef
 	let res = await fetch(uri);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Rezepte in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 
 	return [data, error];
@@ -720,9 +682,7 @@ export async function getUserImagesById(id) {
 	let res = await fetch(uri);
 	let error = null;
 	let data = null;
-	if (res.status === 404) error = `${res.status} ${res.statusText} - Keine Bilder in der Datenbank gefunden`;
-	else if (res.status === 500) error = `${res.status} ${res.statusText} - Serverfehler`;
-	else if (!res.ok) error = `${res.status} ${res.statusText} - Unerwarteter Fehler; HALT and Catch Fire`;
+	if (!res.ok) error = await createError(res);
 	else data = await res.json();
 
 	return [data, error];

@@ -13,6 +13,11 @@
     align-items: center;
 }
 
+.star-line > span{
+    cursor: pointer;
+    user-select: none;
+}
+
 .comment-editor-bottom{
     margin-top: var(--space-2);
 }

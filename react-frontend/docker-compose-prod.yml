@@ -2,8 +2,8 @@ services:
   frontend:
     image: "ghcr.io/meal-tiger/meal-tiger-frontend:main"
     environment:
-      - API_URL=http://localhost:8080
-      - OIDC_CONFIGURATION_ENDPOINT=http://localhost:8090/realms/master/.well-known/openid-configuration
-      - OIDC_CLIENT_ID=mealtiger
+      - REACT_APP_API_URL=http://penis:8080
+      - REACT_APP_OIDC_CONFIGURATION_ENDPOINT=http://localhost:8090/realms/master/.well-known/openid-configuration
+      - REACT_APP_OIDC_CLIENT_ID=mealtiger
     ports:
       - 80:80

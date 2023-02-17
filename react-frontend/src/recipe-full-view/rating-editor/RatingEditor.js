@@ -1,7 +1,7 @@
 import styles from './RatingEditor.module.css';
 import {useState} from 'react';
 import {useParams} from "react-router-dom";
-import { postRating } from 'modules/api';
+import { putRating } from 'modules/api';
 import Modal from "../../modules/Modal/Modal";
 
 export default function RatingEditor() {
@@ -18,7 +18,7 @@ export default function RatingEditor() {
         event.preventDefault();
 
         let ratingObject = {rating: parseInt(rating), comment}
-        let [, error] = await postRating(recipeId, ratingObject);
+        let error = await putRating(recipeId, ratingObject);
 
         if (error) {
 			setError(error);
@@ -28,19 +28,31 @@ export default function RatingEditor() {
 		}
     }
 
+    let getStars = () => {
+        return (
+            <span style={rating > 0 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(1)}>star</span>,
+            <span style={rating > 1 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(2)}>star</span>,
+            <span style={rating > 2 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(3)}>star</span>,
+            <span style={rating > 3 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(4)}>star</span>,
+            <span style={rating > 4 ? {fontVariationSettings: "'FILL' 1"} : {}}
+                  className="material-symbols-outlined"
+                  onClick={() => setRating(5)}>star</span>
+        );
+    }
+
     return (
         <div className={styles['comment-editor-container']}>
             <h2>Kommentare</h2>
             <div className={styles['star-line']}>
-                <span className="material-symbols-outlined">star</span>
-                <input 
-                    type={"number"} 
-                    max={5}
-                    min={0}
-                    value={rating || ""}
-                    onChange={(event) => setRating(event.target.value)}>
-                </input>
-                <span>/5</span>
+                {getStars()}
             </div>
             <div className={styles['comment-editor-bottom']}>
                 <textarea
@@ -62,7 +74,7 @@ export default function RatingEditor() {
                 </div>
             </div>
             <Modal show={showSuccessMessage} setShow={setShowSuccessMessage}>
-                <h1>Rezept erfolgreich erstellt!</h1>
+                <h1>Dein Kommentar wurde hinzugefügt.</h1>
             </Modal>
             <Modal className="error" show={showModal} setShow={setShowModal}>
                 {error}

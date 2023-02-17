@@ -1,23 +1,37 @@
 .rating-container {
     display: grid;
     grid-template-columns: 1fr 5fr;
+    gap: var(--space-3);
+    margin: var(--space-3) 0 var(--space-3) 0
 }
 
 .rating-left{
     grid-column-start: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .rating-right{
+    display: flex;
+    flex-direction: column;
     grid-column-start: 2;
     grid-column-end: span 6;
+    gap: var(--space-2);
 }
 .rating-right div{
     display: flex;
     align-items: center;
 }
 
+.rating-right div span{
+    user-select: none;
+}
+
 .profile-picture {
     max-width: 75px;
+
+    border-radius: 50%;
 }
 
 .filter-top{

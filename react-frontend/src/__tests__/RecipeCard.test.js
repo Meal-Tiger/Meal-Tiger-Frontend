@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import RecipeCard from "../RecipeOverview/RecipeCard/RecipeCard";
+import RecipeCard from "../recipe-overview/RecipeCard/RecipeCard";
 
 afterEach(cleanup);
 

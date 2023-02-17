@@ -9,6 +9,7 @@ body {
     margin: 0;
     font-family: "PT Sans", sans-serif;
     font-size: var(--font-size-body);
+    background-color: var(--background-body);
 }
 
 textarea, button, input{
@@ -137,4 +138,21 @@ input.error, textarea.error {
     .hide-desktop{
         display: none;
     }
+}
+.image-modal{
+    position: relative;
+    width: calc(100% - var(--space-3));
+    padding: 0!important;
+    border: none!important;
+    background: none;
+    overflow: hidden;
+}
+.image-modal div{
+    background-size: contain!important;
+    background-repeat: no-repeat;
+    margin-top: 0;
+}
+
+.image-modal h1{
+    display: none;
 }

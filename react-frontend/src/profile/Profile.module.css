@@ -1,0 +1,5 @@
+.input-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+}

@@ -16,8 +16,7 @@ test('renders UploadedImages', () => {
     expect(container.querySelector('.image-container')).toBeInTheDocument();
     expect(container.querySelector('.preview-image-container')).toBeInTheDocument();
     expect(container.querySelector('.first-preview-image')).toBeInTheDocument();
-    expect(container.querySelector('.preview-images-right')).toBeInTheDocument();
+    expect(container.querySelector('.preview-images-down')).toBeInTheDocument();
     expect(container.querySelector('.add-new-image')).toBeInTheDocument();
-    expect(container.querySelector('label')).toHaveTextContent('+');
     expect(container.querySelector('input')).toBeInTheDocument();
 });

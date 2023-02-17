@@ -1,7 +1,7 @@
 .descriptionGrid {
     display: grid;
     grid-template-columns: 2fr 3fr;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .iconContainer{
@@ -27,10 +27,11 @@
 
 .ingredientColumnLeft{
     text-align: right;
+    min-width: 10rem;
 }
 
 .ingredientColumnRight{
-    padding-left: 8%;
+    padding: var(--space-1) 0 var(--space-1) 8%;
     width: 100%;
     text-align: left;
 }
@@ -40,15 +41,31 @@
     font-size: 1.5em;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     font-weight: bold;
 }
 
 .ingredientTable{
     height: min-content;
     grid-column: 1;
-    white-space: nowrap;
+    border-spacing: 0;
+}
+.ingredientTable tr:nth-child(odd) {background-color: #edeaea}
+
+.ingredientTable td{
+    vertical-align: top;
+}
+
+.desc-container{
+    word-break: break-word;
+    hyphens: auto;
+}
+
+@media screen and (min-width: 961px) {
+    .desc-container{
+        padding-left: var(--space-3);
+    }
 }
 
 @media screen and (max-width: 960px) {
