@@ -3,7 +3,7 @@ import { render, cleanup } from '@testing-library/react';
 import IngredientItem from "../recipe-full-view/recipe-description/IngredientItem";
 
 test('renders IngredientItem', () => {
-    const { getByText } = render(<IngredientItem amount="1" unit="cup" name="sugar" />);
+    const { getByText } = render(<table><tbody><IngredientItem amount="1" unit="cup" name="sugar" /></tbody></table>);
     const amount = getByText("1 cup");
     const name = getByText("sugar");
 

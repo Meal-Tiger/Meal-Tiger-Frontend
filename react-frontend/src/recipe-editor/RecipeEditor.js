@@ -55,7 +55,6 @@ export default function RecipeEditor() {
 			images.ids = _recipe[0].images;
 			setImages({...images});
 			
-			console.log(_recipe[0]);
 			_recipe[0].images.forEach(id => {
 				fetch(getImageUrl(id))
 				.then(res => res.blob())

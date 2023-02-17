@@ -7,12 +7,10 @@ import Pagination from "../modules/pagination/pagination";
 export default function UserRecipes() {
     const [itemsPerPage, setItemsPerPage] = useState(15);
 
-    let navigate = useNavigate();
     let {query, page} = useParams();
     let [recipes, error] = useGetUserRecipesPage({q: query, page: page, size: itemsPerPage});
 
     if (recipes) {
-        console.log(recipes);
 
         return (
             <div>

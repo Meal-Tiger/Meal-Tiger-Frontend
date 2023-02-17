@@ -2,13 +2,13 @@ import style from './RecipeDescription.module.css';
 import IngredientItem from "./IngredientItem";
 
 export default function IngredientsContainer({ingredientArray}) {
-    const ingredientItems = ingredientArray.map(element => {
-        return <IngredientItem amount={element.amount} unit={element.unit} name={element.name}/>;
+    const ingredientItems = ingredientArray.map((element, index) => {
+        return <IngredientItem amount={element.amount} unit={element.unit} name={element.name} key={index}/>;
     });
     return (
         <table className={style.ingredientTable}>
             <thead className={style.ingredientThead}>
-            Zutaten
+            <tr><td>Zutaten</td></tr>
             </thead>
             <tbody>
                 {ingredientItems}

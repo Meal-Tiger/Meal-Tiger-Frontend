@@ -29,7 +29,7 @@ export default function RatingEditor() {
     }
 
     let getStars = () => {
-        return [
+        return (
             <span style={rating > 0 ? {fontVariationSettings: "'FILL' 1"} : {}}
                   className="material-symbols-outlined"
                   onClick={() => setRating(1)}>star</span>,
@@ -45,7 +45,7 @@ export default function RatingEditor() {
             <span style={rating > 4 ? {fontVariationSettings: "'FILL' 1"} : {}}
                   className="material-symbols-outlined"
                   onClick={() => setRating(5)}>star</span>
-        ];
+        );
     }
 
     return (
