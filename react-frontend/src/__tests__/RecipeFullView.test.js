@@ -4,11 +4,11 @@ import React from 'react';
 import {render} from '@testing-library/react';
 
 jest.mock('../recipe-full-view/image-slider/ImageSlider', () => () => {
-    return <div role='mockedImageSlider'><mockedImageSlider/></div>;
+    return <div role='mockedImageSlider'></div>;
 });
 
 jest.mock('../recipe-full-view/recipe-description/RecipeDescription', () => () => {
-    return <div role='mockedRecipeDescription'><mockedRecipeDescription/></div>;
+    return <div role='mockedRecipeDescription'></div>;
 })
 
 jest.mock('modules/api', () => ({
