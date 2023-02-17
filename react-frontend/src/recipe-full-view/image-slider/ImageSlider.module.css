@@ -58,4 +58,6 @@
     font-size: 42pt;
     color: white;
     text-shadow: 0 0 8px black;
+
+    user-select: none;
 }
