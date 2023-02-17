@@ -24,15 +24,15 @@ export default function RatingSection() {
 
 	let getStars = (amount) => {
 		return [
-			<span style={amount > 0 ? {fontVariationSettings: "'FILL' 1"} : {}}
+			<span key={"0"} style={amount > 0 ? {fontVariationSettings: "'FILL' 1"} : {}}
 				  className="material-symbols-outlined">star</span>,
-			<span style={amount > 1 ? {fontVariationSettings: "'FILL' 1"} : {}}
+			<span key={"1"} style={amount > 1 ? {fontVariationSettings: "'FILL' 1"} : {}}
 				  className="material-symbols-outlined">star</span>,
-			<span style={amount > 2 ? {fontVariationSettings: "'FILL' 1"} : {}}
+			<span key={"2"} style={amount > 2 ? {fontVariationSettings: "'FILL' 1"} : {}}
 				  className="material-symbols-outlined">star</span>,
-			<span style={amount > 3 ? {fontVariationSettings: "'FILL' 1"} : {}}
+			<span key={"3"} style={amount > 3 ? {fontVariationSettings: "'FILL' 1"} : {}}
 				  className="material-symbols-outlined">star</span>,
-			<span style={amount > 4 ? {fontVariationSettings: "'FILL' 1"} : {}}
+			<span key={"4"} style={amount > 4 ? {fontVariationSettings: "'FILL' 1"} : {}}
 				  className="material-symbols-outlined">star</span>
 		];
 	}
